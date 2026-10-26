@@ -1,0 +1,6 @@
+# Internal link check against dist/ (offline, blocking). External links are not
+# checked here; mailto: is skipped because include_mail stays off.
+offline = true
+no_progress = true
+index_files = ["index.html"]
+include_fragments = "anchor-only"

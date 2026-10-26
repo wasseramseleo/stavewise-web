@@ -1,0 +1,12 @@
+---
+import Base from '../../layouts/Base.astro';
+import { beta } from '../../texts/beta';
+
+const t = beta.de;
+---
+<Base lang="de" page="beta" title={t.title} description={t.description}>
+  <div class="doc">
+    <h1>{t.heading}</h1>
+    <p>{t.placeholder}</p>
+  </div>
+</Base>
