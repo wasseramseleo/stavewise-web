@@ -1,0 +1,15 @@
+---
+import Base from '../../layouts/Base.astro';
+import { privacy } from '../../texts/privacy';
+
+const t = privacy.en;
+---
+<Base lang="en" page="privacy" title={t.title} description={t.description}>
+  <div class="doc">
+    <h1>{t.heading}</h1>
+    <p>{t.placeholder}</p>
+    <h2 id="app">{t.app}</h2>
+    <h2 id="website">{t.website}</h2>
+    <h2 id="rechte">{t.rights}</h2>
+  </div>
+</Base>

@@ -1,0 +1,12 @@
+---
+import Base from '../../layouts/Base.astro';
+import { impressum } from '../../texts/impressum';
+
+const t = impressum.de;
+---
+<Base lang="de" page="impressum" title={t.title} description={t.description}>
+  <div class="doc">
+    <h1>{t.heading}</h1>
+    <p>{t.placeholder}</p>
+  </div>
+</Base>
