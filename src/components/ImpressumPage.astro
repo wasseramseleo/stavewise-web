@@ -1,0 +1,39 @@
+---
+// The impressum page body, shared by /de/impressum and /en/impressum.
+import Base from '../layouts/Base.astro';
+import Pruefen from './Pruefen.astro';
+import { impressum } from '../texts/impressum';
+import type { Lang } from '../lib/i18n';
+
+interface Props {
+  lang: Lang;
+}
+
+const { lang } = Astro.props;
+const t = impressum[lang];
+---
+<Base lang={lang} page="impressum" title={t.title} description={t.description}>
+  <div class="doc" id="page-impressum">
+    <h1>{t.heading}</h1>
+    <p class="note">{t.legalBasis}</p>
+    <dl>
+      {t.entries.map((entry) => (
+        <>
+          <dt>{entry.term}</dt>
+          <dd>
+            {entry.value.map((segment) => {
+              const cls = segment.mono ? 'mono' : undefined;
+              return segment.href
+                ? <a class={cls} href={segment.href}>{segment.text}</a>
+                : cls
+                  ? <span class={cls}>{segment.text}</span>
+                  : segment.text;
+            })}
+            {entry.pruefen && <> <Pruefen /></>}
+          </dd>
+        </>
+      ))}
+    </dl>
+    <p>{t.closing}</p>
+  </div>
+</Base>
