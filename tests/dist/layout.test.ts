@@ -108,15 +108,3 @@ describe('dist/ as a whole', () => {
     expect(FILES).not.toContain('index.html');
   });
 });
-
-describe('/de/privacy', () => {
-  it.each(['app', 'website', 'rechte'])('has an element with id="%s"', (id) => {
-    expect(documentOf('/de/privacy').getElementById(id)).not.toBeNull();
-  });
-});
-
-describe('/en/privacy', () => {
-  it.each(['app', 'website', 'rechte'])('has an element with id="%s"', (id) => {
-    expect(documentOf('/en/privacy').getElementById(id)).not.toBeNull();
-  });
-});

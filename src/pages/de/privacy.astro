@@ -1,15 +1,72 @@
 ---
 import Base from '../../layouts/Base.astro';
+import Pruefen from '../../components/Pruefen.astro';
+import { supportMail } from '../../site';
 import { privacy } from '../../texts/privacy';
 
+// Draft from #542 ("Entwürfe zur Freigabe", section 2) verbatim; only markup
+// added. Numbered items are <h3>, the parts are <h2> with fixed ids.
 const t = privacy.de;
+const support = `mailto:${supportMail}`;
 ---
 <Base lang="de" page="privacy" title={t.title} description={t.description}>
   <div class="doc">
     <h1>{t.heading}</h1>
-    <p>{t.placeholder}</p>
+    <p>Stand: [Datum der Veröffentlichung]</p>
+    <p>Diese Erklärung gilt für die App Stavewise (Teil A) und die Website stavewise.app (Teil B).</p>
+    <p>
+      <strong>Verantwortliche</strong><br />
+      Mind the Brain FlexCo, Mentlgasse 1/Raum 13, 6020 Innsbruck, Österreich<br />
+      E-Mail für alle Fragen zum Datenschutz: <a href={support}>{supportMail}</a>
+    </p>
+
     <h2 id="app">{t.app}</h2>
+    <p><strong>Kurz gesagt:</strong> Stavewise braucht kein Konto und keine Internetverbindung. Die App sammelt keine Daten und schickt nichts an uns. Alles, was du übst, bleibt auf deinem Gerät. Daten fließen nur über Dienste von Google, die du selbst nutzt (Kauf, Bewertung, Sicherung, Absturzberichte), und wenn du uns schreibst.</p>
+
+    <h3>1. Was auf deinem Gerät gespeichert wird</h3>
+    <p>Übungsergebnisse, Statistik, Streak, Einstellungen, das gemerkte Piano (Name und Verbindungsadresse), die Uhrzeit deiner Erinnerung und ob du die Vollversion gekauft hast. Diese Daten liegen im privaten Speicher der App. Wir haben keinen Zugriff darauf. Du löschst sie, indem du die App deinstallierst oder in den Android-Einstellungen ihre Daten löschst.</p>
+
+    <h3>2. Bluetooth und USB</h3>
+    <p>Um dein E-Piano per Bluetooth (BLE-MIDI) zu finden und zu verbinden, fragt die App nach der Berechtigung „Geräte in der Nähe“. Die App leitet aus der Suche keinen Standort ab. Name und Adresse des Pianos bleiben auf dem Gerät. Für ein Piano am USB-Kabel fragt Android selbst, ob die App auf das Gerät zugreifen darf.</p>
+
+    <h3>3. Erinnerungen</h3>
+    <p>Wenn du in den Einstellungen eine tägliche Erinnerung einschaltest, fragt Android nach der Berechtigung für Benachrichtigungen. Die Erinnerung plant die App auf deinem Gerät. Es gibt keinen Push-Dienst, und wir erfahren nichts davon. Du schaltest sie in der App oder in den Android-Einstellungen wieder ab.</p>
+
+    <h3>4. Android-Sicherung</h3>
+    <p>Android kann die Daten der App (Übungsstand und Einstellungen) in deinem Google-Konto sichern, damit sie auf einem neuen Gerät wieder da sind. Ab Android 9 ist die Sicherung mit der Displaysperre deines Geräts verschlüsselt. Wir haben keinen Zugriff darauf. Den Kaufstatus nimmt die App von der Sicherung aus, ihn liefert Google Play neu. Die Sicherung schaltest du in den Android-Einstellungen ab. Verantwortlich dafür ist Google; es gilt die Datenschutzerklärung von Google (<a href="https://policies.google.com/privacy">policies.google.com/privacy</a>).</p>
+
+    <h3>5. Kauf der Vollversion</h3>
+    <p>Die Vollversion kaufst du über Google Play. Vertragspartnerin ist Google Commerce Limited. Zahlungsdaten gibst du nur bei Google ein, die App sieht sie nicht. Google Play teilt der App mit, ob du die Vollversion besitzt; die App speichert das auf deinem Gerät. Für Abrechnung, Steuer und Erstattungen stellt uns Google Bestelldaten bereit (etwa Bestellnummer, Produkt, Preis, Land und Zeitpunkt) <Pruefen />. Rechtsgrundlage ist die Abwicklung des Kaufs (Art 6 Abs 1 lit b DSGVO) und unsere gesetzliche Aufbewahrungspflicht (Art 6 Abs 1 lit c DSGVO, § 132 BAO, sieben Jahre).</p>
+
+    <h3>6. Bewertungen</h3>
+    <p>Nach einigen Übungen kann die App einmal den Bewertungsdialog von Google Play zeigen. Sterne und Text gehen direkt an Google Play und erscheinen dort öffentlich; die App sieht sie nicht. Es gelten die Bedingungen von Google Play.</p>
+
+    <h3>7. Absturzberichte (Android Vitals)</h3>
+    <p>Wenn du deinem Gerät erlaubt hast, Nutzungs- und Diagnosedaten an Google zu senden, bekommen wir über die Google Play Console Berichte über Abstürze und hängende Bildschirme: Gerätemodell, Android-Version, App-Version und die Stelle im Code, ohne deinen Namen oder dein Konto. Das ist Googles Verarbeitung; du steuerst sie in den Android-Einstellungen.</p>
+
+    <h3>8. Support und Diagnose</h3>
+    <p>Wenn du an <a href={support}>{supportMail}</a> schreibst, verarbeiten wir deine E-Mail-Adresse, deine Nachricht und, falls du sie einfügst, die Diagnose. Die Diagnose entsteht nur, wenn du unter „Über“ auf „Diagnose kopieren“ tippst, und verlässt dein Gerät nur, wenn du sie selbst verschickst. Sie enthält App-Version, Gerät, Android-Version mit Sicherheitsstand, Verbindungsweg, Name des Pianos und den letzten Verbindungsfehler, nichts über deine Übungen. Wir nutzen die Daten, um deine Anfrage zu beantworten (Art 6 Abs 1 lit b DSGVO, bei allgemeinen Fragen lit f). Wir löschen sie, sobald die Anfrage erledigt ist, spätestens zwei Jahre nach der letzten Nachricht, außer eine gesetzliche Aufbewahrungspflicht verlangt mehr. Unser E-Mail-Dienst ist Microsoft 365 (Microsoft Ireland Operations Limited) als Auftragsverarbeiter; soweit Daten in die USA gelangen, geschieht das auf Grundlage des EU-US Data Privacy Framework und der Standardvertragsklauseln.</p>
+
     <h2 id="website">{t.website}</h2>
+
+    <h3>1. Hosting</h3>
+    <p>Die Website liegt auf einem Server der IPAX GmbH, Donaustraße 106, 3400 Klosterneuburg, Österreich, die ihn für uns als Auftragsverarbeiterin betreibt <Pruefen />.</p>
+
+    <h3>2. Server-Protokolle</h3>
+    <p>Bei jedem Aufruf speichert der Server IP-Adresse, Datum und Uhrzeit, aufgerufene Adresse, Statuscode, übertragene Datenmenge, die zuvor besuchte Seite und die Browser-Kennung. Wir brauchen diese Angaben für Betrieb, Sicherheit und Fehlersuche und um zu sehen, wie oft welche Seite aufgerufen wird. Rechtsgrundlage ist unser berechtigtes Interesse (Art 6 Abs 1 lit f DSGVO). Die Protokolle löschen wir nach 14 Tagen. Für die Zugriffsstatistik kürzen wir vorher die IP-Adressen (IPv4 um die letzte Stelle, IPv6 um die letzten 80 Bit); diese Statistik lässt keinen Schluss auf einzelne Personen zu.</p>
+
+    <h3>3. Keine Cookies, kein Tracking</h3>
+    <p>Die Website setzt keine Cookies, lädt keine Skripte und keine Inhalte von anderen Servern und nutzt keine Analysedienste.</p>
+
+    <h3>4. Bewerbung für den Test</h3>
+    <p>Für den Test vor dem Start nutzen wir ein Formular in Microsoft Forms. Du gibst dort die E-Mail-Adresse deines Google-Kontos im Play Store sowie Angaben zu Piano, Gerät und Android-Version an. Wir nutzen sie, um Testerinnen und Tester auszuwählen und für den Test in Google Play freizuschalten. Rechtsgrundlage ist deine Einwilligung (Art 6 Abs 1 lit a DSGVO), die du jederzeit per E-Mail widerrufen kannst. Angaben von Bewerbungen, die wir nicht auswählen, löschen wir mit dem Ende des Tests; wer im Beta-Kanal bleibt, bis zum Austritt. Microsoft (Microsoft Ireland Operations Limited) verarbeitet die Angaben als Auftragsverarbeiter; zu Übermittlungen in die USA siehe Teil A, Punkt 8.</p>
+
+    <h3>5. E-Mail</h3>
+    <p>Für E-Mails an uns gilt Teil A, Punkt 8.</p>
+
     <h2 id="rechte">{t.rights}</h2>
+    <p>Du hast das Recht auf Auskunft, Berichtigung, Löschung, Einschränkung der Verarbeitung und Datenübertragbarkeit. Einer Verarbeitung auf Grundlage unseres berechtigten Interesses kannst du widersprechen; eine Einwilligung kannst du jederzeit für die Zukunft widerrufen. Schreib dafür an <a href={support}>{supportMail}</a>.</p>
+    <p>Du kannst dich bei der österreichischen Datenschutzbehörde beschweren: Barichgasse 40–42, 1030 Wien, Telefon +43 1 52 152-0, <a href="mailto:dsb@dsb.gv.at">dsb@dsb.gv.at</a>, <a href="https://www.dsb.gv.at">www.dsb.gv.at</a>.</p>
+    <p>Ändern sich App oder Website, passen wir diese Erklärung an; es gilt die Fassung mit dem jüngsten Stand.</p>
   </div>
 </Base>
