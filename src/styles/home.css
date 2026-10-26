@@ -1,0 +1,46 @@
+/* Home page, variant B "Gerät" (prototype/website #home-b). Only classes of
+   the home page; shared components live in base.css. */
+.home .hero { display: grid; grid-template-columns: minmax(0, 5fr) minmax(0, 7fr); gap: 40px; align-items: center; padding-block: 40px 56px; }
+.home .hero h1 { font-size: clamp(34px, 4.6vw, 56px); line-height: 1.05; letter-spacing: -0.02em; }
+.home .hero p { margin-top: 16px; font-size: 19px; color: var(--ink-muted); max-width: 34ch; }
+.home .hero .btn-row { margin-top: 28px; }
+.home .panel { background: var(--surface); border: 1px solid var(--outline); border-radius: 12px; padding: 12px; }
+.home .panel img { border-radius: 6px; width: 100%; }
+.home .readouts { display: grid; grid-template-columns: repeat(4, minmax(0, 1fr)); gap: 12px; }
+.home h2 { font-size: 30px; margin: 72px 0 20px; }
+
+/* Data sheet: two columns, wraps instead of scrolling on narrow screens */
+.home .sheet-box { background: var(--surface); border: 1px solid var(--outline); border-radius: 12px; }
+.home .sheet { border-collapse: collapse; width: 100%; font-size: 16px; }
+.home .sheet th, .home .sheet td { text-align: left; padding: 14px 18px; border-bottom: 1px solid var(--outline); vertical-align: top; }
+.home .sheet tr:last-child th, .home .sheet tr:last-child td { border-bottom: 0; }
+.home .sheet th { font-weight: 400; width: 40%; }
+.home .sheet td { color: var(--success); font-weight: 600; }
+
+.home .shots { display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 16px; }
+.home .ways { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 16px; }
+.home .card h3 { font-size: 20px; display: flex; flex-wrap: wrap; gap: 10px; align-items: center; }
+.home .card .tag { font-size: 12px; font-weight: 500; color: var(--signal-ink); background: var(--accent); border-radius: 999px; padding: 3px 10px; letter-spacing: 0.02em; }
+.home .card ol { margin: 0; padding-left: 22px; display: grid; gap: 6px; color: var(--ink-muted); }
+.home .split { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 16px; margin-top: 16px; }
+.home .price .well { justify-self: start; background: var(--surface-2); border-radius: 8px; padding: 10px 12px; font: 700 32px/1 var(--mono); }
+.home .card a.mono { color: var(--signal-ink); }
+
+/* Questions: <details> without JavaScript */
+.home .faq { background: var(--surface); border: 1px solid var(--outline); border-radius: 12px; padding: 0 24px; }
+.home details { border-bottom: 1px solid var(--outline); }
+.home details:last-child { border-bottom: 0; }
+.home summary { cursor: pointer; padding: 18px 0; font-weight: 500; font-size: 18px; list-style: none; display: flex; justify-content: space-between; gap: 16px; }
+.home summary::-webkit-details-marker { display: none; }
+.home summary::after { content: "+"; font-family: var(--mono); color: var(--ink-muted); }
+.home details[open] summary::after { content: "−"; }
+.home details > div { padding: 0 0 20px; color: var(--ink-muted); display: grid; gap: 10px; }
+
+@media (max-width: 820px) {
+  .home .hero, .home .ways, .home .split, .home .shots { grid-template-columns: minmax(0, 1fr); }
+  .home .readouts { grid-template-columns: repeat(2, minmax(0, 1fr)); }
+  .home .hero { gap: 28px; padding-block: 24px 40px; }
+  .home h2 { font-size: 26px; margin-top: 56px; }
+  .home .sheet th, .home .sheet td { padding: 12px 14px; }
+  .home .faq { padding: 0 16px; }
+}

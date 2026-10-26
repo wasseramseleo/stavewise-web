@@ -1,12 +1,11 @@
 ---
 import Base from '../../layouts/Base.astro';
+import BetaContent from '../../components/BetaContent.astro';
 import { beta } from '../../texts/beta';
+import { betaFormUrl } from '../../site';
 
 const t = beta.de;
 ---
 <Base lang="de" page="beta" title={t.title} description={t.description}>
-  <div class="doc">
-    <h1>{t.heading}</h1>
-    <p>{t.placeholder}</p>
-  </div>
+  <BetaContent lang="de" formUrl={betaFormUrl} />
 </Base>
