@@ -22,3 +22,6 @@ jobs:
           cache: npm
       - run: npm ci
       - run: npm run check
+      # nginx test of the language switch against dist/ from the step above
+      # (#600); ubuntu-latest has Docker.
+      - run: npm run test:nginx
