@@ -13,7 +13,9 @@
     "htmlvalidate": "html-validate \"dist/**/*.html\"",
     "linkcheck": "sh scripts/linkcheck.sh",
     "test:dist": "vitest run --config vitest.dist.config.ts",
-    "check": "astro check && astro build && npm run htmlvalidate && npm run linkcheck && npm run test:dist",
+    "test:scripts": "sh scripts/deploy-guard.test.sh",
+    "lint:workflows": "sh scripts/lint-workflows.sh",
+    "check": "astro check && astro build && npm run htmlvalidate && npm run linkcheck && npm run test:dist && npm run test:scripts",
     "test:nginx": "sh ops/nginx/test.sh"
   },
   "dependencies": {
