@@ -1,12 +1,10 @@
 ---
 import Base from '../../layouts/Base.astro';
+import HomePage from '../../components/HomePage.astro';
 import { home } from '../../texts/home';
 
 const t = home.en;
 ---
 <Base lang="en" page="home" title={t.title} description={t.description}>
-  <div class="wrap">
-    <h1>{t.heading}</h1>
-    <p>{t.placeholder}</p>
-  </div>
+  <HomePage lang="en" />
 </Base>

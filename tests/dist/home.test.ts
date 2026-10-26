@@ -1,0 +1,80 @@
+import { describe, expect, it } from 'vitest';
+import { documentOf, FILES } from './dist';
+
+const HEADINGS = {
+  de: 'Noten lesen lernen, indem du sie spielst.',
+  en: 'Learn to read music by playing it.',
+} as const;
+
+const imagesOf = (doc: Document) => [...doc.querySelectorAll('main img')];
+
+describe.each(['de', 'en'] as const)('/%s/ home page', (lang) => {
+  const path = `/${lang}/`;
+  const doc = () => documentOf(path);
+  const main = () => doc().querySelector('main')!;
+
+  it('has the claim as its only <h1>', () => {
+    const h1s = doc().querySelectorAll('h1');
+    expect(h1s).toHaveLength(1);
+    expect(h1s[0]?.textContent?.trim()).toBe(HEADINGS[lang]);
+  });
+
+  it('points the main button to the beta page of its language', () => {
+    expect(main().querySelector('a.btn-main')?.getAttribute('href')).toBe(`/${lang}/beta`);
+  });
+
+  it('shows four readouts with 29, 1–9, 12+ and 0', () => {
+    const wells = [...main().querySelectorAll('.readouts .readout .well')].map((el) =>
+      el.textContent?.trim(),
+    );
+    expect(wells).toEqual(['29', '1–9', '12+', '0']);
+  });
+
+  it('has a data sheet with five rows in German, four in English', () => {
+    expect(main().querySelectorAll('.sheet tr')).toHaveLength(lang === 'de' ? 5 : 4);
+  });
+
+  it('has five questions as <details>, the first one open', () => {
+    const details = [...main().querySelectorAll('details')];
+    expect(details).toHaveLength(5);
+    expect(details.map((d) => d.hasAttribute('open'))).toEqual([true, false, false, false, false]);
+  });
+
+  it('promises no "real melodies", names no price and links no pianos page', () => {
+    const text = doc().body.textContent ?? '';
+    expect(text).not.toMatch(/echte Melodie/i);
+    expect(text).not.toMatch(/real melod/i);
+    expect(text).not.toContain('€');
+    const hrefs = [...doc().querySelectorAll('a')].map((a) => a.getAttribute('href') ?? '');
+    expect(hrefs.filter((href) => href.includes('/pianos'))).toEqual([]);
+  });
+
+  it('shows four WebP images with alt text and size', () => {
+    const images = imagesOf(doc());
+    expect(images).toHaveLength(4);
+    for (const img of images) {
+      expect(img.getAttribute('src')).toMatch(/\.webp$/);
+      expect(img.getAttribute('alt')?.trim()).not.toBe('');
+      expect(Number(img.getAttribute('width'))).toBeGreaterThan(0);
+      expect(Number(img.getAttribute('height'))).toBeGreaterThan(0);
+    }
+  });
+
+  it('links the support address for teachers', () => {
+    const hrefs = [...main().querySelectorAll('a')].map((a) => a.getAttribute('href'));
+    expect(hrefs).toContain('mailto:support@stavewise.app');
+  });
+});
+
+describe('home page images', () => {
+  it('uses a different result screenshot in English', () => {
+    const resultOf = (lang: 'de' | 'en') => imagesOf(documentOf(`/${lang}/`))[2]?.getAttribute('src');
+    expect(resultOf('de')).toBeTruthy();
+    expect(resultOf('en')).toBeTruthy();
+    expect(resultOf('en')).not.toBe(resultOf('de'));
+  });
+
+  it('ships no PNG screenshot in dist/', () => {
+    expect(FILES.filter((file) => file.endsWith('.png'))).toEqual([]);
+  });
+});
