@@ -36,6 +36,7 @@ a.pill:hover { border-color: var(--ink-muted); }
 .btn-main .win { font: 700 14px/1 var(--mono); background: var(--primary-strong); border-radius: 5px; padding: 10px; letter-spacing: 0.04em; }
 .btn-main.plain { padding-right: 20px; }
 .btn-sec { background: transparent; color: var(--ink); border-color: var(--outline); }
+.btn[aria-disabled="true"] { opacity: 0.55; cursor: not-allowed; }
 .btn-row { display: flex; flex-wrap: wrap; gap: 12px; align-items: center; }
 
 /* Card and readout */
