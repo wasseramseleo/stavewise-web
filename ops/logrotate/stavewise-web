@@ -1,0 +1,26 @@
+# logrotate for the nginx logs of stavewise.app (#600).
+# Install: /etc/logrotate.d/stavewise-web.
+#
+# Raw logs 14 days: rotated daily, 14 rotations kept (#542 decision 9:
+# "Rohlogs 14 Tage (logrotate täglich, `rotate 14`)"; privacy policy part B.2:
+# "Die Protokolle löschen wir nach 14 Tagen"). The anonymized statistics stay
+# in GoAccess's database (ops/goaccess/).
+#
+# delaycompress keeps yesterday's log (*.log.1) uncompressed, so GoAccess's
+# hourly run still reads its last lines after the rotation.
+/var/log/nginx/stavewise.app.*.log {
+    daily
+    rotate 14
+    compress
+    delaycompress
+    missingok
+    notifempty
+    create 0640 www-data adm
+    sharedscripts
+    postrotate
+        # Tell nginx to reopen its log files.
+        if [ -f /run/nginx.pid ]; then
+            kill -USR1 "$(cat /run/nginx.pid)"
+        fi
+    endscript
+}

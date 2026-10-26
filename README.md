@@ -10,8 +10,9 @@ Node 22 (`.nvmrc`), dann `npm ci`.
 
 - `npm run dev`: Entwicklungsserver unter http://localhost:4321/de/ (die Weiche auf `/` macht erst nginx).
 - `npm run check`: alle Prüfungen nacheinander: `astro check`, `astro build`, `html-validate` über `dist/`, `npm run linkcheck` (lychee offline gegen `dist/`, nur interne Links; `lychee` vom PATH, sonst Docker-Image `lycheeverse/lychee:0.24.2`) und die Tests gegen `dist/` (`npm run test:dist`, Vitest mit jsdom).
+- `npm run test:nginx`: nginx (Docker, `nginx:1.28-alpine`) mit der Server-Konfiguration aus `ops/nginx/` gegen `dist/`; prüft Sprachweiche, Cache- und Sicherheits-Kopfzeilen und die Weiterleitungen von `www` und Port 80. Baut nicht selbst, also nach `npm run check`.
 
-Fertig heißt: `npm run check` ist grün und die Ausgabe ist gezeigt. Die CI (`.github/workflows/check.yml`) führt dasselbe aus, aber erst, wenn das Repo öffentlich ist: Auf privaten Repos kosten die Minuten Geld, der Job wird bis dahin übersprungen.
+Fertig heißt: `npm run check` ist grün und die Ausgabe ist gezeigt. Die CI (`.github/workflows/check.yml`) führt dasselbe und danach `npm run test:nginx` aus, aber erst, wenn das Repo öffentlich ist: Auf privaten Repos kosten die Minuten Geld, der Job wird bis dahin übersprungen.
 
 ## Aufbau
 
@@ -23,3 +24,6 @@ Fertig heißt: `npm run check` ist grün und die Ausgabe ist gezeigt. Die CI (`.
 - `src/site.ts`: `siteUrl`, `supportMail`, `betaFormUrl` (bis zum Formular `null`).
 - `public/fonts/`: Instrument Sans und JetBrains Mono als WOFF2 mit OFL-Texten; `public/favicon.svg`.
 - `tests/dist/`: Tests gegen das Bauergebnis.
+- `ops/nginx/`: vhost `stavewise.app.conf` (Maps, TLS, Weiterleitungen) und `stavewise-site.conf` (Wurzel `/opt/stavewise/web`, Sprachweiche, Kopfzeilen, Logs) für den VPS; `test/` und `test.sh` für `npm run test:nginx`.
+- `ops/logrotate/stavewise-web`: Rohlogs 14 Tage.
+- `ops/goaccess/`: GoAccess mit gekürzten IP-Adressen, stündlich per systemd-Timer, Bericht außerhalb der Website-Wurzel.
