@@ -1,7 +1,7 @@
 import type { Lang } from '../lib/i18n';
 
 export interface LayoutTexts {
-  /** aria-label of the lockup link to the home page. */
+  /** aria-label of the wordmark link to the home page. */
   homeLabel: string;
   pill: string;
   company: string;

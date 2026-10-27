@@ -1,6 +1,5 @@
 ---
 import Base from '../../layouts/Base.astro';
-import Pruefen from '../../components/Pruefen.astro';
 import { supportMail } from '../../site';
 import { privacy } from '../../texts/privacy';
 
@@ -36,7 +35,7 @@ const support = `mailto:${supportMail}`;
     <p>Android can back up the app's data (practice progress and settings) to your Google account so it returns on a new device. From Android 9 on, the backup is encrypted with your device's screen lock. We have no access to it. The app excludes the purchase status from the backup; Google Play provides it again. You turn the backup off in Android settings. Google is responsible for it; Google's privacy policy applies (<a href="https://policies.google.com/privacy">policies.google.com/privacy</a>).</p>
 
     <h3>5. Buying the full version</h3>
-    <p>You buy the full version through Google Play. Your contracting party is Google Commerce Limited. You enter payment details only with Google; the app never sees them. Google Play tells the app whether you own the full version; the app stores this on your device. For accounting, tax and refunds, Google provides us with order data (such as order number, product, price, country and time) <Pruefen />. The legal bases are processing the purchase (Art 6(1)(b) GDPR) and our statutory retention duty (Art 6(1)(c) GDPR, Section 132 of the Austrian Federal Fiscal Code, seven years).</p>
+    <p>You buy the full version through Google Play. Your contracting party is Google Commerce Limited. You enter payment details only with Google; the app doesn't see them. Google Play tells the app whether you own the full version; the app stores this on your device. For accounting, tax and refunds, Google provides us with order data (such as order number, product, price, country and time). The legal bases are processing the purchase (Art 6(1)(b) GDPR) and our statutory retention duty (Art 6(1)(c) GDPR, Section 132 of the Austrian Federal Fiscal Code, seven years).</p>
 
     <h3>6. Ratings</h3>
     <p>After some practice, the app may show Google Play's rating dialog once. Stars and text go straight to Google Play and appear there publicly; the app doesn't see them. Google Play's terms apply.</p>
@@ -50,10 +49,10 @@ const support = `mailto:${supportMail}`;
     <h2 id="website">{t.website}</h2>
 
     <h3>1. Hosting</h3>
-    <p>The website runs on a server operated for us by IPAX GmbH, Donaustraße 106, 3400 Klosterneuburg, Austria, as processor <Pruefen />.</p>
+    <p>The website runs on a server operated for us by IPAX GmbH, Donaustraße 106, 3400 Klosterneuburg, Austria, as processor.</p>
 
     <h3>2. Server logs</h3>
-    <p>For every request the server stores the IP address, date and time, requested address, status code, amount of data transferred, the previously visited page and the browser identifier. We need this for operation, security and troubleshooting and to see how often each page is visited. The legal basis is our legitimate interest (Art 6(1)(f) GDPR). We delete the logs after 14 days. For the visitor statistics we shorten the IP addresses first (IPv4 by the last part, IPv6 by the last 80 bits); these statistics cannot be traced back to individuals.</p>
+    <p>For every request the server stores the IP address, date and time, requested address, status code, amount of data transferred, the previously visited page and the browser identifier. We need this for operation, security and troubleshooting and to see how often each page is visited. The legal basis is our legitimate interest (Art 6(1)(f) GDPR). We delete the logs after 14 days. For the visitor statistics we shorten the IP addresses first (IPv4 by the last two parts, IPv6 by the last 80 bits); these statistics cannot be traced back to individuals.</p>
 
     <h3>3. No cookies, no tracking</h3>
     <p>The website sets no cookies, loads no scripts and no content from other servers, and uses no analytics services.</p>

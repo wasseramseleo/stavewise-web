@@ -27,15 +27,8 @@ describe.each(['/de/privacy', '/en/privacy'])('%s', (path) => {
     expect(follows(rechte!, website!)).toBe(true);
   });
 
-  it('marks two passages [prüfen]: one in #app, one in #website', () => {
-    const doc = documentOf(path);
-    const marks = [...doc.querySelectorAll('.pruefen')];
-    expect(marks).toHaveLength(2);
-    const app = doc.getElementById('app')!;
-    const website = doc.getElementById('website')!;
-    const rechte = doc.getElementById('rechte')!;
-    expect(follows(marks[0]!, app) && follows(website, marks[0]!)).toBe(true);
-    expect(follows(marks[1]!, website) && follows(rechte, marks[1]!)).toBe(true);
+  it('has no [prüfen] marker: Leo released the texts (#591)', () => {
+    expect(documentOf(path).querySelectorAll('.pruefen')).toHaveLength(0);
   });
 
   it('links support@stavewise.app and dsb@dsb.gv.at by mailto:', () => {
