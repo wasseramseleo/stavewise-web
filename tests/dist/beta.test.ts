@@ -1,6 +1,9 @@
 import { describe, expect, it } from 'vitest';
 import { documentOf } from './dist';
 
+const FORM_URL =
+  'https://forms.office.com/Pages/ResponsePage.aspx?id=usvaxFJ9yUqH2KhXLAIoT2ieVcdFXUpHs7N5luK9m4lUNTE2R0kyRkRPRkc2QlBRS1hPUDExVDVMWS4u';
+
 const CASES = [
   {
     path: '/de/beta',
@@ -38,15 +41,14 @@ describe.each(CASES)('$path', ({ path, heading, button, privacy }) => {
     expect(text(main())).not.toMatch(/echte\s+Melodien|real\s+melodies/i);
   });
 
-  it('shows the form button without a link while betaFormUrl is null', () => {
-    const links = [...doc().querySelectorAll('a')].filter((a) => text(a) === button);
-    expect(links).toEqual([]);
-
+  it('links the form button to the Microsoft Forms application form', () => {
     const form = main().querySelector('.beta-form');
     expect(form).not.toBeNull();
-    const disabled = form!.querySelector('[aria-disabled="true"]');
-    expect(text(disabled)).toBe(button);
-    expect(form!.querySelector('.pruefen')).not.toBeNull();
+    const links = [...form!.querySelectorAll('a')].filter((a) => text(a) === button);
+    expect(links).toHaveLength(1);
+    expect(links[0]!.getAttribute('href')).toBe(FORM_URL);
+    expect(form!.querySelector('[aria-disabled]')).toBeNull();
+    expect(form!.querySelector('.pruefen')).toBeNull();
   });
 
   it('points to part B of the privacy policy', () => {

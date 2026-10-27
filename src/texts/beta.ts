@@ -13,8 +13,6 @@ export interface BetaTexts {
   thanksLead: string;
   thanksRest: string;
   formButton: string;
-  /** Shown next to the button while betaFormUrl is null. */
-  formPending: string;
   privacyBefore: string;
   privacyLink: string;
   privacyAfter: string;
@@ -42,7 +40,6 @@ export const beta: Record<Lang, BetaTexts> = {
     thanksLead: 'Als Dank',
     thanksRest: ' bekommst du die Vollversion dauerhaft kostenlos.',
     formButton: 'Zum Bewerbungsformular',
-    formPending: 'Formular-Link folgt',
     privacyBefore:
       'Das Formular liegt bei Microsoft Forms. Wofür wir deine Angaben nutzen und wann wir sie löschen: ',
     privacyLink: 'Datenschutz, Teil B',
@@ -69,7 +66,6 @@ export const beta: Record<Lang, BetaTexts> = {
     thanksLead: 'As a thank-you',
     thanksRest: ' you get the full version for free, for good.',
     formButton: 'Go to the application form',
-    formPending: 'Form link follows',
     privacyBefore:
       'The form is hosted by Microsoft Forms. What we use your details for and when we delete them: ',
     privacyLink: 'privacy policy, part B',
