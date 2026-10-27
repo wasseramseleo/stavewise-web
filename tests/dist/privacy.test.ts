@@ -55,7 +55,7 @@ describe('/de/privacy text', () => {
     'Die App sammelt keine Daten und schickt nichts an uns.',
     'Die Website setzt keine Cookies, lädt keine Skripte und keine Inhalte von anderen Servern und nutzt keine Analysedienste.',
     'Die Protokolle löschen wir nach 14 Tagen.',
-    'Stand: [Datum der Veröffentlichung]',
+    'Stand: 27. Oktober 2026',
   ])('contains „%s“', (sentence) => {
     expect(text()).toContain(sentence);
   });
@@ -74,7 +74,7 @@ describe('/en/privacy text', () => {
     "The app doesn't collect any data and sends nothing to us.",
     'The website sets no cookies, loads no scripts and no content from other servers, and uses no analytics services.',
     'We delete the logs after 14 days.',
-    'Last updated: [publication date]',
+    'Last updated: 27 October 2026',
   ])('contains "%s"', (sentence) => {
     expect(text()).toContain(sentence);
   });
