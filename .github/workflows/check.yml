@@ -1,0 +1,27 @@
+name: check
+
+on:
+  pull_request:
+  push:
+
+permissions:
+  contents: read
+
+jobs:
+  check:
+    # The repo is private for now and hosted minutes on private repos cost
+    # money: the job runs only once the repo is public. Until then the local
+    # `npm run check` is the gate.
+    if: ${{ !github.event.repository.private }}
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1 # v7.0.1
+      - uses: actions/setup-node@949feb2413d6458794dcd2491c4babbbce0c15c1 # v7.1.0
+        with:
+          node-version-file: .nvmrc
+          cache: npm
+      - run: npm ci
+      - run: npm run check
+      # nginx test of the language switch against dist/ from the step above
+      # (#600); ubuntu-latest has Docker.
+      - run: npm run test:nginx

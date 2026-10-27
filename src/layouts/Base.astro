@@ -1,0 +1,57 @@
+---
+import '../styles/tokens.css';
+import '../styles/base.css';
+import Wordmark from '../components/Wordmark.astro';
+import { layout } from '../texts/layout';
+import { neutralPathOf, otherLang, pathOf, type Lang, type PageName } from '../lib/i18n';
+import { siteUrl, supportMail } from '../site';
+
+interface Props {
+  lang: Lang;
+  page: PageName;
+  title: string;
+  description: string;
+}
+
+const { lang, page, title, description } = Astro.props;
+const t = layout[lang];
+const other = otherLang(lang);
+---
+<!doctype html>
+<html lang={lang}>
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <meta name="color-scheme" content="light dark" />
+    <title>{title}</title>
+    <meta name="description" content={description} />
+    <link rel="icon" href="/favicon.svg" type="image/svg+xml" />
+    <link rel="alternate" hreflang="de" href={siteUrl + pathOf('de', page)} />
+    <link rel="alternate" hreflang="en" href={siteUrl + pathOf('en', page)} />
+    <link rel="alternate" hreflang="x-default" href={siteUrl + neutralPathOf(page)} />
+  </head>
+  <body>
+    <header class="wrap bar">
+      <a class="home-link" href={pathOf(lang, 'home')} aria-label={t.homeLabel}><Wordmark class="wordmark" /></a>
+      <a class="pill" href={pathOf(lang, 'beta')}><span class="led"></span>{t.pill}</a>
+    </header>
+    <main>
+      <slot />
+    </main>
+    <footer class="foot">
+      <div class="wrap">
+        <div class="brand">
+          <Wordmark class="wordmark" />
+          <span>{t.company}</span>
+        </div>
+        <nav aria-label={t.footerNavLabel}>
+          <a href={pathOf(lang, 'beta')}>{t.beta}</a>
+          <a href={pathOf(lang, 'impressum')}>{t.impressum}</a>
+          <a href={pathOf(lang, 'privacy')}>{t.privacy}</a>
+          <a href={`mailto:${supportMail}`}>{supportMail}</a>
+          <a href={pathOf(other, page)} hreflang={other} lang={other}>{t.otherLanguage}</a>
+        </nav>
+      </div>
+    </footer>
+  </body>
+</html>

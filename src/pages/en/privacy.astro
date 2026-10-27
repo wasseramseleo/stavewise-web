@@ -1,0 +1,71 @@
+---
+import Base from '../../layouts/Base.astro';
+import { supportMail } from '../../site';
+import { privacy } from '../../texts/privacy';
+
+// Draft from #542 ("Entwürfe zur Freigabe", section 2) verbatim; only markup
+// added. Numbered items are <h3>, the parts are <h2> with fixed ids.
+const t = privacy.en;
+const support = `mailto:${supportMail}`;
+---
+<Base lang="en" page="privacy" title={t.title} description={t.description}>
+  <div class="doc">
+    <h1>{t.heading}</h1>
+    <p>Last updated: [publication date]</p>
+    <p>This policy covers the Stavewise app (Part A) and the website stavewise.app (Part B).</p>
+    <p>
+      <strong>Controller</strong><br />
+      Mind the Brain FlexCo, Mentlgasse 1/Raum 13, 6020 Innsbruck, Austria<br />
+      Email for all privacy questions: <a href={support}>{supportMail}</a>
+    </p>
+
+    <h2 id="app">{t.app}</h2>
+    <p><strong>In short:</strong> Stavewise needs no account and no internet connection. The app doesn't collect any data and sends nothing to us. Everything you practise stays on your device. Data only flows through Google services you use yourself (purchase, rating, backup, crash reports), and when you write to us.</p>
+
+    <h3>1. What is stored on your device</h3>
+    <p>Practice results, statistics, streak, settings, the remembered piano (name and connection address), the time of your reminder and whether you bought the full version. This data lives in the app's private storage. We have no access to it. You delete it by uninstalling the app or clearing its data in Android settings.</p>
+
+    <h3>2. Bluetooth and USB</h3>
+    <p>To find and connect your digital piano via Bluetooth (BLE MIDI), the app asks for the "Nearby devices" permission. The app does not derive your location from the scan. The piano's name and address stay on your device. For a piano on a USB cable, Android itself asks whether the app may access the device.</p>
+
+    <h3>3. Reminders</h3>
+    <p>If you turn on a daily reminder in the settings, Android asks for permission to show notifications. The app schedules the reminder on your device. There is no push service, and we learn nothing about it. You turn it off in the app or in Android settings.</p>
+
+    <h3>4. Android backup</h3>
+    <p>Android can back up the app's data (practice progress and settings) to your Google account so it returns on a new device. From Android 9 on, the backup is encrypted with your device's screen lock. We have no access to it. The app excludes the purchase status from the backup; Google Play provides it again. You turn the backup off in Android settings. Google is responsible for it; Google's privacy policy applies (<a href="https://policies.google.com/privacy">policies.google.com/privacy</a>).</p>
+
+    <h3>5. Buying the full version</h3>
+    <p>You buy the full version through Google Play. Your contracting party is Google Commerce Limited. You enter payment details only with Google; the app doesn't see them. Google Play tells the app whether you own the full version; the app stores this on your device. For accounting, tax and refunds, Google provides us with order data (such as order number, product, price, country and time). The legal bases are processing the purchase (Art 6(1)(b) GDPR) and our statutory retention duty (Art 6(1)(c) GDPR, Section 132 of the Austrian Federal Fiscal Code, seven years).</p>
+
+    <h3>6. Ratings</h3>
+    <p>After some practice, the app may show Google Play's rating dialog once. Stars and text go straight to Google Play and appear there publicly; the app doesn't see them. Google Play's terms apply.</p>
+
+    <h3>7. Crash reports (Android Vitals)</h3>
+    <p>If you allowed your device to share usage and diagnostics data with Google, we receive reports on crashes and frozen screens through the Google Play Console: device model, Android version, app version and the place in the code, without your name or account. This is Google's processing; you control it in Android settings.</p>
+
+    <h3>8. Support and diagnostics</h3>
+    <p>If you write to <a href={support}>{supportMail}</a>, we process your email address, your message and, if you paste it, the diagnostics. The diagnostics only exist when you tap "Copy diagnostics" under "About", and they only leave your device if you send them yourself. They contain the app version, device, Android version with security patch level, connection type, the piano's name and the last connection error, nothing about your practice. We use this data to answer your request (Art 6(1)(b) GDPR, for general questions Art 6(1)(f)). We delete it once your request is resolved, at the latest two years after the last message, unless a statutory retention duty requires longer. Our email service is Microsoft 365 (Microsoft Ireland Operations Limited) as processor; where data reaches the USA, this is based on the EU-US Data Privacy Framework and standard contractual clauses.</p>
+
+    <h2 id="website">{t.website}</h2>
+
+    <h3>1. Hosting</h3>
+    <p>The website runs on a server operated for us by IPAX GmbH, Donaustraße 106, 3400 Klosterneuburg, Austria, as processor.</p>
+
+    <h3>2. Server logs</h3>
+    <p>For every request the server stores the IP address, date and time, requested address, status code, amount of data transferred, the previously visited page and the browser identifier. We need this for operation, security and troubleshooting and to see how often each page is visited. The legal basis is our legitimate interest (Art 6(1)(f) GDPR). We delete the logs after 14 days. For the visitor statistics we shorten the IP addresses first (IPv4 by the last two parts, IPv6 by the last 80 bits); these statistics cannot be traced back to individuals.</p>
+
+    <h3>3. No cookies, no tracking</h3>
+    <p>The website sets no cookies, loads no scripts and no content from other servers, and uses no analytics services.</p>
+
+    <h3>4. Applying for the test</h3>
+    <p>For the test before launch we use a form in Microsoft Forms. There you enter the email address of your Google account in the Play Store and details about your piano, device and Android version. We use them to select testers and admit them to the test in Google Play. The legal basis is your consent (Art 6(1)(a) GDPR), which you can withdraw by email at any time. We delete applications we don't select when the test ends; testers who stay in the beta channel, when they leave. Microsoft (Microsoft Ireland Operations Limited) processes the data as processor; for transfers to the USA see Part A, item 8.</p>
+
+    <h3>5. Email</h3>
+    <p>Part A, item 8 applies to emails to us.</p>
+
+    <h2 id="rechte">{t.rights}</h2>
+    <p>You have the right to access, rectification, erasure, restriction of processing and data portability. You can object to processing based on our legitimate interest, and withdraw consent at any time with effect for the future. Write to <a href={support}>{supportMail}</a>.</p>
+    <p>You can lodge a complaint with the Austrian Data Protection Authority: Barichgasse 40–42, 1030 Vienna, phone +43 1 52 152-0, <a href="mailto:dsb@dsb.gv.at">dsb@dsb.gv.at</a>, <a href="https://www.dsb.gv.at">www.dsb.gv.at</a>.</p>
+    <p>When the app or website changes, we update this policy; the version with the latest date applies.</p>
+  </div>
+</Base>

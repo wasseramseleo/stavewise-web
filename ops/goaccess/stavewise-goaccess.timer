@@ -1,0 +1,11 @@
+# Runs stavewise-goaccess.service hourly (#600, #591 open question 5).
+[Unit]
+Description=Hourly GoAccess report for stavewise.app
+
+[Timer]
+OnCalendar=hourly
+Persistent=true
+RandomizedDelaySec=120
+
+[Install]
+WantedBy=timers.target

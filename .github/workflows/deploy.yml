@@ -1,0 +1,90 @@
+# Deploys the built site to the VPS (#601).
+#
+# Rules: wasseramseleo/stavewise#538 points 7 and 10, and the research
+# docs/research/cicd-play.md section 6 (repo stavewise, branch
+# research/cicd-play). The target path is /opt/stavewise/web from #538 point 10,
+# not /var/www/stavewise from the research.
+#
+# The first real run happens only after the runbook has set up the VPS user
+# deploy-stavewise (authorized_keys with
+# `restrict,command="rrsync -wo /opt/stavewise/web"`) and the four secrets.
+# Until then the guard step reports enabled=false and the run ends green
+# without sending anything (open question 6 in #591).
+name: deploy
+
+on:
+  push:
+    branches: [main]
+  workflow_dispatch:
+
+# One deploy at a time; a running deploy is never cancelled halfway (research § 6).
+concurrency:
+  group: deploy-web
+  cancel-in-progress: false
+
+permissions:
+  contents: read
+
+jobs:
+  deploy:
+    # The repo is private for now and hosted minutes on private repos cost
+    # money: the job runs only once the repo is public.
+    if: ${{ !github.event.repository.private }}
+    # Hosted runner: the deploy key does not belong on the shared self-hosted
+    # runner (research § 6).
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1 # v7.0.1
+      - uses: actions/setup-node@949feb2413d6458794dcd2491c4babbbce0c15c1 # v7.1.0
+        with:
+          node-version-file: .nvmrc
+          cache: npm
+      - run: npm ci
+      # The same checks as in the PR (check.yml).
+      - run: npm run check
+
+      # Secrets from #538 point 7. The guard always exits 0 and writes
+      # enabled=true only when all four are set.
+      - name: Deploy guard
+        id: guard
+        env:
+          DEPLOY_SSH_KEY: ${{ secrets.DEPLOY_SSH_KEY }}
+          DEPLOY_SSH_KNOWN_HOSTS: ${{ secrets.DEPLOY_SSH_KNOWN_HOSTS }}
+          DEPLOY_SSH_HOST: ${{ secrets.DEPLOY_SSH_HOST }}
+          DEPLOY_SSH_USER: ${{ secrets.DEPLOY_SSH_USER }}
+        run: sh scripts/deploy-guard.sh
+      - name: Skip notice
+        if: steps.guard.outputs.enabled != 'true'
+        run: 'echo "::notice::Deploy übersprungen: Secrets fehlen"'
+
+      # SSH material (research § 6). known_hosts comes from the secret only,
+      # never from ssh-keyscan at runtime: keyscan cannot verify host keys.
+      - name: SSH material
+        if: steps.guard.outputs.enabled == 'true'
+        env:
+          KEY: ${{ secrets.DEPLOY_SSH_KEY }}
+          KNOWN_HOSTS: ${{ secrets.DEPLOY_SSH_KNOWN_HOSTS }}
+        run: |
+          install -d -m 700 ~/.ssh
+          printf '%s\n' "$KEY" > ~/.ssh/deploy_key
+          chmod 600 ~/.ssh/deploy_key
+          printf '%s\n' "$KNOWN_HOSTS" > ~/.ssh/known_hosts
+
+      # rsync is the only ssh use; rrsync -wo on the VPS lets the key only
+      # write below /opt/stavewise/web (#538 point 10). The target path is
+      # relative to the rrsync root, so it stays empty; the trailing slash on
+      # dist/ avoids an extra directory level (research § 6).
+      - name: rsync site
+        if: steps.guard.outputs.enabled == 'true'
+        env:
+          HOST: ${{ secrets.DEPLOY_SSH_HOST }}
+          USER: ${{ secrets.DEPLOY_SSH_USER }}
+        run: >-
+          rsync -az --delete --chmod=D755,F644 --itemize-changes
+          -e "ssh -i ~/.ssh/deploy_key -o IdentitiesOnly=yes -o BatchMode=yes
+          -o StrictHostKeyChecking=yes -o UserKnownHostsFile=$HOME/.ssh/known_hosts"
+          dist/ "$USER@$HOST:"
+
+      - name: Remove SSH key
+        if: always()
+        run: rm -f ~/.ssh/deploy_key

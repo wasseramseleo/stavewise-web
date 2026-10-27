@@ -1,0 +1,40 @@
+---
+// Body of the beta page, shared by /de/beta and /en/beta (#597).
+import Pruefen from './Pruefen.astro';
+import { beta } from '../texts/beta';
+import { pathOf, type Lang } from '../lib/i18n';
+import { supportMail } from '../site';
+
+interface Props {
+  lang: Lang;
+  /** Microsoft Forms link; null shows the button without a link and a [prüfen] marker. */
+  formUrl: string | null;
+}
+
+const { lang, formUrl } = Astro.props;
+const t = beta[lang];
+---
+<div class="doc">
+  <span class="label">{t.label}</span>
+  <h1>{t.heading}</h1>
+  {t.call.map((paragraph) => <p>{paragraph}</p>)}
+  <h2>{t.stepsHeading}</h2>
+  <ol>
+    {t.steps.map((step) => <li>{step}</li>)}
+  </ol>
+  <div class="box beta-form">
+    <p><b>{t.thanksLead}</b>{t.thanksRest}</p>
+    <div class="btn-row">
+      {formUrl === null ? (
+        <>
+          <span class="btn btn-main plain" aria-disabled="true">{t.formButton}</span>
+          <span class="note"><Pruefen /> {t.formPending}</span>
+        </>
+      ) : (
+        <a class="btn btn-main plain" href={formUrl} rel="noopener">{t.formButton}</a>
+      )}
+    </div>
+    <p class="note">{t.privacyBefore}<a href={`${pathOf(lang, 'privacy')}#website`}>{t.privacyLink}</a>{t.privacyAfter}</p>
+  </div>
+  <p class="note">{t.questions} <a class="mono" href={`mailto:${supportMail}`}>{supportMail}</a></p>
+</div>
