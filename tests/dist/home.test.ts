@@ -23,11 +23,11 @@ describe.each(['de', 'en'] as const)('/%s/ home page', (lang) => {
     expect(main().querySelector('a.btn-main')?.getAttribute('href')).toBe(`/${lang}/beta`);
   });
 
-  it('shows four readouts with 29, 1–9, 12+ and 0', () => {
+  it('shows four readouts with 65, 1–9, 12+ and 0', () => {
     const wells = [...main().querySelectorAll('.readouts .readout .well')].map((el) =>
       el.textContent?.trim(),
     );
-    expect(wells).toEqual(['29', '1–9', '12+', '0']);
+    expect(wells).toEqual(['65', '1–9', '12+', '0']);
   });
 
   it('has a data sheet with five rows in German, four in English', () => {
