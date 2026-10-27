@@ -28,7 +28,7 @@ Das Runbook nennt keine geheimen Werte.
 
 ## 1. Voraussetzungen
 
-DNS ist erledigt (#545, 26.10.2026): `stavewise.app` und `www.stavewise.app` zeigen auf `37.252.188.123`. Der VPS hat kein IPv6, daher gibt es keinen AAAA-Eintrag. Auf dem VPS läuft schon eine andere Seite (Muster `/opt/psychotherapie-steurer`); sie bleibt unangetastet: Kein Schritt ändert ihre Dateien, die `nginx.conf` oder den `default_server`.
+DNS ist erledigt (#545, 26.10.2026): `stavewise.app` und `www.stavewise.app` zeigen auf `37.252.188.123`. Der VPS hat kein IPv6, daher gibt es keinen AAAA-Eintrag. Auf dem VPS läuft bereits eine bestehende Seite; sie bleibt unangetastet: Kein Schritt ändert ihre Dateien, die `nginx.conf` oder den `default_server`.
 
 **Laptop:**
 
