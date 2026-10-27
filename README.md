@@ -9,7 +9,8 @@ Umsetzung per PR nach `main`.
 Node 22 (`.nvmrc`), dann `npm ci`.
 
 - `npm run dev`: Entwicklungsserver unter http://localhost:4321/de/ (die Weiche auf `/` macht erst nginx).
-- `npm run check`: alle Prüfungen nacheinander: `astro check`, `astro build`, `html-validate` über `dist/`, `npm run linkcheck` (lychee offline gegen `dist/`, nur interne Links; `lychee` vom PATH, sonst Docker-Image `lycheeverse/lychee:0.24.2`) und die Tests gegen `dist/` (`npm run test:dist`, Vitest mit jsdom).
+- `npm run check`: alle Prüfungen nacheinander: `astro check`, `astro build`, `html-validate` über `dist/`, `npm run linkcheck` (lychee offline gegen `dist/`, nur interne Links; `lychee` vom PATH, sonst Docker-Image `lycheeverse/lychee:0.24.2`) und die Tests gegen `dist/` (`npm run test:dist`, Vitest mit jsdom) und der Test des Deploy-Wächters (`npm run test:scripts`, `scripts/deploy-guard.test.sh`).
+- `npm run lint:workflows`: `actionlint` über `.github/workflows/` (`actionlint` vom PATH, sonst Docker-Image `rhysd/actionlint:1.7.12`).
 - `npm run test:nginx`: nginx (Docker, `nginx:1.28-alpine`) mit der Server-Konfiguration aus `ops/nginx/` gegen `dist/`; prüft Sprachweiche, Cache- und Sicherheits-Kopfzeilen und die Weiterleitungen von `www` und Port 80. Baut nicht selbst, also nach `npm run check`.
 
 Fertig heißt: `npm run check` ist grün und die Ausgabe ist gezeigt. Die CI (`.github/workflows/check.yml`) führt dasselbe und danach `npm run test:nginx` aus, aber erst, wenn das Repo öffentlich ist: Auf privaten Repos kosten die Minuten Geld, der Job wird bis dahin übersprungen.
@@ -27,3 +28,7 @@ Fertig heißt: `npm run check` ist grün und die Ausgabe ist gezeigt. Die CI (`.
 - `ops/nginx/`: vhost `stavewise.app.conf` (Maps, TLS, Weiterleitungen) und `stavewise-site.conf` (Wurzel `/opt/stavewise/web`, Sprachweiche, Kopfzeilen, Logs) für den VPS; `test/` und `test.sh` für `npm run test:nginx`.
 - `ops/logrotate/stavewise-web`: Rohlogs 14 Tage.
 - `ops/goaccess/`: GoAccess mit gekürzten IP-Adressen, stündlich per systemd-Timer, Bericht außerhalb der Website-Wurzel.
+
+## Ausrollen
+
+`.github/workflows/deploy.yml` baut bei Push auf `main` (oder von Hand per `workflow_dispatch`), führt `npm run check` aus und lädt `dist/` per `rsync` hoch. Auf dem VPS nimmt der Nutzer `deploy-stavewise` nur `rrsync -wo /opt/stavewise/web` an (wasseramseleo/stavewise#538 Punkt 10). Die vier Secrets `DEPLOY_SSH_KEY`, `DEPLOY_SSH_KNOWN_HOSTS`, `DEPLOY_SSH_HOST` und `DEPLOY_SSH_USER` (#538 Punkt 7) prüft `scripts/deploy-guard.sh`: Fehlt eines, endet der Lauf grün mit dem Hinweis „Deploy übersprungen: Secrets fehlen“ und sendet nichts. Der erste echte Lauf passiert erst nach dem Runbook. Wie `check.yml` läuft der Job nicht, solange das Repo privat ist.
