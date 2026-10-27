@@ -14,7 +14,7 @@ After=nginx.service
 [Service]
 Type=oneshot
 ExecStartPre=/usr/bin/mkdir -p /opt/stavewise/goaccess/db
-ExecStart=/bin/sh -c 'exec /usr/bin/goaccess --config-file=/etc/goaccess/stavewise.conf --output=/opt/stavewise/goaccess/report.html $(ls /var/log/nginx/stavewise.app.access.log.1 /var/log/nginx/stavewise.app.access.log 2>/dev/null)'
+ExecStart=/bin/sh -c 'exec /usr/bin/goaccess --config-file=/etc/goaccess/stavewise.conf --output=/opt/stavewise/goaccess/report.html $(ls /var/log/nginx/stavewise/access.log.1 /var/log/nginx/stavewise/access.log 2>/dev/null)'
 Nice=10
 PrivateTmp=true
 PrivateNetwork=true

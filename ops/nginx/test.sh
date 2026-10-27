@@ -37,6 +37,7 @@ chmod 755 "$CERTS"
 docker run -d --name "$NAME" \
   --sysctl net.ipv6.conf.all.disable_ipv6=0 \
   -p 127.0.0.1::8080 -p 127.0.0.1::80 -p 127.0.0.1::443 \
+  --tmpfs /var/log/nginx/stavewise \
   -v "$ROOT/dist:/opt/stavewise/web:ro" \
   -v "$CERTS:/etc/letsencrypt/live/stavewise.app:ro" \
   -v "$ROOT/ops/nginx/stavewise.app.conf:/etc/nginx/stavewise.app.conf:ro" \
