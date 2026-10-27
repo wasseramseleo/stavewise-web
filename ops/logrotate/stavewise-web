@@ -8,7 +8,9 @@
 #
 # delaycompress keeps yesterday's log (*.log.1) uncompressed, so GoAccess's
 # hourly run still reads its last lines after the rotation.
-/var/log/nginx/stavewise.app.*.log {
+# Own directory: Debian's /etc/logrotate.d/nginx matches /var/log/nginx/*.log,
+# not its subdirectories.
+/var/log/nginx/stavewise/*.log {
     daily
     rotate 14
     compress

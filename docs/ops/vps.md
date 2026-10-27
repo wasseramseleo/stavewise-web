@@ -24,11 +24,11 @@ Das Runbook nennt keine geheimen Werte.
 | GoAccess-Konfiguration | `ops/goaccess/goaccess.conf` | `/etc/goaccess/stavewise.conf` |
 | GoAccess-Dienst und -Timer | `ops/goaccess/stavewise-goaccess.service`, `ops/goaccess/stavewise-goaccess.timer` | `/etc/systemd/system/` |
 | Deploy-Nutzer | `.github/workflows/deploy.yml` | `deploy-stavewise`, `/home/deploy-stavewise/.ssh/authorized_keys` |
-| Logs | – | `/var/log/nginx/stavewise.app.access.log`, `/var/log/nginx/stavewise.app.error.log` |
+| Logs | – | `/var/log/nginx/stavewise/access.log`, `/var/log/nginx/stavewise/error.log` |
 
 ## 1. Voraussetzungen
 
-DNS ist erledigt (#545, 26.10.2026): `stavewise.app` und `www.stavewise.app` zeigen auf `37.252.188.123`. Der VPS hat kein IPv6, daher gibt es keinen AAAA-Eintrag. Auf dem VPS läuft bereits eine bestehende Seite; sie bleibt unangetastet: Kein Schritt ändert ihre Dateien, die `nginx.conf` oder den `default_server`.
+DNS ist erledigt (#545, 26.10.2026): `stavewise.app` und `www.stavewise.app` zeigen auf `37.252.188.123`. Der VPS hat IPv6 (`2a00:63c1:d:123::2`, nginx lauscht auf `[::]`), einen AAAA-Eintrag gibt es bisher nicht; er ist optional. Auf dem VPS läuft bereits eine bestehende Seite; sie bleibt unangetastet: Kein Schritt ändert ihre Dateien, die `nginx.conf` oder den `default_server`.
 
 **Laptop:**
 
@@ -45,7 +45,8 @@ Erwartet: zweimal `37.252.188.123`, für AAAA keine Ausgabe.
 ```sh
 cat /etc/os-release | head -n 2
 sudo apt update
-sudo apt install nginx certbot python3-certbot-nginx rsync goaccess
+command -v certbot   # auf diesem VPS schon per Snap installiert (/usr/local/bin/certbot)
+sudo apt install nginx rsync goaccess   # certbot nur per apt, wenn es noch keins gibt
 rsync --version | head -n 1
 command -v rrsync
 goaccess --version | head -n 1
@@ -59,7 +60,8 @@ Erwartet und Prüfung:
 
 - Debian oder Ubuntu; `apt install` meldet die Pakete als installiert oder schon vorhanden.
 - `rsync  version 3.2.4` oder neuer: Ab 3.2.4 liegt `rrsync` als Programm bei. `command -v rrsync` gibt den Pfad aus, meist `/usr/bin/rrsync`. Gibt es keinen Pfad (älteres rsync, dort nur `/usr/share/doc/rsync/scripts/rrsync.gz`), hier anhalten: Ohne `rrsync` kein Deploy-Nutzer.
-- `goaccess --version`: Die Konfiguration nutzt `anonymize-level`, gemessen mit GoAccess 1.12 (`ops/goaccess/goaccess.conf`). Ist die Version des Pakets älter und kennt die Option nicht (Schritt 9 meldet dann einen Fehler beim Start), GoAccess aus dem offiziellen Paket-Repo von goaccess.io installieren.
+- `command -v certbot` gibt einen Pfad aus. Kommt certbot per Snap (`snap list certbot`, Timer `snap.certbot.renew.timer`), nicht zusätzlich `apt install certbot`: zwei certbots erneuern um die Wette.
+- `goaccess --version`: Die Konfiguration nutzt `anonymize-level`, gemessen mit GoAccess 1.12; Debian 13 bringt 1.9.3 mit, das die Option kennt (`goaccess --help | grep anonymize-level`) (`ops/goaccess/goaccess.conf`). Ist die Version des Pakets älter und kennt die Option nicht (Schritt 9 meldet dann einen Fehler beim Start), GoAccess aus dem offiziellen Paket-Repo von goaccess.io installieren.
 - `ls -l /etc/nginx/sites-enabled/` zeigt nur die bestehenden Seiten; kein `stavewise`-Eintrag.
 
 ## 2. Verzeichnisse
@@ -73,6 +75,8 @@ sudo install -d -m 755 -o root -g root /opt/stavewise
 sudo install -d -m 755 -o root -g root /opt/stavewise/web
 sudo install -d -m 755 -o root -g root /opt/stavewise/acme
 sudo install -d -m 755 -o root -g root /opt/stavewise/goaccess /opt/stavewise/goaccess/db
+# Eigenes Log-Verzeichnis: /etc/logrotate.d/nginx erfasst /var/log/nginx/*.log, aber keine Unterverzeichnisse.
+sudo install -d -m 755 -o root -g adm /var/log/nginx/stavewise
 ls -ld /opt/stavewise /opt/stavewise/*
 ```
 
@@ -281,9 +285,9 @@ sudo logrotate -d /etc/logrotate.d/stavewise-web
 sudo logrotate -d /etc/logrotate.conf 2>&1 | grep -i 'duplicate' || echo 'keine Doppelungen'
 ```
 
-Erwartet: Der erste Lauf (`-d` ändert nichts) zeigt `rotating pattern: /var/log/nginx/stavewise.app.*.log` mit `14 rotations` und keinen `error:`. Der zweite gibt `keine Doppelungen` aus.
+Erwartet: Der erste Lauf (`-d` ändert nichts) zeigt `rotating pattern: /var/log/nginx/stavewise/*.log` mit `14 rotations` und keinen `error:`. Der zweite gibt `keine Doppelungen` aus.
 
-Prüfung: Meldet der zweite Befehl `duplicate log entry for /var/log/nginx/stavewise.app.access.log`, erfasst schon eine andere Regel (meist `/etc/logrotate.d/nginx` mit `/var/log/nginx/*.log`) die Logs von stavewise.app; logrotate rotiert sie dann nach der anderen Regel und meldet bei jedem Lauf einen Fehler. Dann anhalten und `ops/` per PR anpassen (etwa Logs in ein eigenes Verzeichnis), nicht die Regel der bestehenden Seite ändern.
+Prüfung: Meldet der zweite Befehl `duplicate log entry for /var/log/nginx/stavewise/access.log`, erfasst schon eine andere Regel die Logs von stavewise.app (`/etc/logrotate.d/nginx` mit `/var/log/nginx/*.log` reicht nicht in das Unterverzeichnis); logrotate rotiert sie dann nach der anderen Regel und meldet bei jedem Lauf einen Fehler. Dann anhalten und `ops/` per PR anpassen (etwa ein anderes Log-Verzeichnis), nicht die Regel der bestehenden Seite ändern.
 
 ## 9. GoAccess
 
@@ -394,7 +398,7 @@ Dazu im Browser `https://stavewise.app/` öffnen: Die Startseite erscheint in de
 Prüfung im Log, **VPS**:
 
 ```sh
-sudo tail -n 5 /var/log/nginx/stavewise.app.access.log
+sudo tail -n 5 /var/log/nginx/stavewise/access.log
 ```
 
 Erwartet: die Abrufe von eben im Format `combined` (IP, Zeit, `"HEAD /de/privacy HTTP/2.0" 200`, User-Agent `curl/…`).
@@ -438,4 +442,4 @@ sudo userdel -r deploy-stavewise
 sudo rm -r /opt/stavewise
 ```
 
-Ohne seine Regel löscht logrotate die Rohlogs nicht mehr, also auch sie entfernen: `sudo rm /var/log/nginx/stavewise.app.*`. Zuletzt auf dem Laptop alle vier Secrets mit `gh secret delete <NAME> -R wasseramseleo/stavewise-web` löschen.
+Ohne seine Regel löscht logrotate die Rohlogs nicht mehr, also auch sie entfernen: `sudo rm -r /var/log/nginx/stavewise`. Zuletzt auf dem Laptop alle vier Secrets mit `gh secret delete <NAME> -R wasseramseleo/stavewise-web` löschen.
