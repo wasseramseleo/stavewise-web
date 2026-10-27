@@ -30,13 +30,13 @@ export const beta: Record<Lang, BetaTexts> = {
     heading: 'Tester mit eigenem E-Piano gesucht',
     call: [
       'Stavewise trainiert Notenlesen direkt am E-Piano: Die App zeigt Noten im Klaviersystem, du spielst sie, und die App hört über USB oder Bluetooth-MIDI mit. Kleine Melodien statt Einzelnoten-Drill, beide Hände ab dem ersten Tag, offline und ohne Konto.',
-      'Vor dem Start in Google Play suchen wir 10 bis 20 Tester mit eigenem Digitalpiano und einem Android-Phone oder -Tablet (Android 12 oder neuer). Besonders gesucht sind Pianos mit USB-Anschluss (Yamaha, Casio, Korg, Roland, Kawai, Thomann …) und Samsung-Geräte.',
+      'Vor dem Start in Google Play suchen wir 10 bis 20 Tester mit eigenem Digitalpiano und einem Android-Phone oder -Tablet (Android 12 oder neuer). Besonders gesucht sind Digitalpianos mit USB-Anschluss (Yamaha, Casio, Korg, Roland, Kawai, Thomann …) und Samsung-Geräte.',
     ],
     stepsHeading: 'So läuft es ab',
     steps: [
-      'Du bewirbst dich mit dem Formular unten. Wir wählen so aus, dass möglichst viele verschiedene Pianos und Geräte dabei sind.',
+      'Du bewirbst dich mit dem Formular unten. Wir wählen so aus, dass möglichst viele verschiedene Klaviere und Geräte dabei sind.',
       'Wir schalten dein Google-Konto für den Test frei und schicken dir einen Link.',
-      'Du installierst Stavewise über Google Play, verbindest dein Piano und übst etwa eine halbe Stunde.',
+      'Du installierst Stavewise über Google Play, verbindest dein Klavier und übst etwa eine halbe Stunde.',
       'Du füllst einen Fragebogen aus, etwa 10 Minuten.',
     ],
     thanksLead: 'Als Dank',

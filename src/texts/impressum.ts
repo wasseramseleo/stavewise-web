@@ -13,8 +13,6 @@ export interface Segment {
 export interface Entry {
   term: string;
   value: readonly Segment[];
-  /** Shows the [prüfen] marker after the value: Leo still checks this entry. */
-  pruefen?: boolean;
 }
 
 export interface ImpressumTexts {
@@ -59,9 +57,8 @@ export const impressum: Record<Lang, ImpressumTexts> = {
         value: [
           { text: 'Wirtschaftskammer Tirol, Fachgruppe Unternehmensberatung, Buchhaltung und Informationstechnologie' },
         ],
-        pruefen: true,
       },
-      { term: 'Gewerbebehörde', value: [{ text: 'Stadtmagistrat Innsbruck' }], pruefen: true },
+      { term: 'Gewerbebehörde', value: [{ text: 'Stadtmagistrat Innsbruck' }] },
       { term: 'Berufsrecht', value: [{ text: 'Gewerbeordnung 1994, abrufbar unter ' }, ris] },
     ],
     closing: 'Stavewise ist ein Produkt der Mind the Brain FlexCo.',
@@ -93,9 +90,8 @@ export const impressum: Record<Lang, ImpressumTexts> = {
             text: 'Wirtschaftskammer Tirol (Austrian Economic Chamber, Tyrol), Fachgruppe Unternehmensberatung, Buchhaltung und Informationstechnologie',
           },
         ],
-        pruefen: true,
       },
-      { term: 'Trade authority', value: [{ text: 'Stadtmagistrat Innsbruck' }], pruefen: true },
+      { term: 'Trade authority', value: [{ text: 'Stadtmagistrat Innsbruck' }] },
       {
         term: 'Professional regulations',
         value: [{ text: 'Gewerbeordnung 1994 (Austrian Trade Act), available at ' }, ris],

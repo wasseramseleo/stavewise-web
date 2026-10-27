@@ -80,24 +80,24 @@ export const home: Record<Lang, HomeTexts> = {
       result: 'Ergebnis: Level gemeistert, mit Genauigkeit, Lösezeit und dem nächsten Level',
       statistics: 'Statistik als Heatmap: welche Noten du sicher liest und welche nicht',
     },
-    waysTitle: 'Zwei Wege zum Piano',
+    waysTitle: 'Zwei Wege zum Klavier',
     ways: [
       {
         title: 'Mit USB-Kabel',
-        tag: 'die meisten Pianos',
+        tag: 'die meisten Digitalpianos',
         steps: [
-          'Am Piano die Buchse „USB to Host“ suchen, meist eckig (Typ B).',
+          'Am Klavier die Buchse „USB to Host“ suchen, meist eckig (Typ B).',
           'Ein Kabel USB-B auf USB-C, oder ein USB-A-Kabel mit OTG-Adapter. Reine Ladekabel gehen nicht.',
-          'Piano einschalten. Es erscheint von selbst.',
+          'Klavier einschalten. Es erscheint von selbst.',
         ],
       },
       {
         title: 'Über Bluetooth-MIDI',
         tag: 'z. B. Roland, Kawai',
         steps: [
-          'Bluetooth am Piano einschalten.',
-          'Nicht in den Android-Einstellungen koppeln: Stavewise findet das Piano selbst.',
-          'Das Piano in der Liste antippen.',
+          'Bluetooth am Klavier einschalten.',
+          'Nicht in den Android-Einstellungen koppeln: Stavewise findet das Klavier selbst.',
+          'Das Klavier in der Liste antippen.',
         ],
       },
     ],
@@ -111,7 +111,7 @@ export const home: Record<Lang, HomeTexts> = {
     questionsTitle: 'Fragen',
     questions: [
       {
-        question: 'Passt mein Piano?',
+        question: 'Passt mein Klavier?',
         answers: [
           'Wenn es eine USB-Buchse „USB to Host“ hat oder Bluetooth-MIDI, sehr wahrscheinlich. Für USB brauchst du zusätzlich einen OTG-Adapter für dein Phone oder Tablet. Ein akustisches Klavier geht nicht.',
         ],

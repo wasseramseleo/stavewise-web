@@ -1,7 +1,6 @@
 ---
 // The impressum page body, shared by /de/impressum and /en/impressum.
 import Base from '../layouts/Base.astro';
-import Pruefen from './Pruefen.astro';
 import { impressum } from '../texts/impressum';
 import type { Lang } from '../lib/i18n';
 
@@ -29,7 +28,6 @@ const t = impressum[lang];
                   ? <span class={cls}>{segment.text}</span>
                   : segment.text;
             })}
-            {entry.pruefen && <> <Pruefen /></>}
           </dd>
         </>
       ))}

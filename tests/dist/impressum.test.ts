@@ -6,12 +6,10 @@ const PAGES = [
   {
     path: '/de/impressum',
     heading: 'Impressum',
-    marked: ['Kammer', 'Gewerbebehörde'],
   },
   {
     path: '/en/impressum',
     heading: 'Legal notice',
-    marked: ['Chamber', 'Trade authority'],
   },
 ] as const;
 
@@ -28,7 +26,7 @@ const FACTS = [
 const text = (el: Element | null | undefined): string =>
   (el?.textContent ?? '').replace(/\s+/g, ' ').trim();
 
-describe.each(PAGES)('$path', ({ path, heading, marked }) => {
+describe.each(PAGES)('$path', ({ path, heading }) => {
   const main = () => documentOf(path).querySelector('main')!;
 
   it('has the heading of its language', () => {
@@ -39,17 +37,8 @@ describe.each(PAGES)('$path', ({ path, heading, marked }) => {
     expect(text(main())).toContain(fact);
   });
 
-  it('marks exactly the chamber and the trade authority with [prüfen]', () => {
-    const marks = [...main().querySelectorAll('.pruefen')];
-    expect(marks).toHaveLength(2);
-    const terms = marks.map((mark) => {
-      const dd = mark.closest('dd');
-      expect(dd).not.toBeNull();
-      const dt = dd!.previousElementSibling;
-      expect(dt?.tagName).toBe('DT');
-      return text(dt);
-    });
-    expect(terms).toEqual(marked);
+  it('has no [prüfen] marker: GISA confirmed chamber and trade authority (#591)', () => {
+    expect(main().querySelectorAll('.pruefen')).toHaveLength(0);
   });
 
   it('lists all 13 entries of the draft', () => {
