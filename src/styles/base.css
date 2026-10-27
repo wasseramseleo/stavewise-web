@@ -59,9 +59,6 @@ a.pill:hover { border-color: var(--ink-muted); }
 .doc dd { margin: 0; }
 @media (max-width: 520px) { .doc dl { grid-template-columns: minmax(0, 1fr); } .doc dd { margin-bottom: 8px; } }
 
-/* [prüfen] marker: visible until Leo has checked the passage */
-mark.pruefen { background: color-mix(in srgb, var(--primary) 18%, transparent); color: var(--signal-ink); border: 1px solid color-mix(in srgb, var(--primary) 45%, transparent); border-radius: 4px; padding: 0 4px; font: 700 0.8em/1.4 var(--mono); white-space: nowrap; }
-
 /* Footer */
 .foot { border-top: 1px solid var(--outline); margin-top: 96px; }
 .foot .wrap { display: flex; flex-wrap: wrap; justify-content: space-between; gap: 24px; padding-block: 32px; font-size: 14px; color: var(--ink-muted); }
