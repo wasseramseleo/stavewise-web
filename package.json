@@ -13,10 +13,11 @@
     "htmlvalidate": "html-validate \"dist/**/*.html\"",
     "linkcheck": "sh scripts/linkcheck.sh",
     "test:dist": "vitest run --config vitest.dist.config.ts",
-    "test:scripts": "sh scripts/deploy-guard.test.sh",
+    "test:scripts": "sh scripts/deploy-guard.test.sh && node --test scripts/shots-lib.test.mjs",
     "lint:workflows": "sh scripts/lint-workflows.sh",
     "check": "astro check && astro build && npm run htmlvalidate && npm run linkcheck && npm run test:dist && npm run test:scripts",
-    "test:nginx": "sh ops/nginx/test.sh"
+    "test:nginx": "sh ops/nginx/test.sh",
+    "shots": "node scripts/shots.mjs"
   },
   "dependencies": {
     "astro": "^7.4.1"
@@ -27,6 +28,7 @@
     "@types/node": "^22.20.5",
     "html-validate": "^11.17.0",
     "jsdom": "^29.1.1",
+    "playwright": "1.64.1",
     "typescript": "~5.9.3",
     "vitest": "^4.1.11"
   }
