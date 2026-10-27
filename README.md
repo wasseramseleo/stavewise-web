@@ -21,9 +21,9 @@ Fertig heißt: `npm run check` ist grün und die Ausgabe ist gezeigt. Die CI (`.
 - `src/pages/{de,en}/`: die acht Seiten (`index`, `beta`, `privacy`, `impressum`), gebaut als `dist/de/beta/index.html` usw.; unter `/` liegt keine Seite.
 - `src/layouts/Base.astro`: Kopf (Schriftzug, Pille „Beta“), Fuß, Sprachlink, `hreflang`.
 - `src/texts/<seite>.ts`: Texte je Seite mit `de` und `en`; Kopf und Fuß in `src/texts/layout.ts`.
-- `src/components/`: `Wordmark.astro`, `BrandMark.astro` (Inline-SVG aus `docs/marke/` im Repo `stavewise`), `Pruefen.astro` (sichtbare Markierung **[prüfen]** für Stellen, die Leo noch prüft).
+- `src/components/`: `Wordmark.astro`, `BrandMark.astro` (Inline-SVG aus `docs/marke/` im Repo `stavewise`).
 - `src/styles/tokens.css`: App-Tokens hell und dunkel nach `prefers-color-scheme` (`docs/konzept-v1.md` § 12.5); `src/styles/base.css`: Schriften und Komponenten aus dem Prototyp.
-- `src/site.ts`: `siteUrl`, `supportMail`, `betaFormUrl` (bis zum Formular `null`).
+- `src/site.ts`: `siteUrl`, `supportMail`, `betaFormUrl` (Bewerbungsformular in Microsoft Forms).
 - `public/fonts/`: Instrument Sans und JetBrains Mono als WOFF2 mit OFL-Texten; `public/favicon.svg`.
 - `tests/dist/`: Tests gegen das Bauergebnis.
 - `ops/nginx/`: vhost `stavewise.app.conf` (Maps, TLS, Weiterleitungen) und `stavewise-site.conf` (Wurzel `/opt/stavewise/web`, Sprachweiche, Kopfzeilen, Logs) für den VPS; `test/` und `test.sh` für `npm run test:nginx`.
