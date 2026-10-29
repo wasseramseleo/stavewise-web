@@ -75,7 +75,9 @@ describe('home page images', () => {
   });
 
   it('ships no PNG screenshot in dist/', () => {
-    // logo.png is the Organization logo of the JSON-LD (launch § 14.7 Nr. 6), not a screenshot.
-    expect(FILES.filter((file) => file.endsWith('.png') && file !== 'logo.png')).toEqual([]);
+    // logo.png is the Organization logo of the JSON-LD (launch § 14.7 Nr. 6) and
+    // og/stavewise-<lang>.png the preview images (launch § 14.5), not screenshots.
+    const allowed = ['logo.png', 'og/stavewise-de.png', 'og/stavewise-en.png'];
+    expect(FILES.filter((file) => file.endsWith('.png') && !allowed.includes(file))).toEqual([]);
   });
 });
