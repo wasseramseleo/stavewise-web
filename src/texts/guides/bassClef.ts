@@ -3,7 +3,7 @@
 // linked source (launch § 14.4). Facts checked before writing against the sources below. Stavewise
 // appears only in the disclosure, the screenshot section and the closing card (launch § 14.5).
 // The forum links show the problem, they are not a source for theory.
-import type { Lang } from '../../lib/i18n';
+import { pathOf, type Lang } from '../../lib/i18n';
 import type { GuideTexts } from '../guide';
 import shot from '../../assets/screenshots/de/exercise.png';
 
@@ -114,6 +114,13 @@ export const bassClef: Record<Lang, GuideTexts> = {
           },
           {
             p: 'Nach unten geht es weiter, wie die Linien es vorgeben: unter dem G der untersten Linie das F im Zwischenraum, dann das E auf der ersten Hilfslinie, das D darunter und das C auf der zweiten Hilfslinie.',
+          },
+          {
+            related: {
+              lead: 'Und dann beide Schlüssel zusammen?',
+              text: 'Noten lesen mit beiden Händen: Violin- und Bassschlüssel gleichzeitig',
+              href: pathOf('de', 'bothHands'),
+            },
           },
         ],
       },
@@ -245,6 +252,13 @@ export const bassClef: Record<Lang, GuideTexts> = {
           },
           {
             p: 'Going down, you follow the lines: below the bottom-line G comes F in the space, then E on the first ledger line, D below it and C on the second ledger line.',
+          },
+          {
+            related: {
+              lead: 'Next, both clefs together?',
+              text: 'How to read treble and bass clef at the same time',
+              href: pathOf('en', 'bothHands'),
+            },
           },
         ],
       },
