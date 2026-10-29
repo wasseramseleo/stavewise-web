@@ -1,7 +1,7 @@
 // Guide page 3 "Bassschlüssel lesen lernen: die linke Hand am Klavier" (launch § 14.3 row 3; stavewise#718).
 // A core page: written from the learner's side, general music theory only, every needed fact with a
-// linked source (launch § 14.4). Facts checked before writing against the sources below; what the
-// page says about Stavewise rests on docs/konzept-v1.md § 6.2, 6.3 and § 7.2 in the stavewise repo.
+// linked source (launch § 14.4). Facts checked before writing against the sources below. Stavewise
+// appears only in the disclosure, the screenshot section and the closing card (launch § 14.5).
 // The forum links show the problem, they are not a source for theory.
 import type { Lang } from '../../lib/i18n';
 import type { GuideTexts } from '../guide';
@@ -76,7 +76,7 @@ export const bassClef: Record<Lang, GuideTexts> = {
             ],
           },
           {
-            p: 'Darum habe ich in Stavewise für den Bassschlüssel eigene Level gebaut, die nur ihn üben. Die ersten sechs Level wechseln sich ab: Violinschlüssel, Bassschlüssel, Violinschlüssel und so weiter, jedes Mal mit etwas mehr Tonumfang. Keiner der beiden Schlüssel kommt erst, wenn der andere sitzt.',
+            p: 'Mir hat geholfen, den Bassschlüssel für sich zu üben, mit Übungen nur in diesem Schlüssel, statt ihn über den Violinschlüssel herzuleiten. Warten, bis der Violinschlüssel sitzt, musste ich dafür nicht: Ich habe beide abwechselnd geübt und den Tonumfang nach und nach erweitert.',
           },
         ],
       },
@@ -84,11 +84,11 @@ export const bassClef: Record<Lang, GuideTexts> = {
         heading: 'Ein paar Orientierungsnoten, den Rest ablesen',
         blocks: [
           {
-            p: 'Stavewise arbeitet mit Orientierungsnoten: ein paar Noten, die du auf einen Blick erkennst und von denen aus du die Nachbarn abliest, statt alle Linien gleichzeitig zu lernen. Im Bassschlüssel sind es diese:',
+            p: 'Was mir geholfen hat, sind Orientierungsnoten: ein paar Noten, die ich auf einen Blick erkenne und von denen aus ich die Nachbarn ablese, statt alle Linien gleichzeitig zu lernen. Im Bassschlüssel nehme ich diese:',
           },
           {
             ul: [
-              { text: 'Das mittlere C: die erste Hilfslinie über dem System. Du kennst es schon aus den Leveln im Violinschlüssel.' },
+              { text: 'Das mittlere C: die erste Hilfslinie über dem System. Du kennst es meist schon aus dem Violinschlüssel.' },
               { text: 'Das F unter dem mittleren C: die Linie zwischen den beiden Punkten.' },
               { text: 'Das C eine Oktave tiefer: der zweite Zwischenraum von unten.' },
               { text: 'Das F eine Oktave tiefer: der Zwischenraum unter der untersten Linie.' },
@@ -96,7 +96,7 @@ export const bassClef: Record<Lang, GuideTexts> = {
             ],
           },
           {
-            p: 'Das mittlere C bringt Level 1 im Violinschlüssel mit, die übrigen vier kommen in genau dieser Reihenfolge dazu. Level 2 übt nur das Stück vom E bis zum mittleren C mit dem F als Orientierung, Level 4 geht hinunter bis zum C eine Oktave tiefer, Level 6 bis zum tiefen C. Ich wollte, dass der Tonumfang am Anfang klein ist und jede Taste schon einmal gespielt wurde, bevor beide Schlüssel im ganzen Umfang wechseln.',
+            p: 'Alle fünf auf einmal waren mir zu viel. Ich habe mit einem kleinen Stück angefangen, vom E bis zum mittleren C, mit dem F als Orientierung. Danach bin ich hinunter bis zum C eine Oktave tiefer gegangen und erst dann bis zum tiefen C.',
           },
         ],
       },
@@ -113,7 +113,7 @@ export const bassClef: Record<Lang, GuideTexts> = {
             ],
           },
           {
-            p: 'Nach unten geht es weiter, wie die Linien es vorgeben: unter dem G der untersten Linie das F im Zwischenraum, dann das E auf der ersten Hilfslinie, das D darunter und das C auf der zweiten Hilfslinie. Stavewise geht höchstens zwei Hilfslinien weit, im Bassschlüssel also bis zu diesem tiefen C.',
+            p: 'Nach unten geht es weiter, wie die Linien es vorgeben: unter dem G der untersten Linie das F im Zwischenraum, dann das E auf der ersten Hilfslinie, das D darunter und das C auf der zweiten Hilfslinie.',
           },
         ],
       },
@@ -129,16 +129,13 @@ export const bassClef: Record<Lang, GuideTexts> = {
               alt: 'Eine Übung in Stavewise im Klaviersystem: oben der Violinschlüssel, unten der Bassschlüssel mit den Noten der linken Hand',
             },
           },
-          {
-            note: 'Ein Level gilt in Stavewise als gemeistert, wenn du eine ganze Übung ohne Fehler spielst und im Median höchstens 1,5 Sekunden je Aufgabe brauchst. Das ist eine Schwelle der App, keine Aussage darüber, wie schnell du dahin kommst.',
-          },
         ],
       },
     ],
     questions: [
       {
         q: 'Muss ich zuerst den Violinschlüssel können?',
-        a: 'Nicht unbedingt. Beide Schlüssel folgen denselben Regeln, nur liegen die Töne auf anderen Linien. In Stavewise kommt der Bassschlüssel deshalb schon im zweiten Level.',
+        a: 'Nicht unbedingt. Beide Schlüssel folgen denselben Regeln, nur liegen die Töne auf anderen Linien. Ich habe beide Schlüssel von Anfang an abwechselnd geübt.',
       },
       {
         q: 'Warum steht das mittlere C mal oben, mal unten?',
@@ -150,7 +147,7 @@ export const bassClef: Record<Lang, GuideTexts> = {
       },
       {
         q: 'Wie lange dauert es, bis ich den Bassschlüssel flüssig lese?',
-        a: 'Das kann ich dir nicht seriös sagen, es hängt davon ab, wie oft du übst und was du schon kannst. Hilfreicher als eine Frist finde ich, zu sehen, welche Noten dich noch aufhalten. In Stavewise zeigt das die Statistik je Note.',
+        a: 'Das kann ich dir nicht seriös sagen, es hängt davon ab, wie oft du übst und was du schon kannst. Hilfreicher als eine Frist finde ich, darauf zu achten, welche Noten mich noch aufhalten, und genau die öfter zu üben.',
       },
     ],
   },
@@ -212,7 +209,7 @@ export const bassClef: Record<Lang, GuideTexts> = {
             ],
           },
           {
-            p: 'That is why I gave the bass clef its own levels in Stavewise, levels that practise nothing else. The first six levels take turns: treble clef, bass clef, treble clef and so on, each time with a slightly wider range. Neither clef has to wait until the other one is solid.',
+            p: 'What helped me was practising the bass clef on its own, with exercises in that clef only, instead of working it out from treble clef. I did not have to wait until treble clef was solid for that: I practised the two clefs in turns and widened the range bit by bit.',
           },
         ],
       },
@@ -220,11 +217,11 @@ export const bassClef: Record<Lang, GuideTexts> = {
         heading: 'A few landmark notes, read the rest from there',
         blocks: [
           {
-            p: 'Stavewise works with landmark notes: a few notes you recognise at a glance and read their neighbours from, rather than learning every line at once. In bass clef, these are the landmarks:',
+            p: 'What helped me were landmark notes: a few notes I recognise at a glance and read their neighbours from, rather than learning every line at once. In bass clef, these are the landmarks I use:',
           },
           {
             ul: [
-              { text: 'Middle C (C4): the first ledger line above the staff. You already know it from the treble clef levels.' },
+              { text: 'Middle C (C4): the first ledger line above the staff. You probably know it from treble clef already.' },
               { text: 'F below middle C (F3): the line between the two dots.' },
               { text: 'C an octave lower (C3): the second space from the bottom.' },
               { text: 'F an octave lower (F2): the space below the bottom line.' },
@@ -232,7 +229,7 @@ export const bassClef: Record<Lang, GuideTexts> = {
             ],
           },
           {
-            p: 'Middle C comes with level 1 in treble clef, the other four come into Stavewise in exactly this order. Level 2 practises only the stretch from E3 up to middle C, with F3 as the landmark, level 4 goes down to C3, level 6 down to C2. I wanted the range to start small, and every key to have been played once before both clefs switch back and forth across the full range.',
+            p: 'All five at once was too much for me. I started with a small stretch, from E3 up to middle C, with F3 as the landmark. After that I went down to C3, and only then down to C2.',
           },
         ],
       },
@@ -247,7 +244,7 @@ export const bassClef: Record<Lang, GuideTexts> = {
             ],
           },
           {
-            p: 'Going down, you follow the lines: below the bottom-line G comes F in the space, then E on the first ledger line, D below it and C on the second ledger line. Stavewise goes no further than two ledger lines, so in bass clef it stops at that low C.',
+            p: 'Going down, you follow the lines: below the bottom-line G comes F in the space, then E on the first ledger line, D below it and C on the second ledger line.',
           },
         ],
       },
@@ -263,16 +260,13 @@ export const bassClef: Record<Lang, GuideTexts> = {
               alt: 'An exercise in Stavewise on the grand staff: treble clef at the top, bass clef with the left-hand notes below',
             },
           },
-          {
-            note: 'In Stavewise a level counts as mastered when you play a whole exercise without a mistake and need at most 1.5 seconds per task (median). That is a threshold in the app, not a claim about how quickly you will get there.',
-          },
         ],
       },
     ],
     questions: [
       {
         q: 'Do I need to know treble clef first?',
-        a: 'Not necessarily. Both clefs follow the same rules; the notes just sit on different lines. That is why bass clef already comes in the second level of Stavewise.',
+        a: 'Not necessarily. Both clefs follow the same rules; the notes just sit on different lines. I practised both clefs in turns from the start.',
       },
       {
         q: 'Why is middle C sometimes at the top and sometimes at the bottom?',
@@ -284,7 +278,7 @@ export const bassClef: Record<Lang, GuideTexts> = {
       },
       {
         q: 'How long until I can read bass clef fluently?',
-        a: 'I can’t honestly tell you; it depends on how often you practise and what you already know. What I find more useful than a deadline is seeing which notes still slow me down. In Stavewise the statistics show that for every note.',
+        a: 'I can’t honestly tell you; it depends on how often you practise and what you already know. What I find more useful than a deadline is noticing which notes still slow me down and practising exactly those more often.',
       },
     ],
   },
