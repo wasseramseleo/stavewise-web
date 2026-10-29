@@ -19,7 +19,9 @@ Fertig heißt: `npm run check` ist grün und die Ausgabe ist gezeigt. Die CI (`.
 ## Aufbau
 
 - `src/pages/{de,en}/`: die acht Seiten (`index`, `beta`, `privacy`, `impressum`), gebaut als `dist/de/beta/index.html` usw.; unter `/` liegt keine Seite.
-- `src/layouts/Base.astro`: Kopf (Schriftzug, Pille „Beta“), Fuß, Sprachlink, `hreflang`.
+- `src/lib/i18n.ts`: Seitenregister: Pfade je Sprache (`pathOf`), neutrale Adressen (`neutralPathOf`, `null` für Ratgeber-Seiten), gebaute Seiten (`BUILT_PAGES`).
+- `src/layouts/Base.astro`: Kopf (Schriftzug, Pille „Beta“), Fuß, Sprachlink, `hreflang`, `canonical`, Open Graph, JSON-LD auf den Startseiten.
+- `src/pages/sitemap.xml.ts`: Sitemap über `BUILT_PAGES`; `public/robots.txt` erlaubt alles; `public/logo.png` ist das Organization-Logo (Play-Store-Icon aus `docs/marke/` im Repo `stavewise`).
 - `src/texts/<seite>.ts`: Texte je Seite mit `de` und `en`; Kopf und Fuß in `src/texts/layout.ts`.
 - `src/components/`: `Wordmark.astro`, `BrandMark.astro` (Inline-SVG aus `docs/marke/` im Repo `stavewise`).
 - `src/styles/tokens.css`: App-Tokens hell und dunkel nach `prefers-color-scheme` (`docs/konzept-v1.md` § 12.5); `src/styles/base.css`: Schriften und Komponenten aus dem Prototyp.

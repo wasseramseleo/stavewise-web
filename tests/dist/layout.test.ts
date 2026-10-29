@@ -1,13 +1,9 @@
 import { describe, expect, it } from 'vitest';
 import { JSDOM } from 'jsdom';
-import { FILES, ORIGIN, PAGES, documentOf, fileOf, pathOf, read } from './dist';
+import { FILES, ORIGIN, PAGES, documentOf, fileOf, neutralPathOf, pathOf, read } from './dist';
 
-const NEUTRAL: Record<string, string> = {
-  home: '/',
-  beta: '/beta',
-  privacy: '/privacy',
-  impressum: '/impressum',
-};
+/** The only pages allowed a <script>: the JSON-LD of the two home pages. */
+const JSON_LD_PAGES = ['de/index.html', 'en/index.html'];
 
 describe.each(PAGES)('$path', (page) => {
   const other = page.lang === 'de' ? 'en' : 'de';
@@ -32,7 +28,7 @@ describe.each(PAGES)('$path', (page) => {
       doc.querySelector(`link[rel="alternate"][hreflang="${lang}"]`)?.getAttribute('href');
     expect(href('de')).toBe(ORIGIN + pathOf('de', page.name));
     expect(href('en')).toBe(ORIGIN + pathOf('en', page.name));
-    expect(href('x-default')).toBe(ORIGIN + NEUTRAL[page.name]);
+    expect(href('x-default')).toBe(ORIGIN + (neutralPathOf(page.name) ?? pathOf('en', page.name)));
   });
 
   it('has a language link to the same page in the other language', () => {
@@ -66,8 +62,10 @@ describe('dist/ as a whole', () => {
     expect(FILES.filter((file) => /\.m?js$/.test(file))).toEqual([]);
   });
 
-  it.each(htmlFiles)('%s has no <script>', (file) => {
-    expect(new JSDOM(read(file)).window.document.querySelectorAll('script')).toHaveLength(0);
+  it.each(htmlFiles)('%s has no <script> apart from the JSON-LD of the home pages', (file) => {
+    const doc = new JSDOM(read(file)).window.document;
+    const forbidden = JSON_LD_PAGES.includes(file) ? 'script:not([type="application/ld+json"])' : 'script';
+    expect(doc.querySelectorAll(forbidden)).toHaveLength(0);
   });
 
   it.each(htmlFiles)('%s loads nothing from another host', (file) => {
