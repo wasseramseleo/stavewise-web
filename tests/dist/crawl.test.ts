@@ -18,7 +18,7 @@ describe('sitemap.xml', () => {
 
   it('lists exactly the HTML pages in dist/ (without og/), in canonical form', () => {
     const pages = FILES.filter((file) => file.endsWith('.html') && !file.startsWith('og/'));
-    expect(pages).toHaveLength(16);
+    expect(pages).toHaveLength(18);
     expect([...locs()].sort()).toEqual(pages.map((file) => ORIGIN + pathOfFile(file)).sort());
   });
 

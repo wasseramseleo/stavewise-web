@@ -20,6 +20,8 @@ const GUIDES: readonly Guide[] = [
   { lang: 'en', name: 'bassClef', headingWords: ['bass clef'] },
   { lang: 'de', name: 'bothHands', headingWords: ['beiden Händen'] },
   { lang: 'en', name: 'bothHands', headingWords: ['treble', 'bass clef', 'same time'] },
+  { lang: 'de', name: 'app', headingWords: ['App', 'Android'] },
+  { lang: 'en', name: 'app', headingWords: ['app', 'Android'] },
 ];
 
 /** Shared wording per language (launch § 14.4). */
@@ -331,5 +333,105 @@ describe('bothHands (stavewise#719)', () => {
   ])('%s links %s in a cross-reference line', (from, to) => {
     const lines = [...documentOf(from).querySelectorAll('main p.related')];
     expect(lines.find((p) => p.querySelector(`a[href="${to}"]`))).toBeDefined();
+  });
+});
+
+describe('app (stavewise#720)', () => {
+  const PATHS = ['/de/noten-lesen-app-android', '/en/sight-reading-app-android'] as const;
+  const OTHERS = ['connect', 'cable', 'bassClef', 'bothHands'] as const;
+
+  /** H2 sections of the article text (without the closing card): heading and the text up to the next H2. */
+  const sectionsOf = (path: string) => {
+    const article = documentOf(path).querySelector('main article')!;
+    const sections: { heading: string; body: string }[] = [];
+    for (const el of article.children) {
+      if (el.closest('.cta') || el.classList.contains('cta') || el.classList.contains('author')) break;
+      if (el.tagName === 'H2') sections.push({ heading: text(el), body: '' });
+      else if (sections.length > 0) sections[sections.length - 1].body += ` ${text(el)}`;
+    }
+    return sections;
+  };
+
+  it('/de/noten-lesen-app-android links its English version', () => {
+    const link = documentOf('/de/noten-lesen-app-android').querySelector('a[hreflang="en"]');
+    expect(link?.getAttribute('href')).toBe('/en/sight-reading-app-android');
+  });
+
+  it('/en/sight-reading-app-android links its German version', () => {
+    const link = documentOf('/en/sight-reading-app-android').querySelector('a[hreflang="de"]');
+    expect(link?.getAttribute('href')).toBe('/de/noten-lesen-app-android');
+  });
+
+  it.each(PATHS)('%s points x-default at the English version', (path) => {
+    const xDefault = documentOf(path)
+      .querySelector('link[rel="alternate"][hreflang="x-default"]')
+      ?.getAttribute('href');
+    expect(xDefault).toBe('https://stavewise.app/en/sight-reading-app-android');
+  });
+
+  it('lists both versions in the sitemap', () => {
+    const locs = [
+      ...new JSDOM(read('sitemap.xml'), { contentType: 'text/xml' }).window.document.querySelectorAll('loc'),
+    ].map((loc) => loc.textContent);
+    expect(locs).toContain(`${ORIGIN}/de/noten-lesen-app-android`);
+    expect(locs).toContain(`${ORIGIN}/en/sight-reading-app-android`);
+  });
+
+  // Criteria, not a comparison: no table with ticks against competitors (launch § 14.3).
+  it.each(PATHS)('%s has no <table>', (path) => {
+    expect(documentOf(path).querySelectorAll('table')).toHaveLength(0);
+  });
+
+  it.each(PATHS)('%s keeps "Simply Piano Alternative" out of the title', (path) => {
+    expect(text(documentOf(path).querySelector('title'))).not.toMatch(/alternative/i);
+  });
+
+  // Page 5 → all (launch § 14.6): one cross-reference line per other guide page.
+  it.each(PATHS)('%s links all four other guide pages in cross-reference lines', (path) => {
+    const lang = path.startsWith('/de/') ? 'de' : 'en';
+    const lines = [...documentOf(path).querySelectorAll('main p.related')];
+    for (const other of OTHERS) {
+      expect(lines.find((p) => p.querySelector(`a[href="${pathOf(lang, other)}"]`))).toBeDefined();
+    }
+  });
+
+  // The other apps are named factually with the date their store listings were checked.
+  it.each([
+    ['/de/noten-lesen-app-android', /Stand der Play-Einträge: \d{1,2}\. [A-ZÄÖÜ][a-zäöü]+ \d{4}/],
+    ['/en/sight-reading-app-android', /Play listings as of \d{1,2} [A-Z][a-z]+ \d{4}/],
+  ] as const)('%s names the check date of the store listings', (path, pattern) => {
+    expect(text(documentOf(path).querySelector('main'))).toMatch(pattern);
+  });
+
+  // Every app claim has a source: each named app links its Play listing.
+  it.each(PATHS)('%s links the Play listings of the apps it names', (path) => {
+    const listings = [...documentOf(path).querySelectorAll('main a')]
+      .map((a) => a.getAttribute('href') ?? '')
+      .filter((href) => href.startsWith('https://play.google.com/store/apps/details?id='));
+    expect(new Set(listings).size).toBeGreaterThanOrEqual(5);
+  });
+
+  // Stavewise comes at the end (launch § 14.3): no section before the one ahead of "Fragen" names it.
+  it.each(PATHS)('%s names Stavewise only at the end of the text', (path) => {
+    const sections = sectionsOf(path);
+    expect(sections.length).toBeGreaterThanOrEqual(5);
+    const named = sections.map((s) => /Stavewise/.test(`${s.heading} ${s.body}`));
+    expect(named.indexOf(true)).toBe(sections.length - 2);
+  });
+
+  // No amount (launch § 6.1), the fixed wording instead.
+  it.each([
+    ['/de/noten-lesen-app-android', 'Level 1 bis 9 frei, die Vollversion kaufst du einmal in Google Play, kein Abo'],
+    ['/en/sight-reading-app-android', 'Levels 1 to 9 are free, you buy the full version once in Google Play, no subscription'],
+  ] as const)('%s describes the price without an amount', (path, wording) => {
+    expect(text(documentOf(path).querySelector('main'))).toContain(wording);
+  });
+
+  it.each(PATHS)('%s shows the app screenshot in a card and no demo still', (path) => {
+    const doc = documentOf(path);
+    expect(doc.querySelector('main figure.still')).toBeNull();
+    const images = [...doc.querySelectorAll('main figure.shot img')];
+    expect(images).toHaveLength(1);
+    expect(images[0].getAttribute('alt')).not.toBe('');
   });
 });
