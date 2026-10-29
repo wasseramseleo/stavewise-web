@@ -64,8 +64,6 @@ export interface GuideSharedTexts {
   author: string;
   bylinePrefix: string;
   updatedPrefix: string;
-  /** Initials in the round portrait until the photo rights are confirmed (stavewise#553). */
-  initials: string;
   answerLabel: string;
   disclosure: string;
   questionsHeading: string;
@@ -87,7 +85,6 @@ export const guideShared: Record<Lang, GuideSharedTexts> = {
     author: 'Leonard Guelmino',
     bylinePrefix: 'Von',
     updatedPrefix: 'Stand',
-    initials: 'LG',
     answerLabel: 'Kurz gesagt',
     disclosure: 'Offen gesagt: Ich habe Stavewise entwickelt, eine App zum Notenlesen am E-Piano.',
     questionsHeading: 'Fragen',
@@ -107,7 +104,6 @@ export const guideShared: Record<Lang, GuideSharedTexts> = {
     author: 'Leonard Guelmino',
     bylinePrefix: 'By',
     updatedPrefix: 'Updated',
-    initials: 'LG',
     answerLabel: 'In short',
     disclosure: 'Full disclosure: I built Stavewise, an app for learning to read music on a digital piano.',
     questionsHeading: 'Questions',

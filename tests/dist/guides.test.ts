@@ -90,6 +90,15 @@ describe.each(GUIDES)('$lang $name', (guide) => {
     expect(text(block?.querySelector('p'))).toBe(shared.author);
   });
 
+  it('shows Leo\'s portrait in the byline and the author block, decorative next to his name', () => {
+    for (const selector of ['.byline', '.author']) {
+      const portrait = main().querySelector(`${selector} img.face`);
+      expect(portrait?.getAttribute('src')).toMatch(/\.webp$/);
+      expect(portrait?.getAttribute('alt')).toBe('');
+    }
+    expect(main().querySelector('.initials')).toBeNull();
+  });
+
   it('links the home page of its language', () => {
     expect(hrefs()).toContain(pathOf(guide.lang, 'home'));
   });

@@ -5,12 +5,10 @@
 .guide h1 { margin-bottom: 0; }
 .guide h1 .sub { display: block; font-size: 0.6em; color: var(--ink-muted); font-weight: 500; margin-top: 6px; }
 
-/* Round portrait; initials until the photo rights are confirmed (stavewise#553). The initials
-   come from CSS so the byline text stays "Von Leonard Guelmino · Stand ...". */
-.guide .face { flex: none; border-radius: 50%; display: inline-grid; place-items: center; background: var(--accent); color: var(--primary); font-weight: 600; letter-spacing: 0.02em; }
-.guide .initials::before { content: attr(data-initials); }
+/* Round portrait (stavewise#553: photo rights confirmed). Decorative: the author's name stands next to it. */
+.guide .face { flex: none; border-radius: 50%; object-fit: cover; background: var(--accent); }
 .guide .byline { display: flex; align-items: center; gap: 10px; font-size: 15px; color: var(--ink-muted); }
-.guide .byline .face { width: 28px; height: 28px; font-size: 11px; }
+.guide .byline .face { width: 28px; height: 28px; }
 
 .guide .answer p { font-size: 18px; }
 .guide .step-note { color: var(--ink-muted); }
@@ -30,6 +28,6 @@
 .guide .cta .home-line { font-size: 15px; }
 
 .guide .author { display: flex; gap: 20px; align-items: flex-start; border-top: 1px solid var(--outline); padding-top: 24px; margin-top: 16px; }
-.guide .author .face { width: 72px; height: 72px; font-size: 24px; }
+.guide .author .face { width: 72px; height: 72px; }
 .guide .author > div { display: grid; gap: 8px; }
 .guide .author p { color: var(--ink-muted); }
