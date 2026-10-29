@@ -124,12 +124,12 @@ export const connect: Record<Lang, GuideTexts> = {
         heading: 'Womit ich das getestet habe',
         blocks: [
           {
-            p: 'Beide Wege habe ich mit meinem Kurzweil KA-E1 getestet, an einem Lenovo Tab P12 mit Android 15 und an einem Pixel 7 Pro mit Android 17. Für USB habe ich ein Kabel USB-B auf USB-C genommen, ohne Adapter. Das Bild zeigt Stavewise am Tablet, während das Piano per MIDI verbunden ist.',
+            p: 'Beide Wege habe ich mit meinem Kurzweil KA-E1 getestet, an einem Lenovo Tab P12 mit Android 15 und an einem Pixel 7 Pro mit Android 17. Für USB habe ich ein Kabel USB-B auf USB-C genommen, ohne Adapter. Das Bild zeigt eine Übung in Stavewise.',
           },
           {
             figure: {
               src: shot,
-              alt: 'Stavewise am Tablet: eine Übung im Klaviersystem, die gespielten Noten sind markiert',
+              alt: 'Eine Übung in Stavewise im Klaviersystem, die gespielten Noten sind markiert',
             },
           },
           {
@@ -279,12 +279,12 @@ export const connect: Record<Lang, GuideTexts> = {
         heading: 'What I tested this with',
         blocks: [
           {
-            p: 'I tested both options with my own Kurzweil KA-E1, on a Lenovo Tab P12 running Android 15 and on a Pixel 7 Pro running Android 17. For USB I used a USB-B to USB-C cable, no adapter. The screenshot shows Stavewise on the tablet with the piano connected over MIDI.',
+            p: 'I tested both options with my own Kurzweil KA-E1, on a Lenovo Tab P12 running Android 15 and on a Pixel 7 Pro running Android 17. For USB I used a USB-B to USB-C cable, no adapter. The screenshot shows an exercise in Stavewise.',
           },
           {
             figure: {
               src: shot,
-              alt: 'Stavewise on a tablet: an exercise on the grand staff with the played notes marked',
+              alt: 'An exercise in Stavewise on the grand staff, with the played notes marked',
             },
           },
           {
