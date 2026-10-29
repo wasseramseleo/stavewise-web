@@ -6,6 +6,24 @@ const HEADINGS = {
   en: 'Learn to read music by playing it.',
 } as const;
 
+const TITLES = {
+  de: 'Stavewise: Noten lesen lernen am E-Piano, App für Android',
+  en: 'Stavewise: Sight reading app for your digital piano (Android)',
+} as const;
+
+const DESCRIPTION_ENDS = {
+  de: 'Kein Abo, offline.',
+  en: 'No subscription, offline.',
+} as const;
+
+/** Link texts of the guide links on the home page (launch § 14.6, variant B). */
+const GUIDE_LINKS = {
+  de: { ways: 'Ausführliche Anleitung →', more: 'Mehr dazu' },
+  en: { ways: 'Step-by-step guide →', more: 'More' },
+} as const;
+
+const textOf = (el: Element | null | undefined) => el?.textContent?.replace(/\s+/g, ' ').trim();
+
 const imagesOf = (doc: Document) => [...doc.querySelectorAll('main img')];
 
 describe.each(['de', 'en'] as const)('/%s/ home page', (lang) => {
@@ -17,6 +35,44 @@ describe.each(['de', 'en'] as const)('/%s/ home page', (lang) => {
     const h1s = doc().querySelectorAll('h1');
     expect(h1s).toHaveLength(1);
     expect(h1s[0]?.textContent?.trim()).toBe(HEADINGS[lang]);
+  });
+
+  it('has the title of launch § 14.6', () => {
+    expect(doc().title).toBe(TITLES[lang]);
+  });
+
+  it('adds "no subscription, offline" to the description', () => {
+    const description = doc().querySelector('meta[name="description"]')?.getAttribute('content') ?? '';
+    expect(description.endsWith(DESCRIPTION_ENDS[lang])).toBe(true);
+  });
+
+  it('links both cards of the two ways to the connect guide', () => {
+    const cards = [...main().querySelectorAll('.ways .card')];
+    expect(cards).toHaveLength(2);
+    for (const card of cards) {
+      const link = card.querySelector('a.card-foot');
+      expect(link?.getAttribute('href')).toBe(`/${lang}/${lang === 'de' ? 'e-piano-mit-android-verbinden' : 'connect-digital-piano-to-android'}`);
+      expect(textOf(link)).toBe(GUIDE_LINKS[lang].ways);
+    }
+  });
+
+  it('links the connect and the cable guide from the answer to "will my piano work?"', () => {
+    const first = main().querySelectorAll('.faq details')[0]!;
+    const more = first.querySelector('p.more');
+    expect(textOf(more?.querySelector('.label'))).toBe(GUIDE_LINKS[lang].more);
+    const hrefs = [...(more?.querySelectorAll('a') ?? [])].map((a) => a.getAttribute('href'));
+    expect(hrefs).toEqual(
+      lang === 'de'
+        ? ['/de/e-piano-mit-android-verbinden', '/de/usb-to-host-kabel']
+        : ['/en/connect-digital-piano-to-android', '/en/usb-to-host-cable'],
+    );
+  });
+
+  it('links guides from nowhere else in <main>', () => {
+    const guideLinks = [...main().querySelectorAll('a')].filter((a) =>
+      /verbinden|kabel|connect|cable|bass|haende|clef|app-android|reading-app/.test(a.getAttribute('href') ?? ''),
+    );
+    expect(guideLinks).toHaveLength(4);
   });
 
   it('points the main button to the beta page of its language', () => {

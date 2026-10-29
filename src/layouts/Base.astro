@@ -64,6 +64,19 @@ const jsonLd =
       <slot />
     </main>
     <footer class="foot">
+      <nav class="wrap guides" aria-label={t.guidesLabel}>
+        <span class="label">{t.guidesLabel}</span>
+        {t.guideGroups.map((group) => (
+          <div class="group">
+            <span class="group-name">{group.name}</span>
+            <ul>
+              {group.guides.map(([guide, text]) => (
+                <li>{guide === page ? <span aria-current="page">{text}</span> : <a href={pathOf(lang, guide)}>{text}</a>}</li>
+              ))}
+            </ul>
+          </div>
+        ))}
+      </nav>
       <div class="wrap">
         <div class="brand">
           <Wordmark class="wordmark" />
