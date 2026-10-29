@@ -88,15 +88,15 @@ export const bassClef: Record<Lang, GuideTexts> = {
           },
           {
             ul: [
+              { text: 'Das mittlere C: die erste Hilfslinie über dem System. Du kennst es schon aus den Leveln im Violinschlüssel.' },
               { text: 'Das F unter dem mittleren C: die Linie zwischen den beiden Punkten.' },
-              { text: 'Das mittlere C: die erste Hilfslinie über dem System.' },
               { text: 'Das C eine Oktave tiefer: der zweite Zwischenraum von unten.' },
               { text: 'Das F eine Oktave tiefer: der Zwischenraum unter der untersten Linie.' },
               { text: 'Das tiefe C, zwei Oktaven unter dem mittleren: die zweite Hilfslinie unter dem System.' },
             ],
           },
           {
-            p: 'In genau dieser Reihenfolge kommen sie in Stavewise dazu. Level 2 übt nur das Stück vom E bis zum mittleren C mit dem F als Orientierung, Level 4 geht hinunter bis zum C eine Oktave tiefer, Level 6 bis zum tiefen C. Ich wollte, dass der Tonumfang am Anfang klein ist und jede Taste schon einmal gespielt wurde, bevor beide Schlüssel im ganzen Umfang wechseln.',
+            p: 'Das mittlere C bringt Level 1 im Violinschlüssel mit, die übrigen vier kommen in genau dieser Reihenfolge dazu. Level 2 übt nur das Stück vom E bis zum mittleren C mit dem F als Orientierung, Level 4 geht hinunter bis zum C eine Oktave tiefer, Level 6 bis zum tiefen C. Ich wollte, dass der Tonumfang am Anfang klein ist und jede Taste schon einmal gespielt wurde, bevor beide Schlüssel im ganzen Umfang wechseln.',
           },
         ],
       },
@@ -224,15 +224,15 @@ export const bassClef: Record<Lang, GuideTexts> = {
           },
           {
             ul: [
+              { text: 'Middle C (C4): the first ledger line above the staff. You already know it from the treble clef levels.' },
               { text: 'F below middle C (F3): the line between the two dots.' },
-              { text: 'Middle C (C4): the first ledger line above the staff.' },
               { text: 'C an octave lower (C3): the second space from the bottom.' },
               { text: 'F an octave lower (F2): the space below the bottom line.' },
               { text: 'Low C, two octaves below middle C (C2): the second ledger line below the staff.' },
             ],
           },
           {
-            p: 'They come into Stavewise in exactly this order. Level 2 practises only the stretch from E3 up to middle C, with F3 as the landmark, level 4 goes down to C3, level 6 down to C2. I wanted the range to start small, and every key to have been played once before both clefs switch back and forth across the full range.',
+            p: 'Middle C comes with level 1 in treble clef, the other four come into Stavewise in exactly this order. Level 2 practises only the stretch from E3 up to middle C, with F3 as the landmark, level 4 goes down to C3, level 6 down to C2. I wanted the range to start small, and every key to have been played once before both clefs switch back and forth across the full range.',
           },
         ],
       },
