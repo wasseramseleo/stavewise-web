@@ -1,7 +1,7 @@
 // Guide page 1 "E-Piano mit Android verbinden" (launch § 14.3 row 1; stavewise#716).
 // Facts checked before writing; sources are listed in the PR and linked where a statement
 // rests on them. Own tests: docs/abnahme-v1.md in the stavewise repo (KA-E1, Tab P12, Pixel 7 Pro).
-import type { Lang } from '../../lib/i18n';
+import { pathOf, type Lang } from '../../lib/i18n';
 import type { GuideTexts } from '../guide';
 import still from '../../assets/guides/demo-still.png';
 import shot from '../../assets/screenshots/de/exercise-hero.png';
@@ -69,6 +69,13 @@ export const connect: Record<Lang, GuideTexts> = {
           },
           {
             note: 'Solange das Kabel steckt, ist der USB-C-Anschluss belegt, und das Handy lädt nicht. Für eine lange Übung lade ich vorher auf.',
+          },
+          {
+            related: {
+              lead: 'Welches Kabel genau?',
+              text: 'USB to Host und OTG: welches Kabel ans Handy oder Tablet',
+              href: pathOf('de', 'cable'),
+            },
           },
         ],
       },
@@ -224,6 +231,13 @@ export const connect: Record<Lang, GuideTexts> = {
           },
           {
             note: 'While the cable is plugged in, the USB-C port is taken, so the phone does not charge. I charge before a long practice session.',
+          },
+          {
+            related: {
+              lead: 'Which cable exactly?',
+              text: 'USB to Host, OTG adapters and USB-C',
+              href: pathOf('en', 'cable'),
+            },
           },
         ],
       },

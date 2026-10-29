@@ -14,6 +14,8 @@ interface Guide {
 const GUIDES: readonly Guide[] = [
   { lang: 'de', name: 'connect', headingWords: ['E-Piano', 'Android'] },
   { lang: 'en', name: 'connect', headingWords: ['digital piano', 'Android'] },
+  { lang: 'de', name: 'cable', headingWords: ['USB to Host', 'Kabel'] },
+  { lang: 'en', name: 'cable', headingWords: ['cable', 'tablet'] },
 ];
 
 /** Shared wording per language (launch § 14.4). */
@@ -141,4 +143,53 @@ describe('connect (stavewise#716)', () => {
       for (const img of images) expect(img.getAttribute('alt')).not.toBe('');
     },
   );
+});
+
+describe('cable (stavewise#717)', () => {
+  it('/de/usb-to-host-kabel links its English version', () => {
+    const link = documentOf('/de/usb-to-host-kabel').querySelector('a[hreflang="en"]');
+    expect(link?.getAttribute('href')).toBe('/en/usb-to-host-cable');
+  });
+
+  it('/en/usb-to-host-cable links its German version', () => {
+    const link = documentOf('/en/usb-to-host-cable').querySelector('a[hreflang="de"]');
+    expect(link?.getAttribute('href')).toBe('/de/usb-to-host-kabel');
+  });
+
+  it.each(['/de/usb-to-host-kabel', '/en/usb-to-host-cable'])('%s points x-default at the English version', (path) => {
+    const xDefault = documentOf(path)
+      .querySelector('link[rel="alternate"][hreflang="x-default"]')
+      ?.getAttribute('href');
+    expect(xDefault).toBe('https://stavewise.app/en/usb-to-host-cable');
+  });
+
+  it('lists both versions in the sitemap', () => {
+    const locs = [
+      ...new JSDOM(read('sitemap.xml'), { contentType: 'text/xml' }).window.document.querySelectorAll('loc'),
+    ].map((loc) => loc.textContent);
+    expect(locs).toContain(`${ORIGIN}/de/usb-to-host-kabel`);
+    expect(locs).toContain(`${ORIGIN}/en/usb-to-host-cable`);
+  });
+
+  it.each(['/de/usb-to-host-kabel', '/en/usb-to-host-cable'])(
+    '%s shows the demo still and the test screenshot as images with alt text',
+    (path) => {
+      const images = [...documentOf(path).querySelectorAll('main figure img')];
+      expect(images.length).toBeGreaterThanOrEqual(2);
+      for (const img of images) expect(img.getAttribute('alt')).not.toBe('');
+    },
+  );
+
+  // Setup ↔ setup (launch § 14.6): each page links the other in its own line.
+  it.each([
+    ['/de/e-piano-mit-android-verbinden', '/de/usb-to-host-kabel', 'Welches Kabel genau?'],
+    ['/en/connect-digital-piano-to-android', '/en/usb-to-host-cable', 'Which cable exactly?'],
+    ['/de/usb-to-host-kabel', '/de/e-piano-mit-android-verbinden', ''],
+    ['/en/usb-to-host-cable', '/en/connect-digital-piano-to-android', ''],
+  ])('%s links %s in a cross-reference line', (from, to, lead) => {
+    const lines = [...documentOf(from).querySelectorAll('main p.related')];
+    const line = lines.find((p) => p.querySelector(`a[href="${to}"]`));
+    expect(line).toBeDefined();
+    expect(text(line).startsWith(lead)).toBe(true);
+  });
 });
