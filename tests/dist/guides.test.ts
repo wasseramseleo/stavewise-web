@@ -18,6 +18,8 @@ const GUIDES: readonly Guide[] = [
   { lang: 'en', name: 'cable', headingWords: ['cable', 'tablet'] },
   { lang: 'de', name: 'bassClef', headingWords: ['Bassschlüssel'] },
   { lang: 'en', name: 'bassClef', headingWords: ['bass clef'] },
+  { lang: 'de', name: 'bothHands', headingWords: ['beiden Händen'] },
+  { lang: 'en', name: 'bothHands', headingWords: ['treble', 'bass clef', 'same time'] },
 ];
 
 /** Shared wording per language (launch § 14.4). */
@@ -252,5 +254,82 @@ describe('bassClef (stavewise#718)', () => {
     for (const el of [doc.querySelector('title'), doc.querySelector('h1')]) {
       expect(text(el)).not.toMatch(/Klaviersystem|grand staff/i);
     }
+  });
+});
+
+describe('bothHands (stavewise#719)', () => {
+  const PATHS = ['/de/noten-lesen-beide-haende', '/en/read-treble-and-bass-clef-together'] as const;
+
+  it('/de/noten-lesen-beide-haende links its English version', () => {
+    const link = documentOf('/de/noten-lesen-beide-haende').querySelector('a[hreflang="en"]');
+    expect(link?.getAttribute('href')).toBe('/en/read-treble-and-bass-clef-together');
+  });
+
+  it('/en/read-treble-and-bass-clef-together links its German version', () => {
+    const link = documentOf('/en/read-treble-and-bass-clef-together').querySelector('a[hreflang="de"]');
+    expect(link?.getAttribute('href')).toBe('/de/noten-lesen-beide-haende');
+  });
+
+  it.each(PATHS)('%s points x-default at the English version', (path) => {
+    const xDefault = documentOf(path)
+      .querySelector('link[rel="alternate"][hreflang="x-default"]')
+      ?.getAttribute('href');
+    expect(xDefault).toBe('https://stavewise.app/en/read-treble-and-bass-clef-together');
+  });
+
+  it('lists both versions in the sitemap', () => {
+    const locs = [
+      ...new JSDOM(read('sitemap.xml'), { contentType: 'text/xml' }).window.document.querySelectorAll('loc'),
+    ].map((loc) => loc.textContent);
+    expect(locs).toContain(`${ORIGIN}/de/noten-lesen-beide-haende`);
+    expect(locs).toContain(`${ORIGIN}/en/read-treble-and-bass-clef-together`);
+  });
+
+  it.each(PATHS)('%s keeps "Klaviersystem" / "grand staff" out of title and H1', (path) => {
+    const doc = documentOf(path);
+    for (const el of [doc.querySelector('title'), doc.querySelector('h1')]) {
+      expect(text(el)).not.toMatch(/Klaviersystem|grand staff/i);
+    }
+  });
+
+  // The terms are explained in the text, just not used as headings (launch § 14.3 row 4).
+  it('explains "Klaviersystem" / "grand staff" in the text', () => {
+    expect(text(documentOf('/de/noten-lesen-beide-haende').querySelector('main'))).toContain('Klaviersystem');
+    expect(text(documentOf('/en/read-treble-and-bass-clef-together').querySelector('main'))).toContain('grand staff');
+  });
+
+  // Section for adults and returners (launch § 14.3 row 4).
+  it.each([
+    ['/de/noten-lesen-beide-haende', /Erwachsene|Wiedereinsteiger/],
+    ['/en/read-treble-and-bass-clef-together', /adult/i],
+  ] as const)('%s has an H2 for adults and returners', (path, pattern) => {
+    const headings = [...documentOf(path).querySelectorAll('main h2')].map(text);
+    expect(headings.some((h) => pattern.test(h))).toBe(true);
+  });
+
+  it.each(PATHS)('%s links at least one external source in the text', (path) => {
+    const external = [...documentOf(path).querySelectorAll('main a')]
+      .map((a) => a.getAttribute('href') ?? '')
+      .filter((href) => /^https:\/\//.test(href) && !href.startsWith(ORIGIN));
+    expect(external.length).toBeGreaterThanOrEqual(1);
+  });
+
+  it.each(PATHS)('%s shows the app screenshot in a card and no demo still', (path) => {
+    const doc = documentOf(path);
+    expect(doc.querySelector('main figure.still')).toBeNull();
+    const images = [...doc.querySelectorAll('main figure.shot img')];
+    expect(images).toHaveLength(1);
+    expect(images[0].getAttribute('alt')).not.toBe('');
+  });
+
+  // Core ↔ core (launch § 14.6): bass clef and both hands link each other in their own line.
+  it.each([
+    ['/de/bassschluessel-lesen', '/de/noten-lesen-beide-haende'],
+    ['/de/noten-lesen-beide-haende', '/de/bassschluessel-lesen'],
+    ['/en/read-bass-clef', '/en/read-treble-and-bass-clef-together'],
+    ['/en/read-treble-and-bass-clef-together', '/en/read-bass-clef'],
+  ])('%s links %s in a cross-reference line', (from, to) => {
+    const lines = [...documentOf(from).querySelectorAll('main p.related')];
+    expect(lines.find((p) => p.querySelector(`a[href="${to}"]`))).toBeDefined();
   });
 });
