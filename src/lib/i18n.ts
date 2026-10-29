@@ -60,4 +60,4 @@ export const pathOf = (lang: Lang, page: PageName): string =>
 export const neutralPathOf = (page: PageName): string | null => NEUTRAL[page];
 
 /** Pages that are built today; the sitemap lists exactly these. Each guide ticket adds its page. */
-export const BUILT_PAGES: readonly PageName[] = ['home', 'beta', 'privacy', 'impressum', 'connect', 'cable'];
+export const BUILT_PAGES: readonly PageName[] = ['home', 'beta', 'privacy', 'impressum', 'connect', 'cable', 'bassClef'];
