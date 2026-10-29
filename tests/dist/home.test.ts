@@ -75,6 +75,7 @@ describe('home page images', () => {
   });
 
   it('ships no PNG screenshot in dist/', () => {
-    expect(FILES.filter((file) => file.endsWith('.png'))).toEqual([]);
+    // logo.png is the Organization logo of the JSON-LD (launch § 14.7 Nr. 6), not a screenshot.
+    expect(FILES.filter((file) => file.endsWith('.png') && file !== 'logo.png')).toEqual([]);
   });
 });

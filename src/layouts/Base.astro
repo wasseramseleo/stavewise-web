@@ -16,6 +16,21 @@ interface Props {
 const { lang, page, title, description } = Astro.props;
 const t = layout[lang];
 const other = otherLang(lang);
+const canonical = siteUrl + pathOf(lang, page);
+const xDefault = siteUrl + (neutralPathOf(page) ?? pathOf('en', page));
+const locale: Record<Lang, string> = { de: 'de_DE', en: 'en_US' };
+
+// Organization and WebSite only on the two home pages (launch § 14.7 Nr. 6).
+const jsonLd =
+  page === 'home'
+    ? JSON.stringify({
+        '@context': 'https://schema.org',
+        '@graph': [
+          { '@type': 'Organization', name: 'Stavewise', url: `${siteUrl}/`, logo: `${siteUrl}/logo.png` },
+          { '@type': 'WebSite', name: 'Stavewise', url: `${siteUrl}/` },
+        ],
+      })
+    : null;
 ---
 <!doctype html>
 <html lang={lang}>
@@ -26,9 +41,19 @@ const other = otherLang(lang);
     <title>{title}</title>
     <meta name="description" content={description} />
     <link rel="icon" href="/favicon.svg" type="image/svg+xml" />
+    <link rel="canonical" href={canonical} />
     <link rel="alternate" hreflang="de" href={siteUrl + pathOf('de', page)} />
     <link rel="alternate" hreflang="en" href={siteUrl + pathOf('en', page)} />
-    <link rel="alternate" hreflang="x-default" href={siteUrl + neutralPathOf(page)} />
+    <link rel="alternate" hreflang="x-default" href={xDefault} />
+    <meta property="og:title" content={title} />
+    <meta property="og:description" content={description} />
+    <meta property="og:type" content="website" />
+    <meta property="og:url" content={canonical} />
+    <meta property="og:image" content={`${siteUrl}/og/stavewise-${lang}.png`} />
+    <meta property="og:locale" content={locale[lang]} />
+    <meta property="og:locale:alternate" content={locale[other]} />
+    <meta property="og:site_name" content="Stavewise" />
+    {jsonLd && <script type="application/ld+json" is:inline set:html={jsonLd} />}
   </head>
   <body>
     <header class="wrap bar">
