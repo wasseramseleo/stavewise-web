@@ -4,8 +4,8 @@ import { Image } from 'astro:assets';
 import '../styles/home.css';
 import { home } from '../texts/home';
 import { pathOf, type Lang } from '../lib/i18n';
+import { heroShot } from '../lib/screenshots';
 import { supportMail } from '../site';
-import exerciseHero from '../assets/screenshots/de/exercise-hero.png';
 import exercise from '../assets/screenshots/de/exercise.png';
 import resultDe from '../assets/screenshots/de/result.png';
 import resultEn from '../assets/screenshots/en/result.png';
@@ -36,7 +36,7 @@ const shots = [
       </div>
     </div>
     <div class="panel">
-      <Image src={exerciseHero} alt={t.heroAlt} width={1280} widths={[640, 1280]} sizes="(max-width: 820px) 100vw, 640px" format="webp" loading="eager" />
+      <Image src={heroShot[lang]} alt={t.heroAlt} width={1280} widths={[640, 1280]} sizes="(max-width: 820px) 100vw, 640px" format="webp" loading="eager" />
     </div>
   </section>
 
