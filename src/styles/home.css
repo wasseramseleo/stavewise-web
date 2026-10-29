@@ -25,6 +25,11 @@
 .home .split { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 16px; margin-top: 16px; }
 .home .price .well { justify-self: start; background: var(--surface-2); border-radius: 8px; padding: 10px 12px; font: 700 32px/1 var(--mono); }
 .home .card a.mono { color: var(--signal-ink); }
+/* Guide links (launch § 14.6, variant B) */
+.home .card .card-foot { border-top: 1px solid var(--outline); padding-top: 12px; margin-top: 4px; font-weight: 500; text-decoration: none; }
+.home .card .card-foot:hover { text-decoration: underline; }
+.home details .more { font-size: 15px; }
+.home details .more .label { margin-right: 6px; }
 
 /* Questions: <details> without JavaScript */
 .home .faq { background: var(--surface); border: 1px solid var(--outline); border-radius: 12px; padding: 0 24px; }

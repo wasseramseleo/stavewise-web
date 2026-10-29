@@ -4,8 +4,8 @@ import { Image } from 'astro:assets';
 import '../styles/home.css';
 import { home } from '../texts/home';
 import { pathOf, type Lang } from '../lib/i18n';
+import { heroShot } from '../lib/screenshots';
 import { supportMail } from '../site';
-import exerciseHero from '../assets/screenshots/de/exercise-hero.png';
 import exercise from '../assets/screenshots/de/exercise.png';
 import resultDe from '../assets/screenshots/de/result.png';
 import resultEn from '../assets/screenshots/en/result.png';
@@ -36,7 +36,7 @@ const shots = [
       </div>
     </div>
     <div class="panel">
-      <Image src={exerciseHero} alt={t.heroAlt} width={1280} widths={[640, 1280]} sizes="(max-width: 820px) 100vw, 640px" format="webp" loading="eager" />
+      <Image src={heroShot[lang]} alt={t.heroAlt} width={1280} widths={[640, 1280]} sizes="(max-width: 820px) 100vw, 640px" format="webp" loading="eager" />
     </div>
   </section>
 
@@ -79,6 +79,7 @@ const shots = [
           <ol>
             {way.steps.map((step) => <li>{step}</li>)}
           </ol>
+          <a class="card-foot" href={pathOf(lang, 'connect')}>{t.waysGuide} <span aria-hidden="true">→</span></a>
         </div>
       ))}
     </div>
@@ -101,7 +102,14 @@ const shots = [
       {t.questions.map((q, i) => (
         <details open={i === 0}>
           <summary>{q.question}</summary>
-          <div>{q.answers.map((a) => <p>{a}</p>)}</div>
+          <div>
+            {q.answers.map((a) => <p>{a}</p>)}
+            {i === 0 && (
+              <p class="more">
+                <span class="label">{t.moreLabel}</span> <a href={pathOf(lang, 'connect')}>{t.moreConnect}</a> · <a href={pathOf(lang, 'cable')}>{t.moreCable}</a>
+              </p>
+            )}
+          </div>
         </details>
       ))}
     </div>

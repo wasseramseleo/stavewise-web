@@ -1,0 +1,33 @@
+/* Guide pages, template variant A "Anleitung" (launch § 14.5). Builds on .doc, .box, .card, .btn
+   and .label from base.css; only app tokens, nothing new. */
+
+.guide .guide-head { display: grid; gap: 14px; }
+.guide h1 { margin-bottom: 0; }
+.guide h1 .sub { display: block; font-size: 0.6em; color: var(--ink-muted); font-weight: 500; margin-top: 6px; }
+
+/* Round portrait (stavewise#553: photo rights confirmed). Decorative: the author's name stands next to it. */
+.guide .face { flex: none; border-radius: 50%; object-fit: cover; background: var(--accent); }
+.guide .byline { display: flex; align-items: center; gap: 10px; font-size: 15px; color: var(--ink-muted); }
+.guide .byline .face { width: 28px; height: 28px; }
+
+.guide .answer p { font-size: 18px; }
+.guide .step-note { color: var(--ink-muted); }
+
+.guide figure { margin: 0; }
+.guide .still img { border-radius: 12px; }
+.guide .shot { background: var(--surface); border: 1px solid var(--outline); border-radius: 12px; padding: 10px; }
+.guide .shot img { border-radius: 6px; }
+
+/* Troubleshooting: label per way, text beside it, aligned on wide screens. */
+.guide .checks { list-style: none; padding: 0; gap: 10px; }
+.guide .checks li { display: grid; grid-template-columns: 96px minmax(0, 1fr); gap: 2px 12px; align-items: baseline; }
+@media (max-width: 520px) { .guide .checks li { grid-template-columns: minmax(0, 1fr); } }
+
+.guide .cta { margin-top: 40px; }
+.guide .cta h2 { margin-top: 0; }
+.guide .cta .home-line { font-size: 15px; }
+
+.guide .author { display: flex; gap: 20px; align-items: flex-start; border-top: 1px solid var(--outline); padding-top: 24px; margin-top: 16px; }
+.guide .author .face { width: 72px; height: 72px; }
+.guide .author > div { display: grid; gap: 8px; }
+.guide .author p { color: var(--ink-muted); }

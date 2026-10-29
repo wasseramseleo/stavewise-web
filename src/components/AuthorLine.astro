@@ -1,0 +1,18 @@
+---
+// Byline below the H1 of a guide page (launch § 14.4): small round portrait, author, month of the last update.
+import { Image } from 'astro:assets';
+import portrait from '../assets/team-leo.webp';
+import { guideShared, UPDATED } from '../texts/guide';
+import type { Lang } from '../lib/i18n';
+
+interface Props {
+  lang: Lang;
+}
+
+const { lang } = Astro.props;
+const t = guideShared[lang];
+---
+<p class="byline">
+  <Image class="face" src={portrait} alt="" width={56} format="webp" loading="eager" />
+  <span>{t.bylinePrefix} {t.author} · {t.updatedPrefix} {UPDATED[lang]}</span>
+</p>

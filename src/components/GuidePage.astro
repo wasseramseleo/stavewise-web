@@ -1,0 +1,78 @@
+---
+// A guide page, template variant A "Anleitung" (launch § 14.5 Nr. 1–9): one text column,
+// the direct answer in a box, Stavewise only in the disclosure, the test screenshot and the card at the end.
+import { Image } from 'astro:assets';
+import '../styles/guide.css';
+import Base from '../layouts/Base.astro';
+import AuthorLine from './AuthorLine.astro';
+import AuthorBlock from './AuthorBlock.astro';
+import GuideCta from './GuideCta.astro';
+import GuideText from './GuideText.astro';
+import { guideShared, type GuideTexts } from '../texts/guide';
+import type { Lang, PageName } from '../lib/i18n';
+
+interface Props {
+  lang: Lang;
+  page: PageName;
+  texts: GuideTexts;
+}
+
+const { lang, page, texts: t } = Astro.props;
+const s = guideShared[lang];
+---
+<Base lang={lang} page={page} title={t.title} description={t.description}>
+  <article class="doc guide">
+    <header class="guide-head">
+      <h1>{t.heading} <span class="sub">{t.headingSub}</span></h1>
+      <AuthorLine lang={lang} />
+    </header>
+
+    <div class="box answer">
+      <span class="label">{s.answerLabel}</span>
+      <p><GuideText text={t.answer} /></p>
+    </div>
+    <p class="note disclosure">{s.disclosure} {t.disclosureRest}</p>
+
+    {t.still && (
+      <figure class="still">
+        <Image src={t.still.src} alt={t.still.alt} width={720} widths={[360, 720, 1080]} sizes="(max-width: 760px) 100vw, 720px" format="webp" loading="eager" />
+      </figure>
+    )}
+
+    {t.sections.map((section) => (
+      <>
+        <h2>{section.heading}</h2>
+        {section.blocks.map((block) =>
+          'p' in block ? (
+            <p><GuideText text={block.p} /></p>
+          ) : 'note' in block ? (
+            <p class="note"><GuideText text={block.note} /></p>
+          ) : 'ul' in block ? (
+            <ul>{block.ul.map((item) => <li><GuideText text={item.text} />{item.note && <span class="step-note"> <GuideText text={item.note} /></span>}</li>)}</ul>
+          ) : 'ol' in block ? (
+            <ol>{block.ol.map((item) => <li><GuideText text={item.text} />{item.note && <span class="step-note"> <GuideText text={item.note} /></span>}</li>)}</ol>
+          ) : 'checks' in block ? (
+            <ul class="checks">{block.checks.map(([label, text]) => <li><span class="label">{label}</span> <span><GuideText text={text} /></span></li>)}</ul>
+          ) : 'related' in block ? (
+            <p class="related">{block.related.lead} <a href={block.related.href}>→ {block.related.text}</a></p>
+          ) : (
+            <figure class="shot">
+              <Image src={block.figure.src} alt={block.figure.alt} width={720} widths={[360, 720]} sizes="(max-width: 760px) 100vw, 720px" format="webp" />
+            </figure>
+          ),
+        )}
+      </>
+    ))}
+
+    <h2>{s.questionsHeading}</h2>
+    {t.questions.map((question) => (
+      <>
+        <h3>{question.q}</h3>
+        <p><GuideText text={question.a} /></p>
+      </>
+    ))}
+
+    <GuideCta lang={lang} />
+    <AuthorBlock lang={lang} />
+  </article>
+</Base>

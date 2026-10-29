@@ -49,19 +49,25 @@ export interface HomeTexts {
   teacherAfter: string;
   questionsTitle: string;
   questions: readonly Question[];
+  /** Guide links (launch § 14.6, variant B): line under each card of the ways, without the arrow. */
+  waysGuide: string;
+  /** Line "Mehr dazu" under the answer to the first question: label and texts of the connect and cable links. */
+  moreLabel: string;
+  moreConnect: string;
+  moreCable: string;
 }
 
 export const home: Record<Lang, HomeTexts> = {
   de: {
-    title: 'Stavewise: Noten lesen lernen, indem du sie spielst',
-    description: 'Stavewise trainiert Notenlesen am E-Piano: Melodien mit beiden Händen, für Android, per USB oder Bluetooth-MIDI.',
+    title: 'Stavewise: Noten lesen lernen am E-Piano, App für Android',
+    description: 'Stavewise trainiert Notenlesen am E-Piano: Melodien mit beiden Händen, für Android, per USB oder Bluetooth-MIDI. Kein Abo, offline.',
     heading: 'Noten lesen lernen, indem du sie spielst.',
     subline: 'Melodien mit beiden Händen, an deinem E-Piano. Für Android, per USB oder Bluetooth-MIDI.',
     applyButton: 'Als Tester bewerben',
     applyWindow: 'BETA',
     heroAlt: 'Übung in B-Dur mit Tonart-Leiste und Hilfe zu Notennamen und Tasten',
     readouts: [
-      { label: 'Level', value: '29', note: 'vom ersten Schlüssel bis Moll mit Umkehrungen' },
+      { label: 'Level', value: '65', note: 'vom ersten Schlüssel bis Moll mit Umkehrungen' },
       { label: 'Frei', value: '1–9', note: 'Level ohne Kauf, dazu Statistik und Streak' },
       { label: 'Android', value: '12+', note: 'Phone quer, Tablet in beide Richtungen' },
       { label: 'Konto', value: '0', note: 'offline, die App schickt nichts an uns' },
@@ -103,7 +109,7 @@ export const home: Record<Lang, HomeTexts> = {
     ],
     fullLabel: 'Vollversion',
     fullWell: 'einmal',
-    fullText: 'Level 1 bis 9 sind frei. Die Vollversion mit allen 29 Leveln und dem Sandkasten kaufst du einmal in Google Play: kein Abo, keine Werbung.',
+    fullText: 'Level 1 bis 9 sind frei. Die Vollversion mit allen 65 Leveln und dem Sandkasten kaufst du einmal in Google Play: kein Abo, keine Werbung.',
     teacherLabel: 'Für Klavierlehrer',
     teacherTitle: 'Vollversion kostenlos',
     teacherBefore: 'Wenn du unterrichtest, schreib an',
@@ -135,17 +141,21 @@ export const home: Record<Lang, HomeTexts> = {
         answers: ['Nein, nur für Android.'],
       },
     ],
+    waysGuide: 'Ausführliche Anleitung',
+    moreLabel: 'Mehr dazu',
+    moreConnect: 'E-Piano mit Android verbinden',
+    moreCable: 'Welches Kabel: USB to Host und OTG',
   },
   en: {
-    title: 'Stavewise: Learn to read music by playing it',
-    description: 'Stavewise trains sight reading on your digital piano: melodies with both hands, for Android, via USB or Bluetooth MIDI.',
+    title: 'Stavewise: Sight reading app for your digital piano (Android)',
+    description: 'Stavewise trains sight reading on your digital piano: melodies with both hands, for Android, via USB or Bluetooth MIDI. No subscription, offline.',
     heading: 'Learn to read music by playing it.',
     subline: 'Melodies with both hands, on your own digital piano. For Android, via USB or Bluetooth MIDI.',
     applyButton: 'Apply as a tester',
     applyWindow: 'BETA',
     heroAlt: 'Exercise in B-flat major with the key strip and a hint showing note names and keys',
     readouts: [
-      { label: 'Levels', value: '29', note: 'from the first clef to minor with inversions' },
+      { label: 'Levels', value: '65', note: 'from the first clef to minor with inversions' },
       { label: 'Free', value: '1–9', note: 'levels without buying, plus statistics and streak' },
       { label: 'Android', value: '12+', note: 'phone in landscape, tablet either way' },
       { label: 'Account', value: '0', note: 'offline, the app sends nothing to us' },
@@ -186,7 +196,7 @@ export const home: Record<Lang, HomeTexts> = {
     ],
     fullLabel: 'Full version',
     fullWell: 'once',
-    fullText: 'Levels 1 to 9 are free. The full version with all 29 levels and the sandbox is a one-time purchase in Google Play: no subscription, no ads.',
+    fullText: 'Levels 1 to 9 are free. The full version with all 65 levels and the sandbox is a one-time purchase in Google Play: no subscription, no ads.',
     teacherLabel: 'For piano teachers',
     teacherTitle: 'Full version for free',
     teacherBefore: 'If you teach, write to',
@@ -218,5 +228,10 @@ export const home: Record<Lang, HomeTexts> = {
         answers: ['No, only for Android.'],
       },
     ],
+    // English link texts from spec stavewise#713, open question 2.
+    waysGuide: 'Step-by-step guide',
+    moreLabel: 'More',
+    moreConnect: 'Connect a digital piano to Android',
+    moreCable: 'Which cable: USB to Host and OTG',
   },
 };

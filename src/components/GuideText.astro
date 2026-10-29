@@ -1,0 +1,12 @@
+---
+// Inline text of a guide page: plain strings and links (src/texts/guide.ts → Rich).
+import type { Rich } from '../texts/guide';
+
+interface Props {
+  text: Rich;
+}
+
+const { text } = Astro.props;
+const parts = typeof text === 'string' ? [text] : text;
+---
+{parts.map((part) => (typeof part === 'string' ? part : <a href={part.href}>{part.text}</a>))}
