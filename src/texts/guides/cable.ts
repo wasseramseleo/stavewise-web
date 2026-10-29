@@ -167,7 +167,7 @@ export const cable: Record<Lang, GuideTexts> = {
         heading: 'Womit ich das getestet habe',
         blocks: [
           {
-            p: 'Mein Kabel ist USB-B auf USB-C, ohne Adapter, zwischen meinem Kurzweil KA-E1 und einem Lenovo Tab P12 mit Android 15 und einem Pixel 7 Pro mit Android 17. Das Piano erschien jedes Mal von selbst in der App. Das Bild zeigt eine Übung in Stavewise über dieses Kabel.',
+            p: 'Mein Kabel ist USB-B auf USB-C, ohne Adapter, zwischen meinem Kurzweil KA-E1 und einem Lenovo Tab P12 mit Android 15 und einem Pixel 7 Pro mit Android 17. Das Piano erschien jedes Mal von selbst in der App. Das Bild zeigt eine Übung in Stavewise.',
           },
           {
             figure: {
@@ -355,7 +355,7 @@ export const cable: Record<Lang, GuideTexts> = {
         heading: 'What I tested this with',
         blocks: [
           {
-            p: 'My cable is USB-B to USB-C, no adapter, between my Kurzweil KA-E1 and a Lenovo Tab P12 running Android 15 and a Pixel 7 Pro running Android 17. The piano showed up in the app on its own every time. The screenshot shows an exercise in Stavewise over that cable.',
+            p: 'My cable is USB-B to USB-C, no adapter, between my Kurzweil KA-E1 and a Lenovo Tab P12 running Android 15 and a Pixel 7 Pro running Android 17. The piano showed up in the app on its own every time. The screenshot shows an exercise in Stavewise.',
           },
           {
             figure: {
