@@ -118,7 +118,7 @@ export const cable: Record<Lang, GuideTexts> = {
             ],
           },
           {
-            p: 'Beim Adapter gilt dasselbe: Steht auf der Packung „OTG“, ist er für Zubehör wie Tastatur, Stick oder Piano gedacht. Ohne diesen Hinweis ist es oft nur ein Ladeadapter.',
+            p: 'Beim Adapter gilt dasselbe: Steht auf der Packung „OTG“, ist er für Zubehör wie Tastatur, Stick oder Piano gedacht. Achte darauf, dass der Adapter als OTG-Adapter verkauft wird.',
           },
         ],
       },
@@ -306,7 +306,7 @@ export const cable: Record<Lang, GuideTexts> = {
             ],
           },
           {
-            p: 'The same goes for the adapter: if the box says “OTG”, it is made for accessories like keyboards, sticks or a piano. Without that, it is often just a charging adapter.',
+            p: 'The same goes for the adapter: if the box says “OTG”, it is made for accessories like keyboards, sticks or a piano. Make sure the adapter is sold as a USB OTG adapter.',
           },
         ],
       },
