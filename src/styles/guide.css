@@ -1,0 +1,35 @@
+/* Guide pages, template variant A "Anleitung" (launch § 14.5). Builds on .doc, .box, .card, .btn
+   and .label from base.css; only app tokens, nothing new. */
+
+.guide .guide-head { display: grid; gap: 14px; }
+.guide h1 { margin-bottom: 0; }
+.guide h1 .sub { display: block; font-size: 0.6em; color: var(--ink-muted); font-weight: 500; margin-top: 6px; }
+
+/* Round portrait; initials until the photo rights are confirmed (stavewise#553). The initials
+   come from CSS so the byline text stays "Von Leonard Guelmino · Stand ...". */
+.guide .face { flex: none; border-radius: 50%; display: inline-grid; place-items: center; background: var(--accent); color: var(--primary); font-weight: 600; letter-spacing: 0.02em; }
+.guide .initials::before { content: attr(data-initials); }
+.guide .byline { display: flex; align-items: center; gap: 10px; font-size: 15px; color: var(--ink-muted); }
+.guide .byline .face { width: 28px; height: 28px; font-size: 11px; }
+
+.guide .answer p { font-size: 18px; }
+.guide .step-note { color: var(--ink-muted); }
+
+.guide figure { margin: 0; }
+.guide .still img { border-radius: 12px; }
+.guide .shot { background: var(--surface); border: 1px solid var(--outline); border-radius: 12px; padding: 10px; }
+.guide .shot img { border-radius: 6px; }
+
+/* Troubleshooting: label per way, text beside it, aligned on wide screens. */
+.guide .checks { list-style: none; padding: 0; gap: 10px; }
+.guide .checks li { display: grid; grid-template-columns: 96px minmax(0, 1fr); gap: 2px 12px; align-items: baseline; }
+@media (max-width: 520px) { .guide .checks li { grid-template-columns: minmax(0, 1fr); } }
+
+.guide .cta { margin-top: 40px; }
+.guide .cta h2 { margin-top: 0; }
+.guide .cta .home-line { font-size: 15px; }
+
+.guide .author { display: flex; gap: 20px; align-items: flex-start; border-top: 1px solid var(--outline); padding-top: 24px; margin-top: 16px; }
+.guide .author .face { width: 72px; height: 72px; font-size: 24px; }
+.guide .author > div { display: grid; gap: 8px; }
+.guide .author p { color: var(--ink-muted); }

@@ -1,0 +1,19 @@
+---
+// Author block at the end of a guide page (launch § 14.4, 14.5 Nr. 9). No legal-notice link: it is in the footer.
+import { guideShared } from '../texts/guide';
+import type { Lang } from '../lib/i18n';
+
+interface Props {
+  lang: Lang;
+}
+
+const { lang } = Astro.props;
+const t = guideShared[lang];
+---
+<aside class="author" aria-label={t.authorLabel}>
+  <span class="face initials" data-initials={t.initials} aria-hidden="true"></span>
+  <div>
+    <span class="label">{t.authorLabel}</span>
+    <p>{t.authorText}</p>
+  </div>
+</aside>

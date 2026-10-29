@@ -1,0 +1,22 @@
+---
+// Call to action at the end of a guide page (launch § 14.5 Nr. 8). Today the beta button;
+// at launch (launch § 14.10) only this file and the home page switch to the Play badge.
+import { guideShared } from '../texts/guide';
+import { pathOf, type Lang } from '../lib/i18n';
+
+interface Props {
+  lang: Lang;
+}
+
+const { lang } = Astro.props;
+const t = guideShared[lang];
+---
+<section class="card cta" aria-labelledby="cta-title">
+  <span class="label">{t.ctaLabel}</span>
+  <h2 id="cta-title">{t.ctaTitle}</h2>
+  <p>{t.ctaText}</p>
+  <div class="btn-row">
+    <a class="btn btn-main" href={pathOf(lang, 'beta')}>{t.ctaButton} <span class="win">{t.ctaWindow}</span></a>
+  </div>
+  <p class="home-line">{t.homeLead} <a href={pathOf(lang, 'home')}>{t.homeLink} →</a></p>
+</section>

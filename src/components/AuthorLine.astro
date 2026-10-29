@@ -1,0 +1,16 @@
+---
+// Byline below the H1 of a guide page (launch § 14.4): small round portrait, author, month of the last update.
+import { guideShared, UPDATED } from '../texts/guide';
+import type { Lang } from '../lib/i18n';
+
+interface Props {
+  lang: Lang;
+}
+
+const { lang } = Astro.props;
+const t = guideShared[lang];
+---
+<p class="byline">
+  <span class="face initials" data-initials={t.initials} aria-hidden="true"></span>
+  <span>{t.bylinePrefix} {t.author} · {t.updatedPrefix} {UPDATED[lang]}</span>
+</p>
