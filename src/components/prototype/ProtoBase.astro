@@ -1,0 +1,126 @@
+---
+// PROTOTYPE (#709): copy of layouts/Base.astro with three footer variants
+// (guide group "Ratgeber") and the variant switcher. Never merged.
+import '../../styles/tokens.css';
+import '../../styles/base.css';
+import '../../styles/prototype-ratgeber.css';
+import Wordmark from '../Wordmark.astro';
+import Switcher from './Switcher.astro';
+import { layout } from '../../texts/layout';
+import { guides } from '../../texts/prototype-ratgeber';
+import { pathOf } from '../../lib/i18n';
+import { supportMail } from '../../site';
+
+interface Props {
+  title: string;
+  description: string;
+  variant: 'a' | 'b' | 'c';
+  /** Page kind for the switcher: guide, home. */
+  kind: 'ratgeber' | 'start';
+}
+
+const { title, description, variant, kind } = Astro.props;
+const lang = 'de';
+const t = layout[lang];
+const groups = ['Technik', 'Noten lesen', 'App'];
+const link = (g: (typeof guides)[number]) => (g.current && kind === 'ratgeber' ? null : g.href);
+---
+<!doctype html>
+<html lang={lang}>
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <meta name="color-scheme" content="light dark" />
+    <meta name="robots" content="noindex" />
+    <title>{title}</title>
+    <meta name="description" content={description} />
+    <link rel="icon" href="/favicon.svg" type="image/svg+xml" />
+  </head>
+  <body>
+    <header class="wrap bar">
+      <a class="home-link" href={`/de/prototype-start/${variant}`} aria-label={t.homeLabel}><Wordmark class="wordmark" /></a>
+      <a class="pill" href={pathOf(lang, 'beta')}><span class="led"></span>{t.pill}</a>
+    </header>
+    <main>
+      <slot />
+    </main>
+
+    {variant === 'a' && (
+      <footer class="foot proto-foot-a">
+        <div class="wrap">
+          <div class="brand">
+            <Wordmark class="wordmark" />
+            <span>{t.company}</span>
+          </div>
+          <nav aria-label={t.footerNavLabel}>
+            <a href={pathOf(lang, 'beta')}>{t.beta}</a>
+            <a href={pathOf(lang, 'impressum')}>{t.impressum}</a>
+            <a href={pathOf(lang, 'privacy')}>{t.privacy}</a>
+            <a href={`mailto:${supportMail}`}>{supportMail}</a>
+            <a href="/en/" hreflang="en" lang="en">{t.otherLanguage}</a>
+          </nav>
+        </div>
+        <div class="wrap guides-row">
+          <span class="label">Ratgeber</span>
+          <nav aria-label="Ratgeber">
+            {guides.map((g) => (link(g) ? <a href={link(g)}>{g.short}</a> : <span aria-current="page">{g.short}</span>))}
+          </nav>
+        </div>
+      </footer>
+    )}
+
+    {variant === 'b' && (
+      <footer class="foot proto-foot-b">
+        <div class="wrap">
+          <div class="brand">
+            <Wordmark class="wordmark" />
+            <span>{t.company}</span>
+            <a href="/en/" hreflang="en" lang="en">{t.otherLanguage}</a>
+          </div>
+          <nav aria-label="Ratgeber">
+            <span class="label">Ratgeber</span>
+            <ul>{guides.map((g) => <li>{link(g) ? <a href={link(g)}>{g.short}</a> : <span aria-current="page">{g.short}</span>}</li>)}</ul>
+          </nav>
+          <nav aria-label={t.footerNavLabel}>
+            <span class="label">Stavewise</span>
+            <ul>
+              <li><a href={pathOf(lang, 'beta')}>{t.beta}</a></li>
+              <li><a href={pathOf(lang, 'impressum')}>{t.impressum}</a></li>
+              <li><a href={pathOf(lang, 'privacy')}>{t.privacy}</a></li>
+              <li><a href={`mailto:${supportMail}`}>{supportMail}</a></li>
+            </ul>
+          </nav>
+        </div>
+      </footer>
+    )}
+
+    {variant === 'c' && (
+      <footer class="foot proto-foot-c">
+        <div class="wrap guides-grid">
+          <span class="label">Ratgeber</span>
+          {groups.map((group) => (
+            <div>
+              <span class="group">{group}</span>
+              <ul>{guides.filter((g) => g.group === group).map((g) => <li>{link(g) ? <a href={link(g)}>{g.short}</a> : <span aria-current="page">{g.short}</span>}</li>)}</ul>
+            </div>
+          ))}
+        </div>
+        <div class="wrap">
+          <div class="brand">
+            <Wordmark class="wordmark" />
+            <span>{t.company}</span>
+          </div>
+          <nav aria-label={t.footerNavLabel}>
+            <a href={pathOf(lang, 'beta')}>{t.beta}</a>
+            <a href={pathOf(lang, 'impressum')}>{t.impressum}</a>
+            <a href={pathOf(lang, 'privacy')}>{t.privacy}</a>
+            <a href={`mailto:${supportMail}`}>{supportMail}</a>
+            <a href="/en/" hreflang="en" lang="en">{t.otherLanguage}</a>
+          </nav>
+        </div>
+      </footer>
+    )}
+
+    <Switcher kind={kind} variant={variant} />
+  </body>
+</html>

@@ -1,0 +1,103 @@
+---
+// PROTOTYPE (#709) variant B "Gerät": the home page's language (hero split,
+// readouts, way cards, data sheet). Stavewise visible as the tested setup and
+// as a CTA card next to the test note: product page with a guide.
+import { Image } from 'astro:assets';
+import '../../styles/home.css';
+import { guide as t } from '../../texts/prototype-ratgeber';
+import portrait from '../../assets/prototype/team-leo.jpg';
+import shot from '../../assets/screenshots/de/exercise-hero.png';
+
+const readouts = [
+  { label: 'Wege', value: '2', note: 'USB-Kabel oder Bluetooth-MIDI' },
+  { label: 'Kabel', value: 'B→C', note: 'Datenkabel, kein Ladekabel' },
+  { label: 'Android', value: '6+', note: 'kann MIDI; Apps verlangen oft mehr' },
+  { label: 'Kopplung', value: '0', note: 'Bluetooth-MIDI verbindet die App' },
+];
+---
+<div class="home rg-b">
+  <section class="wrap hero">
+    <div>
+      <span class="label">Ratgeber · Technik</span>
+      <h1>{t.heading}</h1>
+      <p>{t.answer}</p>
+      <p class="byline">
+        <Image src={portrait} alt="" width={56} height={56} class="face" format="webp" />
+        <span>{t.byline} · {t.updated}</span>
+      </p>
+    </div>
+    <div class="panel"><div class="still">{t.demoStill}</div></div>
+  </section>
+
+  <section class="wrap readouts">
+    {readouts.map((r) => (
+      <div class="readout">
+        <span class="label">{r.label}</span>
+        <span class="well">{r.value}</span>
+        <small>{r.note}</small>
+      </div>
+    ))}
+  </section>
+
+  <div class="wrap">
+    <h2>{t.needTitle}</h2>
+    <ul class="need">{t.need.map((n) => <li>{n}</li>)}</ul>
+
+    <h2>Zwei Wege zum Piano</h2>
+    <div class="ways">
+      <div class="card">
+        <h3>Mit USB-Kabel <span class="tag">{t.usbTag}</span></h3>
+        <ol>{t.usbSteps.map((s) => <li>{s.text}{s.note && <em> {s.note}</em>}</li>)}</ol>
+        <p class="aside">{t.usbAside}</p>
+        <a href="#kabel">{t.usbMore} →</a>
+      </div>
+      <div class="card">
+        <h3>Über Bluetooth-MIDI <span class="tag">{t.bleTag}</span></h3>
+        <ol>{t.bleSteps.map((s) => <li>{s.text}{s.note && <em> {s.note}</em>}</li>)}</ol>
+        <p class="aside">{t.bleAside}</p>
+      </div>
+    </div>
+
+    <h2>{t.troubleTitle}</h2>
+    <div class="sheet-box">
+      <table class="sheet trouble">
+        <tbody>{t.trouble.map(([way, check]) => <tr><th scope="row">{way}</th><td>{check}</td></tr>)}</tbody>
+      </table>
+    </div>
+
+    <h2>{t.testedTitle}</h2>
+    <div class="split">
+      <div class="card">
+        <span class="label">Getestet</span>
+        <p>{t.tested}</p>
+        <div class="panel"><Image src={shot} alt={t.shotAlt} width={720} widths={[360, 720]} sizes="(max-width: 820px) 100vw, 540px" format="webp" /></div>
+      </div>
+      <div class="card cta">
+        <span class="label">{t.ctaLabel}</span>
+        <h3>{t.ctaTitle}</h3>
+        <p>{t.ctaText}</p>
+        <div class="btn-row"><a class="btn btn-main" href="/de/beta">{t.ctaButton} <span class="win">{t.ctaWindow}</span></a></div>
+        <p class="proto-note">{t.ctaLaunchNote}</p>
+      </div>
+    </div>
+
+    <h2>{t.faqTitle}</h2>
+    <div class="faq">
+      {t.faq.map((f, i) => (
+        <details open={i === 0}>
+          <summary>{f.q}</summary>
+          <div><p>{f.a}</p></div>
+        </details>
+      ))}
+    </div>
+
+    <aside class="card author">
+      <Image src={portrait} alt="Leonard Guelmino" width={96} height={96} class="face" format="webp" />
+      <div>
+        <span class="label">{t.authorTitle}</span>
+        <p>{t.author}</p>
+        <p><a href="/de/impressum">{t.authorLink}</a></p>
+      </div>
+    </aside>
+  </div>
+</div>

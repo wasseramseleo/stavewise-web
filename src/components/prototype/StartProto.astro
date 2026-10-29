@@ -1,0 +1,129 @@
+---
+// PROTOTYPE (#709): copy of HomePage.astro with three ways to link guide
+// pages 1 and 2 from the way cards and from "Passt mein Klavier?". Never merged.
+import { Image } from 'astro:assets';
+import '../../styles/home.css';
+import { home } from '../../texts/home';
+import { pathOf, type Lang } from '../../lib/i18n';
+import { supportMail } from '../../site';
+import exerciseHero from '../../assets/screenshots/de/exercise-hero.png';
+import exercise from '../../assets/screenshots/de/exercise.png';
+import resultDe from '../../assets/screenshots/de/result.png';
+import resultEn from '../../assets/screenshots/en/result.png';
+import statistics from '../../assets/screenshots/de/statistics.png';
+
+interface Props {
+  lang: Lang;
+  variant: 'a' | 'b' | 'c';
+}
+
+const { lang, variant } = Astro.props;
+const connect = '/de/prototype-ratgeber/' + variant;
+const cable = '#kabel';
+const t = home[lang];
+
+// Placeholders: today's app goldens (phone, landscape), until the Roborazzi
+// screenshots arrive. English uses the _en golden where one exists.
+const shots = [
+  { src: exercise, alt: t.shotAlts.exercise },
+  { src: lang === 'en' ? resultEn : resultDe, alt: t.shotAlts.result },
+  { src: statistics, alt: t.shotAlts.statistics },
+];
+---
+<div class="home">
+  <section class="wrap hero">
+    <div>
+      <h1>{t.heading}</h1>
+      <p>{t.subline}</p>
+      <div class="btn-row">
+        <a class="btn btn-main" href={pathOf(lang, 'beta')}>{t.applyButton} <span class="win">{t.applyWindow}</span></a>
+      </div>
+    </div>
+    <div class="panel">
+      <Image src={exerciseHero} alt={t.heroAlt} width={1280} widths={[640, 1280]} sizes="(max-width: 820px) 100vw, 640px" format="webp" loading="eager" />
+    </div>
+  </section>
+
+  <section class="wrap readouts">
+    {t.readouts.map((r) => (
+      <div class="readout">
+        <span class="label">{r.label}</span>
+        <span class="well">{r.value}</span>
+        <small>{r.note}</small>
+      </div>
+    ))}
+  </section>
+
+  <div class="wrap">
+    <h2>{t.sheetTitle}</h2>
+    <div class="sheet-box">
+      <table class="sheet">
+        <tbody>
+          {t.sheet.map(([what, answer]) => (
+            <tr><th scope="row">{what}</th><td>{answer}</td></tr>
+          ))}
+        </tbody>
+      </table>
+    </div>
+
+    <h2>{t.shotsTitle}</h2>
+    <div class="shots">
+      {shots.map((shot) => (
+        <div class="panel">
+          <Image src={shot.src} alt={shot.alt} width={720} widths={[360, 720]} sizes="(max-width: 820px) 100vw, 360px" format="webp" />
+        </div>
+      ))}
+    </div>
+
+    <h2>{t.waysTitle}</h2>
+    <div class="ways">
+      {t.ways.map((way) => (
+        <div class="card">
+          <h3>{way.title} <span class="tag">{way.tag}</span></h3>
+          <ol>
+            {way.steps.map((step) => <li>{step}</li>)}
+          </ol>
+          {variant === 'a' && <p>Schritt für Schritt, mit Fehlersuche: <a href={connect}>E-Piano mit Android verbinden</a>.</p>}
+          {variant === 'b' && <a class="card-foot" href={connect}>Ausführliche Anleitung <span aria-hidden="true">→</span></a>}
+        </div>
+      ))}
+    </div>
+    {variant === 'c' && (
+      <div class="btn-row ways-more">
+        <a class="btn btn-sec" href={connect}>Anleitung: E-Piano mit Android verbinden →</a>
+        <a class="btn btn-sec" href={cable}>Welches Kabel? →</a>
+      </div>
+    )}
+
+    <div class="split">
+      <div class="card price">
+        <span class="label">{t.fullLabel}</span>
+        <span class="well">{t.fullWell}</span>
+        <p>{t.fullText}</p>
+      </div>
+      <div class="card">
+        <span class="label">{t.teacherLabel}</span>
+        <h3>{t.teacherTitle}</h3>
+        <p>{t.teacherBefore} <a class="mono" href={`mailto:${supportMail}`}>{supportMail}</a>{t.teacherAfter}</p>
+      </div>
+    </div>
+
+    <h2>{t.questionsTitle}</h2>
+    <div class="faq">
+      {t.questions.map((q, i) => (
+        <details open={i === 0}>
+          <summary>{q.question}</summary>
+          {i === 0 && variant === 'a' ? (
+            <div><p>Wenn es eine USB-Buchse „USB to Host“ hat oder Bluetooth-MIDI, sehr wahrscheinlich. Für USB brauchst du zusätzlich einen OTG-Adapter für dein Phone oder Tablet (<a href={cable}>welches Kabel?</a>). Ein akustisches Klavier geht nicht. <a href={connect}>So verbindest du dein E-Piano mit Android</a>.</p></div>
+          ) : i === 0 && variant === 'b' ? (
+            <div>{q.answers.map((a) => <p>{a}</p>)}<p class="more"><span class="label">Mehr dazu</span> <a href={connect}>E-Piano mit Android verbinden</a> · <a href={cable}>Welches Kabel: USB to Host und OTG</a></p></div>
+          ) : i === 0 && variant === 'c' ? (
+            <div>{q.answers.map((a) => <p>{a}</p>)}<div class="btn-row"><a class="btn btn-sec" href={connect}>Verbinden: Anleitung →</a><a class="btn btn-sec" href={cable}>Welches Kabel? →</a></div></div>
+          ) : (
+            <div>{q.answers.map((a) => <p>{a}</p>)}</div>
+          )}
+        </details>
+      ))}
+    </div>
+  </div>
+</div>

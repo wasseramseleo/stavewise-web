@@ -1,0 +1,71 @@
+---
+// PROTOTYPE (#709) variant A "Anleitung": one text column like the legal pages,
+// direct answer in a box, Stavewise only in the disclosure line and at the end.
+import { Image } from 'astro:assets';
+import { guide as t } from '../../texts/prototype-ratgeber';
+import portrait from '../../assets/prototype/team-leo.jpg';
+import shot from '../../assets/screenshots/de/exercise-hero.png';
+---
+<article class="doc rg-a">
+  <header class="rg-head">
+    <h1>{t.heading} <span class="sub">{t.headingSub}</span></h1>
+    <p class="byline">
+      <Image src={portrait} alt="" width={56} height={56} class="face" format="webp" />
+      <span>{t.byline} · {t.updated}</span>
+    </p>
+  </header>
+
+  <div class="box answer">
+    <span class="label">{t.answerLabel}</span>
+    <p>{t.answer}</p>
+  </div>
+  <p class="note">{t.disclosure}</p>
+
+  <div class="still">{t.demoStill}</div>
+
+  <h2>{t.needTitle}</h2>
+  <ul>{t.need.map((n) => <li>{n}</li>)}</ul>
+
+  <h2>{t.usbTitle}</h2>
+  <ol>{t.usbSteps.map((s) => <li>{s.text}{s.note && <span class="step-note"> {s.note}</span>}</li>)}</ol>
+  <p class="note">{t.usbAside}</p>
+  <p><a href="#kabel">{t.usbMore} → USB to Host und OTG: welches Kabel ans Handy oder Tablet</a></p>
+
+  <h2>{t.bleTitle}</h2>
+  <ol>{t.bleSteps.map((s) => <li>{s.text}{s.note && <span class="step-note"> {s.note}</span>}</li>)}</ol>
+  <p class="note">{t.bleAside}</p>
+
+  <h2>{t.troubleTitle}</h2>
+  <ul class="checks">{t.trouble.map(([way, check]) => <li><span class="label">{way}</span> {check}</li>)}</ul>
+
+  <h2>{t.testedTitle}</h2>
+  <p>{t.tested}</p>
+  <figure>
+    <Image src={shot} alt={t.shotAlt} width={720} widths={[360, 720]} sizes="(max-width: 760px) 100vw, 720px" format="webp" />
+  </figure>
+
+  <h2>{t.faqTitle}</h2>
+  {t.faq.map((f) => (
+    <>
+      <h3>{f.q}</h3>
+      <p>{f.a}</p>
+    </>
+  ))}
+
+  <section class="card cta">
+    <span class="label">{t.ctaLabel}</span>
+    <h2>{t.ctaTitle}</h2>
+    <p>{t.ctaText}</p>
+    <div class="btn-row"><a class="btn btn-main" href="/de/beta">{t.ctaButton} <span class="win">{t.ctaWindow}</span></a></div>
+    <p class="proto-note">{t.ctaLaunchNote}</p>
+  </section>
+
+  <aside class="author">
+    <Image src={portrait} alt="Leonard Guelmino" width={96} height={96} class="face" format="webp" />
+    <div>
+      <span class="label">{t.authorTitle}</span>
+      <p>{t.author}</p>
+      <p><a href="/de/impressum">{t.authorLink}</a></p>
+    </div>
+  </aside>
+</article>

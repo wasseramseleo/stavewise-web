@@ -1,0 +1,16 @@
+---
+// PROTOTYPE (#709): guide page 1 in three variants, /de/prototype-ratgeber/a|b|c.
+import ProtoBase from '../../../components/prototype/ProtoBase.astro';
+import RatgeberA from '../../../components/prototype/RatgeberA.astro';
+import RatgeberB from '../../../components/prototype/RatgeberB.astro';
+import RatgeberC from '../../../components/prototype/RatgeberC.astro';
+import { guide } from '../../../texts/prototype-ratgeber';
+
+export const getStaticPaths = () => ['a', 'b', 'c'].map((variant) => ({ params: { variant } }));
+const variant = Astro.params.variant as 'a' | 'b' | 'c';
+---
+<ProtoBase title={guide.title} description={guide.description} variant={variant} kind="ratgeber">
+  {variant === 'a' && <RatgeberA />}
+  {variant === 'b' && <RatgeberB />}
+  {variant === 'c' && <RatgeberC />}
+</ProtoBase>

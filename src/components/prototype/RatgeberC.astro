@@ -1,0 +1,92 @@
+---
+// PROTOTYPE (#709) variant C "Fragen": every heading is a search question with a
+// one-sentence answer first (quotable for AI answers), author up front, a
+// sticky side rail with contents and the Stavewise card. CSS only.
+import { Image } from 'astro:assets';
+import { guide as t } from '../../texts/prototype-ratgeber';
+import portrait from '../../assets/prototype/team-leo.jpg';
+import shot from '../../assets/screenshots/de/exercise-hero.png';
+
+const toc = [
+  ['brauchen', t.needQuestion],
+  ['usb', t.usbQuestion],
+  ['bluetooth', t.bleQuestion],
+  ['fehler', t.troubleQuestion],
+  ['fragen', 'Weitere Fragen'],
+];
+---
+<div class="wrap rg-c">
+  <article>
+    <h1>{t.heading} <span class="sub">{t.headingSub}</span></h1>
+    <div class="author-top">
+      <Image src={portrait} alt="" width={112} height={112} class="face" format="webp" />
+      <div>
+        <b>Leonard Guelmino</b> · <span>{t.updated}</span>
+        <p>{t.authorShort}</p>
+      </div>
+    </div>
+
+    <details class="toc-mobile">
+      <summary>Auf dieser Seite</summary>
+      <ol>{toc.map(([id, q]) => <li><a href={`#${id}`}>{q}</a></li>)}</ol>
+    </details>
+
+    <p class="answer">{t.answer}</p>
+
+    <section id="brauchen">
+      <h2>{t.needQuestion}</h2>
+      <ul>{t.need.map((n) => <li>{n}</li>)}</ul>
+    </section>
+
+    <section id="usb">
+      <h2>{t.usbQuestion}</h2>
+      <p class="lead">{t.usbAnswer}</p>
+      <ol class="steps">{t.usbSteps.map((s) => <li>{s.text}{s.note && <small>{s.note}</small>}</li>)}</ol>
+      <p class="note">{t.usbAside} <a href="#kabel">{t.usbMore}</a></p>
+    </section>
+
+    <section id="bluetooth">
+      <h2>{t.bleQuestion}</h2>
+      <p class="lead">{t.bleAnswer}</p>
+      <ol class="steps">{t.bleSteps.map((s) => <li>{s.text}{s.note && <small>{s.note}</small>}</li>)}</ol>
+      <div class="still">{t.demoStill}</div>
+      <p class="note">{t.bleAside}</p>
+    </section>
+
+    <section id="fehler">
+      <h2>{t.troubleQuestion}</h2>
+      <p class="lead">{t.troubleAnswer}</p>
+      <ul class="checks">{t.trouble.map(([way, check]) => <li><span class="tag">{way}</span> {check}</li>)}</ul>
+      <p class="note">{t.tested}</p>
+    </section>
+
+    <section id="fragen">
+      <h2>Weitere Fragen</h2>
+      {t.faq.map((f) => (
+        <div class="qa">
+          <h3>{f.q}</h3>
+          <p>{f.a}</p>
+        </div>
+      ))}
+    </section>
+
+    <aside class="author-end">
+      <p>{t.author} <a href="/de/impressum">{t.authorLink}</a></p>
+    </aside>
+  </article>
+
+  <aside class="rail">
+    <nav class="toc" aria-label="Auf dieser Seite">
+      <span class="label">Auf dieser Seite</span>
+      <ol>{toc.map(([id, q]) => <li><a href={`#${id}`}>{q}</a></li>)}</ol>
+    </nav>
+    <div class="card cta">
+      <span class="label">Von mir getestet mit</span>
+      <div class="panel"><Image src={shot} alt={t.shotAlt} width={540} widths={[360, 540]} sizes="300px" format="webp" /></div>
+      <h3>Stavewise</h3>
+      <p>Notenlesen am E-Piano trainieren, mit beiden Händen, für Android.</p>
+      <a class="btn btn-main" href="/de/beta">{t.ctaButton} <span class="win">{t.ctaWindow}</span></a>
+      <p class="disclosure">{t.disclosure}</p>
+    </div>
+  </aside>
+</div>
