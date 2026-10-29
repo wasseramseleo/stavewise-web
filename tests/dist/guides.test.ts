@@ -16,6 +16,8 @@ const GUIDES: readonly Guide[] = [
   { lang: 'en', name: 'connect', headingWords: ['digital piano', 'Android'] },
   { lang: 'de', name: 'cable', headingWords: ['USB to Host', 'Kabel'] },
   { lang: 'en', name: 'cable', headingWords: ['cable', 'tablet'] },
+  { lang: 'de', name: 'bassClef', headingWords: ['Bassschlüssel'] },
+  { lang: 'en', name: 'bassClef', headingWords: ['bass clef'] },
 ];
 
 /** Shared wording per language (launch § 14.4). */
@@ -191,5 +193,64 @@ describe('cable (stavewise#717)', () => {
     const line = lines.find((p) => p.querySelector(`a[href="${to}"]`));
     expect(line).toBeDefined();
     expect(text(line).startsWith(lead)).toBe(true);
+  });
+});
+
+describe('bassClef (stavewise#718)', () => {
+  const PATHS = ['/de/bassschluessel-lesen', '/en/read-bass-clef'] as const;
+
+  it('/de/bassschluessel-lesen links its English version', () => {
+    const link = documentOf('/de/bassschluessel-lesen').querySelector('a[hreflang="en"]');
+    expect(link?.getAttribute('href')).toBe('/en/read-bass-clef');
+  });
+
+  it('/en/read-bass-clef links its German version', () => {
+    const link = documentOf('/en/read-bass-clef').querySelector('a[hreflang="de"]');
+    expect(link?.getAttribute('href')).toBe('/de/bassschluessel-lesen');
+  });
+
+  it.each(PATHS)('%s points x-default at the English version', (path) => {
+    const xDefault = documentOf(path)
+      .querySelector('link[rel="alternate"][hreflang="x-default"]')
+      ?.getAttribute('href');
+    expect(xDefault).toBe('https://stavewise.app/en/read-bass-clef');
+  });
+
+  it('lists both versions in the sitemap', () => {
+    const locs = [
+      ...new JSDOM(read('sitemap.xml'), { contentType: 'text/xml' }).window.document.querySelectorAll('loc'),
+    ].map((loc) => loc.textContent);
+    expect(locs).toContain(`${ORIGIN}/de/bassschluessel-lesen`);
+    expect(locs).toContain(`${ORIGIN}/en/read-bass-clef`);
+  });
+
+  // Core pages back their music-theory statements with a linked source (launch § 14.4).
+  it.each(PATHS)('%s links at least one external source in the text', (path) => {
+    const external = [...documentOf(path).querySelectorAll('main a')]
+      .map((a) => a.getAttribute('href') ?? '')
+      .filter((href) => /^https:\/\//.test(href) && !href.startsWith(ORIGIN));
+    expect(external.length).toBeGreaterThanOrEqual(1);
+  });
+
+  // Core pages have no demo still (launch § 14.5 Nr. 5), only the app screenshot in a card.
+  it.each(PATHS)('%s shows the app screenshot in a card and no demo still', (path) => {
+    const doc = documentOf(path);
+    expect(doc.querySelector('main figure.still')).toBeNull();
+    const images = [...doc.querySelectorAll('main figure.shot img')];
+    expect(images).toHaveLength(1);
+    expect(images[0].getAttribute('alt')).not.toBe('');
+  });
+
+  // German note names in German (launch § 8.2 Nr. 4): the bass clef lines read G, H, D, F, A.
+  it('/de/bassschluessel-lesen names the lines with H, /en/read-bass-clef with B', () => {
+    expect(text(documentOf('/de/bassschluessel-lesen').querySelector('main'))).toContain('G, H, D, F, A');
+    expect(text(documentOf('/en/read-bass-clef').querySelector('main'))).toContain('G, B, D, F, A');
+  });
+
+  it.each(PATHS)('%s keeps "Klaviersystem" / "grand staff" out of title and H1', (path) => {
+    const doc = documentOf(path);
+    for (const el of [doc.querySelector('title'), doc.querySelector('h1')]) {
+      expect(text(el)).not.toMatch(/Klaviersystem|grand staff/i);
+    }
   });
 });
