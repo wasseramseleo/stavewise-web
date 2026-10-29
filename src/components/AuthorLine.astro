@@ -13,6 +13,6 @@ const { lang } = Astro.props;
 const t = guideShared[lang];
 ---
 <p class="byline">
-  <Image class="face" src={portrait} alt="" width={56} format="webp" />
+  <Image class="face" src={portrait} alt="" width={56} format="webp" loading="eager" />
   <span>{t.bylinePrefix} {t.author} · {t.updatedPrefix} {UPDATED[lang]}</span>
 </p>

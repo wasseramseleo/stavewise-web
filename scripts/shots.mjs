@@ -55,6 +55,19 @@ try {
       failures.push(`${shot.path}: HTTP ${status ?? 'no response'}`);
     } else {
       await page.evaluate(() => document.fonts.ready);
+      // A full-page shot does not scroll, so lazy images far down would stay empty: load them all first.
+      await page.evaluate(() =>
+        Promise.all(
+          [...document.images].map((img) => {
+            img.loading = 'eager';
+            if (img.complete) return null;
+            return new Promise((done) => {
+              img.addEventListener('load', done, { once: true });
+              img.addEventListener('error', done, { once: true });
+            });
+          }),
+        ),
+      );
       const file = join(OUT, shot.file);
       await page.screenshot({ path: file, fullPage: true });
       const bytes = statSync(file).size;
