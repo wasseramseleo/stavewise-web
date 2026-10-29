@@ -1,5 +1,6 @@
-// `npm run shots` (#603): renders all eight pages (DE/EN) light and dark, wide
-// and narrow, as full-page PNGs into shots/, plus shots/index.html as a gallery
+// `npm run shots` (#603, stavewise#722): renders all nine pages (DE/EN) light
+// and dark, wide and narrow, as full-page PNGs into shots/, copies the two
+// preview images from public/og/, and writes shots/index.html as a gallery
 // for the [Leo] PR. Needs a built dist/ (`npm run build`) and Chromium for
 // Playwright (`npx playwright install chromium`). Not part of `npm run check`.
 // Exits non-zero when a page does not answer 200 or a picture is empty.
@@ -7,12 +8,12 @@
 // Serves dist/ with a small static server in this process instead of
 // `astro preview`: the Astro CLI may hand the server to a detached child
 // process, which would outlive the script.
-import { existsSync, mkdirSync, readFileSync, rmSync, statSync, writeFileSync } from 'node:fs';
+import { copyFileSync, existsSync, mkdirSync, readFileSync, rmSync, statSync, writeFileSync } from 'node:fs';
 import { createServer } from 'node:http';
 import { join } from 'node:path';
 import { fileURLToPath } from 'node:url';
 import { chromium } from 'playwright';
-import { MIN_BYTES, SHOTS, contentType, distFile, indexHtml } from './shots-lib.mjs';
+import { MIN_BYTES, OG_IMAGES, SHOTS, contentType, distFile, indexHtml } from './shots-lib.mjs';
 
 const ROOT = fileURLToPath(new URL('..', import.meta.url));
 const DIST = join(ROOT, 'dist');
@@ -62,6 +63,17 @@ try {
     }
     await context.close();
   }
+  for (const og of OG_IMAGES) {
+    const source = join(ROOT, og.source);
+    if (!existsSync(source)) {
+      failures.push(`${og.source}: missing; run \`npm run og\``);
+      continue;
+    }
+    copyFileSync(source, join(OUT, og.file));
+    const bytes = statSync(source).size;
+    if (bytes <= MIN_BYTES) failures.push(`${og.source}: only ${bytes} bytes`);
+    console.log(`${og.file}  ${Math.round(bytes / 1024)} KB`);
+  }
   writeFileSync(join(OUT, 'index.html'), indexHtml());
 } catch (error) {
   failures.push(String(error?.stack ?? error));
@@ -74,4 +86,4 @@ if (failures.length > 0) {
   console.error(`shots: ${failures.length} failure(s):\n${failures.join('\n')}`);
   process.exit(1);
 }
-console.log(`shots: ${SHOTS.length} pictures and index.html in shots/`);
+console.log(`shots: ${SHOTS.length} pictures, ${OG_IMAGES.length} preview images and index.html in shots/`);
