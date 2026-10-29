@@ -49,12 +49,18 @@ export interface HomeTexts {
   teacherAfter: string;
   questionsTitle: string;
   questions: readonly Question[];
+  /** Guide links (launch § 14.6, variant B): line under each card of the ways, without the arrow. */
+  waysGuide: string;
+  /** Line "Mehr dazu" under the answer to the first question: label and texts of the connect and cable links. */
+  moreLabel: string;
+  moreConnect: string;
+  moreCable: string;
 }
 
 export const home: Record<Lang, HomeTexts> = {
   de: {
-    title: 'Stavewise: Noten lesen lernen, indem du sie spielst',
-    description: 'Stavewise trainiert Notenlesen am E-Piano: Melodien mit beiden Händen, für Android, per USB oder Bluetooth-MIDI.',
+    title: 'Stavewise: Noten lesen lernen am E-Piano, App für Android',
+    description: 'Stavewise trainiert Notenlesen am E-Piano: Melodien mit beiden Händen, für Android, per USB oder Bluetooth-MIDI. Kein Abo, offline.',
     heading: 'Noten lesen lernen, indem du sie spielst.',
     subline: 'Melodien mit beiden Händen, an deinem E-Piano. Für Android, per USB oder Bluetooth-MIDI.',
     applyButton: 'Als Tester bewerben',
@@ -135,10 +141,14 @@ export const home: Record<Lang, HomeTexts> = {
         answers: ['Nein, nur für Android.'],
       },
     ],
+    waysGuide: 'Ausführliche Anleitung',
+    moreLabel: 'Mehr dazu',
+    moreConnect: 'E-Piano mit Android verbinden',
+    moreCable: 'Welches Kabel: USB to Host und OTG',
   },
   en: {
-    title: 'Stavewise: Learn to read music by playing it',
-    description: 'Stavewise trains sight reading on your digital piano: melodies with both hands, for Android, via USB or Bluetooth MIDI.',
+    title: 'Stavewise: Sight reading app for your digital piano (Android)',
+    description: 'Stavewise trains sight reading on your digital piano: melodies with both hands, for Android, via USB or Bluetooth MIDI. No subscription, offline.',
     heading: 'Learn to read music by playing it.',
     subline: 'Melodies with both hands, on your own digital piano. For Android, via USB or Bluetooth MIDI.',
     applyButton: 'Apply as a tester',
@@ -218,5 +228,10 @@ export const home: Record<Lang, HomeTexts> = {
         answers: ['No, only for Android.'],
       },
     ],
+    // English link texts from spec stavewise#713, open question 2.
+    waysGuide: 'Step-by-step guide',
+    moreLabel: 'More',
+    moreConnect: 'Connect a digital piano to Android',
+    moreCable: 'Which cable: USB to Host and OTG',
   },
 };
