@@ -18,12 +18,12 @@ Fertig heißt: `npm run check` ist grün und die Ausgabe ist gezeigt. Die CI (`.
 
 ## Aufbau
 
-- `src/pages/{de,en}/`: die acht Seiten (`index`, `beta`, `privacy`, `impressum`), gebaut als `dist/de/beta/index.html` usw.; unter `/` liegt keine Seite.
+- `src/pages/{de,en}/`: die Seiten (`index`, `beta`, `privacy`, `impressum` und die Ratgeber-Seiten unter ihren Pfaden aus `src/lib/i18n.ts`), gebaut als `dist/de/beta/index.html` usw.; unter `/` liegt keine Seite.
 - `src/lib/i18n.ts`: Seitenregister: Pfade je Sprache (`pathOf`), neutrale Adressen (`neutralPathOf`, `null` für Ratgeber-Seiten), gebaute Seiten (`BUILT_PAGES`).
 - `src/layouts/Base.astro`: Kopf (Schriftzug, Pille „Beta“), Fuß, Sprachlink, `hreflang`, `canonical`, Open Graph, JSON-LD auf den Startseiten.
 - `src/pages/sitemap.xml.ts`: Sitemap über `BUILT_PAGES`; `public/robots.txt` erlaubt alles; `public/logo.png` ist das Organization-Logo (Play-Store-Icon aus `docs/marke/` im Repo `stavewise`).
-- `src/texts/<seite>.ts`: Texte je Seite mit `de` und `en`; Kopf und Fuß in `src/texts/layout.ts`.
-- `src/components/`: `Wordmark.astro`, `BrandMark.astro` (Inline-SVG aus `docs/marke/` im Repo `stavewise`).
+- `src/texts/<seite>.ts`: Texte je Seite mit `de` und `en`; Kopf und Fuß in `src/texts/layout.ts`. Ratgeber-Seiten: gemeinsame Texte, Stand-Datum und Inhaltstypen in `src/texts/guide.ts`, Texte je Seite in `src/texts/guides/<name>.ts`.
+- `src/components/`: `Wordmark.astro`, `BrandMark.astro` (Inline-SVG aus `docs/marke/` im Repo `stavewise`); Vorlage der Ratgeber-Seiten (launch § 14.5, Variante A) als `GuidePage.astro` mit `AuthorLine.astro`, `AuthorBlock.astro`, `GuideCta.astro` und `GuideText.astro`, Stil in `src/styles/guide.css`. `src/assets/guides/demo-still.png` ist ein Standbild aus dem Demo-Clip (`docs/marke/04-demo-clip/` im Repo `stavewise`).
 - `src/styles/tokens.css`: App-Tokens hell und dunkel nach `prefers-color-scheme` (`docs/konzept-v1.md` § 12.5); `src/styles/base.css`: Schriften und Komponenten aus dem Prototyp.
 - `src/site.ts`: `siteUrl`, `supportMail`, `betaFormUrl` (Bewerbungsformular in Microsoft Forms).
 - `public/fonts/`: Instrument Sans und JetBrains Mono als WOFF2 mit OFL-Texten; `public/favicon.svg`.
