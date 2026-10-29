@@ -19,7 +19,9 @@ interface Props {
   kind: 'ratgeber' | 'start';
 }
 
-const { title, description, variant, kind } = Astro.props;
+const { title, description, variant: pageVariant, kind } = Astro.props;
+// Chosen by Leo (#709): footer C on every page.
+const variant = 'c';
 const lang = 'de';
 const t = layout[lang];
 const groups = ['Technik', 'Noten lesen', 'App'];
@@ -38,7 +40,7 @@ const link = (g: (typeof guides)[number]) => (g.current && kind === 'ratgeber' ?
   </head>
   <body>
     <header class="wrap bar">
-      <a class="home-link" href={`/de/prototype-start/${variant}`} aria-label={t.homeLabel}><Wordmark class="wordmark" /></a>
+      <a class="home-link" href={`/de/prototype-start/${pageVariant}`} aria-label={t.homeLabel}><Wordmark class="wordmark" /></a>
       <a class="pill" href={pathOf(lang, 'beta')}><span class="led"></span>{t.pill}</a>
     </header>
     <main>
@@ -121,6 +123,6 @@ const link = (g: (typeof guides)[number]) => (g.current && kind === 'ratgeber' ?
       </footer>
     )}
 
-    <Switcher kind={kind} variant={variant} />
+    <Switcher kind={kind} variant={pageVariant} />
   </body>
 </html>

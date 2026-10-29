@@ -89,7 +89,7 @@ export const guide = {
 
   authorTitle: 'Über den Autor',
   author:
-    'Ich bin Leonard Guelmino. Als Kind habe ich fünf Jahre Klavier gespielt, seit 2025 spiele ich als Erwachsener wieder. Das Notenlesen war dabei mein Engpass. Als Informatiker habe ich mir Stavewise gebaut, zuerst für mich, und teile es jetzt. Ich bin kein Klavierlehrer: Hier steht, was ich beim Üben und beim Testen mit Pianos und Android-Geräten gelernt habe. Stavewise ist meine App, ein Produkt der Mind the Brain FlexCo, Innsbruck.',
+    'Ich bin Leonard Guelmino. Als Kind habe ich fünf Jahre Klavier gespielt, seit 2025 spiele ich als Erwachsener wieder. Das Notenlesen war dabei mein Engpass. Als Informatiker habe ich mir Stavewise gebaut, zuerst für mich, und teile es jetzt.',
   authorShort: 'Wiedereinsteiger am Klavier, Informatiker, Entwickler von Stavewise. Kein Klavierlehrer.',
   authorLink: 'Impressum',
 

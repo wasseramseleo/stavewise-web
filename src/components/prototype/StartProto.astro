@@ -17,7 +17,9 @@ interface Props {
   variant: 'a' | 'b' | 'c';
 }
 
-const { lang, variant } = Astro.props;
+const { lang } = Astro.props;
+// Chosen by Leo (#709): links as a line (B).
+const variant = 'b';
 const connect = '/de/prototype-ratgeber/' + variant;
 const cable = '#kabel';
 const t = home[lang];
