@@ -1,10 +1,11 @@
 ---
-// Body of the home page /de/ and /en/ (variant B "Gerät", #545, #596).
+// Body of the home page /de/ and /en/ (variant B "Gerät", #545, #596); hero
+// with the animated score (engraved score that behaves like an instrument).
 import { Image } from 'astro:assets';
 import '../styles/home.css';
-import { home } from '../texts/home';
+import { claimParts, home } from '../texts/home';
 import { pathOf, type Lang } from '../lib/i18n';
-import { heroShot } from '../lib/screenshots';
+import HeroScore from './HeroScore.astro';
 import { supportMail } from '../site';
 import exercise from '../assets/screenshots/de/exercise.png';
 import resultDe from '../assets/screenshots/de/result.png';
@@ -17,6 +18,7 @@ interface Props {
 
 const { lang } = Astro.props;
 const t = home[lang];
+const [claimLead, claimItalic] = claimParts(t);
 
 // Placeholders: today's app goldens (phone, landscape), until the Roborazzi
 // screenshots arrive. English uses the _en golden where one exists.
@@ -28,16 +30,17 @@ const shots = [
 ---
 <div class="home">
   <section class="wrap hero">
-    <div>
-      <h1>{t.heading}</h1>
-      <p>{t.subline}</p>
-      <div class="btn-row">
-        <a class="btn btn-main" href={pathOf(lang, 'beta')}>{t.applyButton} <span class="win">{t.applyWindow}</span></a>
+    <div class="hero-lead">
+      <h1>{claimLead}<em>{claimItalic}</em></h1>
+      <div class="hero-side">
+        <p>{t.subline}</p>
+        <div class="btn-row">
+          <a class="btn btn-ink" href={pathOf(lang, 'beta')}>{t.applyButton} <span aria-hidden="true">→</span></a>
+          <span class="cta-note">{t.applyNote}</span>
+        </div>
       </div>
     </div>
-    <div class="panel">
-      <Image src={heroShot[lang]} alt={t.heroAlt} width={1280} widths={[640, 1280]} sizes="(max-width: 820px) 100vw, 640px" format="webp" loading="eager" />
-    </div>
+    <HeroScore lang={lang} label={t.scoreLabel} />
   </section>
 
   <section class="wrap readouts">

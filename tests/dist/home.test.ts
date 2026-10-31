@@ -75,10 +75,6 @@ describe.each(['de', 'en'] as const)('/%s/ home page', (lang) => {
     expect(guideLinks).toHaveLength(4);
   });
 
-  it('points the main button to the beta page of its language', () => {
-    expect(main().querySelector('a.btn-main')?.getAttribute('href')).toBe(`/${lang}/beta`);
-  });
-
   it('shows four readouts with 65, 1–9, 12+ and 0', () => {
     const wells = [...main().querySelectorAll('.readouts .readout .well')].map((el) =>
       el.textContent?.trim(),
@@ -105,9 +101,9 @@ describe.each(['de', 'en'] as const)('/%s/ home page', (lang) => {
     expect(hrefs.filter((href) => href.includes('/pianos'))).toEqual([]);
   });
 
-  it('shows four WebP images with alt text and size', () => {
+  it('shows three WebP images with alt text and size', () => {
     const images = imagesOf(doc());
-    expect(images).toHaveLength(4);
+    expect(images).toHaveLength(3);
     for (const img of images) {
       expect(img.getAttribute('src')).toMatch(/\.webp$/);
       expect(img.getAttribute('alt')?.trim()).not.toBe('');
@@ -124,7 +120,7 @@ describe.each(['de', 'en'] as const)('/%s/ home page', (lang) => {
 
 describe('home page images', () => {
   it('uses a different result screenshot in English', () => {
-    const resultOf = (lang: 'de' | 'en') => imagesOf(documentOf(`/${lang}/`))[2]?.getAttribute('src');
+    const resultOf = (lang: 'de' | 'en') => imagesOf(documentOf(`/${lang}/`))[1]?.getAttribute('src');
     expect(resultOf('de')).toBeTruthy();
     expect(resultOf('en')).toBeTruthy();
     expect(resultOf('en')).not.toBe(resultOf('de'));

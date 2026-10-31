@@ -6,8 +6,10 @@
   --primary: #2C3F73; --on-primary: #FFFFFF; --primary-strong: #1B2850;
   --signal-ink: #2C3F73; --mark: #2C3F73; --accent: #E3E7F1;
   --success: #0B6B35; --error: #CF3B28; --n-staff: #555552;
+  --page: #FAFAF8; --n-past: #B4B4AF; --key-white: #FDFDFC; --key-black: #161616;
   --sans: "Instrument Sans", system-ui, -apple-system, "Segoe UI", sans-serif;
   --mono: "JetBrains Mono", ui-monospace, "SFMono-Regular", Menlo, monospace;
+  --serif: "Stavewise Schola", "TeX Gyre Schola", "Century Schoolbook", "C059", Georgia, serif;
   color-scheme: light dark;
 }
 @media (prefers-color-scheme: dark) {
@@ -17,5 +19,6 @@
     --primary: #4F64A8; --on-primary: #FFFFFF; --primary-strong: #36477F;
     --signal-ink: #7A8CC6; --mark: #7A8CC6; --accent: #1F2741;
     --success: #38A064; --error: #DE5444; --n-staff: #80807B;
+    --page: #0F0F0F; --n-past: #4F4F4B; --key-white: #D6D6D2; --key-black: #1A1A1A;
   }
 }
