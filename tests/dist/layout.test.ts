@@ -40,6 +40,13 @@ describe.each(PAGES)('$path', (page) => {
     expect(link.getAttribute('lang')).toBe(other);
   });
 
+  it('calls for testers in the header, gender-inclusive in German', () => {
+    const link = documentOf(page.path).querySelector(`header a[href="${pathOf(page.lang, 'beta')}"]`);
+    expect(link?.textContent?.replace(/\s+/g, ' ').trim()).toBe(
+      page.lang === 'de' ? 'Beta: Tester:innen gesucht' : 'Beta: testers wanted',
+    );
+  });
+
   it('links the beta page of its language in the header', () => {
     const hrefs = [...documentOf(page.path).querySelectorAll('header a')].map((a) =>
       a.getAttribute('href'),

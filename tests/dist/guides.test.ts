@@ -33,7 +33,7 @@ const SHARED = {
     author:
       'Ich bin Leonard Guelmino. Als Kind habe ich fünf Jahre Klavier gespielt, seit 2025 spiele ich als Erwachsener wieder. Das Notenlesen war dabei mein Engpass. Als Informatiker habe ich mir Stavewise gebaut, zuerst für mich, und teile es jetzt.',
     authorLabel: 'Über den Autor',
-    ctaButton: 'Als Tester bewerben BETA',
+    ctaButton: 'Als Tester:in bewerben BETA',
   },
   en: {
     byline: /^By Leonard Guelmino · Updated [A-Z][a-z]+ \d{4}$/,

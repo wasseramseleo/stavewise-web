@@ -92,7 +92,7 @@ export const guideShared: Record<Lang, GuideSharedTexts> = {
     ctaTitle: 'Noten lesen lernen, indem du sie spielst',
     ctaText:
       'Stavewise trainiert Notenlesen an deinem E-Piano: Melodien mit beiden Händen, für Android, per USB oder Bluetooth-MIDI. Gerade läuft der Beta-Test.',
-    ctaButton: 'Als Tester bewerben',
+    ctaButton: 'Als Tester:in bewerben',
     ctaWindow: 'BETA',
     authorLabel: 'Über den Autor',
     authorText:

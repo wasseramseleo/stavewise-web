@@ -14,6 +14,9 @@ const CTA_NOTES = {
   en: 'Android · Beta',
 } as const;
 
+/** German addresses the reader in gender-inclusive form with the colon (Tester:in). */
+const APPLY_BUTTONS = { de: 'Als Tester:in bewerben →', en: 'Apply as a tester →' } as const;
+
 describe.each(['de', 'en'] as const)('/%s/ hero', (lang) => {
   const hero = () => documentOf(`/${lang}/`).querySelector('main .hero')!;
 
@@ -26,6 +29,7 @@ describe.each(['de', 'en'] as const)('/%s/ hero', (lang) => {
     expect(buttons).toHaveLength(1);
     expect(buttons[0]!.classList.contains('btn-ink')).toBe(true);
     expect(buttons[0]!.getAttribute('href')).toBe(`/${lang}/beta`);
+    expect(buttons[0]!.textContent?.replace(/\s+/g, ' ').trim()).toBe(APPLY_BUTTONS[lang]);
     expect(hero().querySelector('.cta-note')?.textContent?.trim()).toBe(CTA_NOTES[lang]);
   });
 

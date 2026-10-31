@@ -7,7 +7,7 @@ const FORM_URL =
 const CASES = [
   {
     path: '/de/beta',
-    heading: 'Tester mit eigenem E-Piano gesucht',
+    heading: 'Tester:innen mit eigenem E-Piano gesucht',
     button: 'Zum Bewerbungsformular',
     privacy: '/de/privacy#website',
   },

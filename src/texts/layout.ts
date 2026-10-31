@@ -9,7 +9,8 @@ export interface GuideGroup {
 export interface LayoutTexts {
   /** aria-label of the wordmark link to the home page. */
   homeLabel: string;
-  pill: string;
+  /** Call for testers in the header, linked to the beta page. */
+  betaLink: string;
   company: string;
   footerNavLabel: string;
   beta: string;
@@ -25,7 +26,7 @@ export interface LayoutTexts {
 export const layout: Record<Lang, LayoutTexts> = {
   de: {
     homeLabel: 'Stavewise Startseite',
-    pill: 'Beta: Tester gesucht',
+    betaLink: 'Beta: Tester:innen gesucht',
     company: 'Ein Produkt der Mind the Brain FlexCo, Innsbruck',
     footerNavLabel: 'Weitere Seiten',
     beta: 'Beta',
@@ -53,7 +54,7 @@ export const layout: Record<Lang, LayoutTexts> = {
   },
   en: {
     homeLabel: 'Stavewise home',
-    pill: 'Beta: testers wanted',
+    betaLink: 'Beta: testers wanted',
     company: 'A product of Mind the Brain FlexCo, Innsbruck',
     footerNavLabel: 'More pages',
     beta: 'Beta',

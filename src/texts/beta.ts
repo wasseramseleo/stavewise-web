@@ -21,14 +21,14 @@ export interface BetaTexts {
 
 export const beta: Record<Lang, BetaTexts> = {
   de: {
-    title: 'Beta: Tester gesucht | Stavewise',
+    title: 'Beta: Tester:innen gesucht | Stavewise',
     description:
-      'Stavewise sucht Tester mit eigenem E-Piano und Android-Gerät für den Test vor dem Start in Google Play.',
+      'Stavewise sucht Tester:innen mit eigenem E-Piano und Android-Gerät für den Test vor dem Start in Google Play.',
     label: 'Beta',
-    heading: 'Tester mit eigenem E-Piano gesucht',
+    heading: 'Tester:innen mit eigenem E-Piano gesucht',
     call: [
       'Stavewise trainiert Notenlesen direkt am E-Piano: Die App zeigt Noten im Klaviersystem, du spielst sie, und die App hört über USB oder Bluetooth-MIDI mit. Kleine Melodien statt Einzelnoten-Drill, beide Hände ab dem ersten Tag, offline und ohne Konto.',
-      'Vor dem Start in Google Play suchen wir 10 bis 20 Tester mit eigenem Digitalpiano und einem Android-Phone oder -Tablet (Android 12 oder neuer). Besonders gesucht sind Digitalpianos mit USB-Anschluss (Yamaha, Casio, Korg, Roland, Kawai, Thomann …) und Samsung-Geräte.',
+      'Vor dem Start in Google Play suchen wir 10 bis 20 Tester:innen mit eigenem Digitalpiano und einem Android-Phone oder -Tablet (Android 12 oder neuer). Besonders gesucht sind Digitalpianos mit USB-Anschluss (Yamaha, Casio, Korg, Roland, Kawai, Thomann …) und Samsung-Geräte.',
     ],
     stepsHeading: 'So läuft es ab',
     steps: [

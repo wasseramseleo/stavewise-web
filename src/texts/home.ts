@@ -1,10 +1,12 @@
 import type { Lang } from '../lib/i18n';
 
-// Home page, variant B "Gerät" with the questions of C (#545, #596).
+// Home page: content of variant B "Gerät" with the questions of C (#545, #596),
+// set as an engraved score that behaves like an instrument.
 // German from #545 and prototype/website (#b); English claim and subline from
 // #539, the English ways from #544, the rest translated in the tone of the EN
 // store listing (open question 1 in #591, Leo checks it in the [Leo] PR).
 // No "real melodies", no price, no "never" (#539, #542 decision 7).
+// German is gender-inclusive with the colon: Tester:in, Klavierlehrer:innen.
 
 export interface Readout {
   label: string;
@@ -43,6 +45,8 @@ export interface HomeTexts {
   sheet: readonly (readonly [string, string])[];
   shotsTitle: string;
   shotAlts: { exercise: string; result: string; statistics: string };
+  /** Short caption line under each screenshot, after its figure number. */
+  shotCaptions: { exercise: string; result: string; statistics: string };
   waysTitle: string;
   ways: readonly Way[];
   fullLabel: string;
@@ -70,7 +74,7 @@ export const home: Record<Lang, HomeTexts> = {
     heading: 'Noten lesen lernen, indem du sie spielst.',
     headingItalic: 'indem du sie spielst.',
     subline: 'Melodien mit beiden Händen, an deinem E-Piano. Für Android, per USB oder Bluetooth-MIDI.',
-    applyButton: 'Als Tester bewerben',
+    applyButton: 'Als Tester:in bewerben',
     applyNote: 'Android · Beta',
     heroAlt: 'Übung in B-Dur mit Tonart-Leiste und Hilfe zu Notennamen und Tasten',
     scoreLabel: 'Notenbeispiel in B-Dur, beide Hände: Die Markierung wartet auf jeder Note, bis die richtigen Tasten gedrückt sind. Richtig gespielte Noten werden grün, ein Fehlgriff erscheint rot.',
@@ -93,6 +97,11 @@ export const home: Record<Lang, HomeTexts> = {
       exercise: 'Übung im Klaviersystem mitten in der Phrase, gespielte Noten grün',
       result: 'Ergebnis: Level gemeistert, mit Genauigkeit, Lösezeit und dem nächsten Level',
       statistics: 'Statistik als Heatmap: welche Noten du sicher liest und welche nicht',
+    },
+    shotCaptions: {
+      exercise: 'Mitten in der Phrase: gespielte Noten werden grün.',
+      result: 'Level gemeistert, mit Genauigkeit und Lösezeit.',
+      statistics: 'Welche Noten du sicher liest und welche nicht.',
     },
     waysTitle: 'Zwei Wege zum Klavier',
     ways: [
@@ -118,7 +127,7 @@ export const home: Record<Lang, HomeTexts> = {
     fullLabel: 'Vollversion',
     fullWell: 'einmal',
     fullText: 'Level 1 bis 9 sind frei. Die Vollversion mit allen 65 Leveln und dem Sandkasten kaufst du einmal in Google Play: kein Abo, keine Werbung.',
-    teacherLabel: 'Für Klavierlehrer',
+    teacherLabel: 'Für Klavierlehrer:innen',
     teacherTitle: 'Vollversion kostenlos',
     teacherBefore: 'Wenn du unterrichtest, schreib an',
     teacherAfter: '; du bekommst einen Code.',
@@ -182,6 +191,11 @@ export const home: Record<Lang, HomeTexts> = {
       exercise: 'Exercise on the grand staff in the middle of a phrase, played notes in green',
       result: 'Result: level mastered, with accuracy, solve time and the next level',
       statistics: 'Statistics as a heatmap: which notes you read confidently and which you don’t',
+    },
+    shotCaptions: {
+      exercise: 'Mid-phrase: played notes turn green.',
+      result: 'Level mastered, with accuracy and solve time.',
+      statistics: 'Which notes you read confidently and which you don’t.',
     },
     waysTitle: 'Two ways to your piano',
     ways: [
