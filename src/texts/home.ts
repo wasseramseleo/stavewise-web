@@ -27,10 +27,16 @@ export interface HomeTexts {
   title: string;
   description: string;
   heading: string;
+  /** End of the claim, set in italic in the hero; must end the heading. */
+  headingItalic: string;
   subline: string;
   applyButton: string;
-  applyWindow: string;
+  /** Small mono note beside the hero button. */
+  applyNote: string;
+  /** Alt text of the screenshot in the preview image (src/pages/og/). */
   heroAlt: string;
+  /** Label of the animated score in the hero. */
+  scoreLabel: string;
   readouts: readonly Readout[];
   sheetTitle: string;
   /** Rows of the data sheet: [what, answer]. */
@@ -62,10 +68,12 @@ export const home: Record<Lang, HomeTexts> = {
     title: 'Stavewise: Noten lesen lernen am E-Piano, App für Android',
     description: 'Stavewise trainiert Notenlesen am E-Piano: Melodien mit beiden Händen, für Android, per USB oder Bluetooth-MIDI. Kein Abo, offline.',
     heading: 'Noten lesen lernen, indem du sie spielst.',
+    headingItalic: 'indem du sie spielst.',
     subline: 'Melodien mit beiden Händen, an deinem E-Piano. Für Android, per USB oder Bluetooth-MIDI.',
     applyButton: 'Als Tester bewerben',
-    applyWindow: 'BETA',
+    applyNote: 'Android · Beta',
     heroAlt: 'Übung in B-Dur mit Tonart-Leiste und Hilfe zu Notennamen und Tasten',
+    scoreLabel: 'Notenbeispiel in B-Dur, beide Hände: Die Markierung wartet auf jeder Note, bis die richtigen Tasten gedrückt sind. Richtig gespielte Noten werden grün, ein Fehlgriff erscheint rot.',
     readouts: [
       { label: 'Level', value: '65', note: 'vom ersten Schlüssel bis Moll mit Umkehrungen' },
       { label: 'Frei', value: '1–9', note: 'Level ohne Kauf, dazu Statistik und Streak' },
@@ -150,10 +158,12 @@ export const home: Record<Lang, HomeTexts> = {
     title: 'Stavewise: Sight reading app for your digital piano (Android)',
     description: 'Stavewise trains sight reading on your digital piano: melodies with both hands, for Android, via USB or Bluetooth MIDI. No subscription, offline.',
     heading: 'Learn to read music by playing it.',
+    headingItalic: 'by playing it.',
     subline: 'Melodies with both hands, on your own digital piano. For Android, via USB or Bluetooth MIDI.',
     applyButton: 'Apply as a tester',
-    applyWindow: 'BETA',
+    applyNote: 'Android · Beta',
     heroAlt: 'Exercise in B-flat major with the key strip and a hint showing note names and keys',
+    scoreLabel: 'Score in B-flat major, both hands: the playhead waits on each note until the right keys are pressed. Notes played correctly turn green, a wrong key shows in red.',
     readouts: [
       { label: 'Levels', value: '65', note: 'from the first clef to minor with inversions' },
       { label: 'Free', value: '1–9', note: 'levels without buying, plus statistics and streak' },
@@ -235,3 +245,9 @@ export const home: Record<Lang, HomeTexts> = {
     moreCable: 'Which cable: USB to Host and OTG',
   },
 };
+
+/** The claim split for setting: [upright lead, italic end]. */
+export function claimParts(t: HomeTexts): readonly [string, string] {
+  if (!t.heading.endsWith(t.headingItalic)) throw new Error(`headingItalic must end the heading: ${t.heading}`);
+  return [t.heading.slice(0, t.heading.length - t.headingItalic.length), t.headingItalic];
+}
