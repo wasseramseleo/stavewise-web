@@ -1,0 +1,156 @@
+---
+// PROTOTYPE (stavewise#825): copy of HomePage.astro; hero, full-version column
+// and questions per variant of the open test. Never merged.
+import { Image } from 'astro:assets';
+import '../../styles/home.css';
+import { claimParts, home } from '../../texts/home';
+import { pathOf, type Lang } from '../../lib/i18n';
+import HeroScore from '../HeroScore.astro';
+import { supportMail } from '../../site';
+import { proto, playUrl, type Variant } from '../../texts/prototype-offen';
+import exercise from '../../assets/screenshots/de/exercise.png';
+import resultDe from '../../assets/screenshots/de/result.png';
+import resultEn from '../../assets/screenshots/en/result.png';
+import statistics from '../../assets/screenshots/de/statistics.png';
+
+interface Props {
+  lang: Lang;
+  variant: Variant;
+}
+
+const { lang, variant } = Astro.props;
+const t = home[lang];
+const p = proto[lang];
+const play = playUrl(lang);
+const badge = `/prototype/badge-${lang}.png`;
+const questions = variant === 'a' ? [...t.questions, { question: p.question.question, answers: [p.question.answer] }] : t.questions;
+const [claimLead, claimItalic] = claimParts(t);
+
+// Placeholders: today's app goldens (phone, landscape), until the Roborazzi
+// screenshots arrive. English uses the _en golden where one exists.
+const shots = [
+  { src: exercise, alt: t.shotAlts.exercise, caption: t.shotCaptions.exercise },
+  { src: lang === 'en' ? resultEn : resultDe, alt: t.shotAlts.result, caption: t.shotCaptions.result },
+  { src: statistics, alt: t.shotAlts.statistics, caption: t.shotCaptions.statistics },
+];
+---
+<div class="home">
+  <section class="wrap hero">
+    <div class="hero-lead">
+      <h1>{claimLead}<em>{claimItalic}</em></h1>
+      <div class="hero-side">
+        <p>{t.subline}</p>
+        {variant === 'a' && (
+          <div class="btn-row">
+            <a class="proto-badge" href={play}><img src={badge} alt={p.badgeAlt} /></a>
+            <span class="cta-note">{p.heroNote.a}</span>
+          </div>
+        )}
+        {variant === 'b' && (
+          <div class="btn-row">
+            <a class="btn btn-ink" href={play}>{p.heroButton} <span aria-hidden="true">→</span></a>
+            <span class="cta-note">{p.heroNote.b}</span>
+          </div>
+        )}
+        {variant === 'c' && (
+          <div class="btn-row">
+            <a class="proto-badge" href={play}><img src={badge} alt={p.badgeAlt} /></a>
+            <a class="cta-note" href={`/${lang}/prototype-offen-beta/c/`}>{p.heroWhat} →</a>
+          </div>
+        )}
+      </div>
+    </div>
+    <HeroScore lang={lang} label={t.scoreLabel} />
+  </section>
+
+  <section class="wrap">
+    <div class="readouts">
+      {t.readouts.map((r) => (
+        <div class="readout">
+          <span class="label">{r.label}</span>
+          <span class:list={["well", { word: r.spelled }]}>{r.value}</span>
+          <small>{r.note}</small>
+        </div>
+      ))}
+    </div>
+  </section>
+
+  <div class="wrap">
+    <section class="section">
+      <div class="section-head"><h2>{t.sheetTitle}</h2></div>
+      <div class="sheet-box">
+        <table class="sheet">
+          <tbody>
+            {t.sheet.map(([what, answer]) => (
+              <tr><th scope="row">{what}</th><td>{answer}</td></tr>
+            ))}
+          </tbody>
+        </table>
+      </div>
+    </section>
+
+    <section class="section">
+      <div class="section-head"><h2>{t.shotsTitle}</h2></div>
+      <div class="shots">
+        {shots.map((shot, i) => (
+          <figure>
+            <div class="panel">
+              <Image src={shot.src} alt={shot.alt} width={720} widths={[360, 720]} sizes="(max-width: 820px) 100vw, 360px" format="webp" />
+            </div>
+            <figcaption><span class="num">{i + 1}</span> <span class="line">{shot.caption}</span></figcaption>
+          </figure>
+        ))}
+      </div>
+    </section>
+
+    <section class="section">
+      <div class="section-head"><h2>{t.waysTitle}</h2></div>
+      <div class="ways">
+        {t.ways.map((way) => (
+          <div class="card">
+            <h3>{way.title} <span class="tag">{way.tag}</span></h3>
+            <ol>
+              {way.steps.map((step) => <li>{step}</li>)}
+            </ol>
+            <a class="card-foot" href={pathOf(lang, 'connect')}>{t.waysGuide} <span aria-hidden="true">→</span></a>
+          </div>
+        ))}
+      </div>
+
+      <div class="split">
+        <div class="card price">
+          <span class="label">{t.fullLabel}</span>
+          <span class="well">{t.fullWell}</span>
+          <p>{variant === 'b' ? p.fullTextB : t.fullText}</p>
+          {variant === 'b' && <a class="proto-badge small" href={play}><img src={badge} alt={p.badgeAlt} /></a>}
+        </div>
+        <div class="card">
+          <span class="label">{t.teacherLabel}</span>
+          <h3>{t.teacherTitle}</h3>
+          <p>{t.teacherBefore} <a class="mono" href={`mailto:${supportMail}`}>{supportMail}</a>{t.teacherAfter}</p>
+        </div>
+      </div>
+    </section>
+
+    <section class="section">
+      <div class="section-head"><h2>{t.questionsTitle}</h2></div>
+      <div class="faq">
+        {questions.map((q, i) => (
+          <details open={i === 0}>
+            <summary>{q.question}</summary>
+            <div>
+              {q.answers.map((a) => <p>{a}</p>)}
+              {i === 0 && (
+                <p class="more">
+                  <span class="label">{t.moreLabel}</span> <a href={pathOf(lang, 'connect')}>{t.moreConnect}</a> <a href={pathOf(lang, 'cable')}>{t.moreCable}</a>
+                </p>
+              )}
+            </div>
+          </details>
+        ))}
+      </div>
+    </section>
+
+    <div class="final" aria-hidden="true"></div>
+  </div>
+</div>

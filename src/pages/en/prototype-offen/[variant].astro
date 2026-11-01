@@ -1,0 +1,13 @@
+---
+// PROTOTYPE (stavewise#825): home page once the open test is live, /en/prototype-offen/a|b|c.
+import ProtoBase from '../../../components/prototype/ProtoBase.astro';
+import ProtoHome from '../../../components/prototype/ProtoHome.astro';
+import { home } from '../../../texts/home';
+import { VARIANTS, type Variant } from '../../../texts/prototype-offen';
+
+export const getStaticPaths = () => VARIANTS.map((variant) => ({ params: { variant } }));
+const variant = Astro.params.variant as Variant;
+---
+<ProtoBase lang="en" title={home.en.title} variant={variant} kind="start">
+  <ProtoHome lang="en" variant={variant} />
+</ProtoBase>

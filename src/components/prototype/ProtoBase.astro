@@ -1,0 +1,81 @@
+---
+// PROTOTYPE (stavewise#825): copy of layouts/Base.astro with the header pill,
+// the notice strip (C) and the footer link per variant. Never merged.
+import '../../styles/tokens.css';
+import '../../styles/base.css';
+import Wordmark from '../Wordmark.astro';
+import Switcher from './Switcher.astro';
+import { layout } from '../../texts/layout';
+import { proto, playUrl, type Variant } from '../../texts/prototype-offen';
+import { otherLang, pathOf, type Lang } from '../../lib/i18n';
+import { supportMail } from '../../site';
+
+interface Props {
+  lang: Lang;
+  title: string;
+  variant: Variant;
+  kind: 'start' | 'beta';
+}
+
+const { lang, title, variant, kind } = Astro.props;
+const t = layout[lang];
+const p = proto[lang];
+const other = otherLang(lang);
+const home = `/${lang}/prototype-offen/${variant}/`;
+const betaPage = `/${lang}/prototype-offen-beta/${variant}/`;
+const pillHref = p.pillTo[variant] === 'play' ? playUrl(lang) : betaPage;
+---
+<!doctype html>
+<html lang={lang}>
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <meta name="color-scheme" content="light dark" />
+    <meta name="robots" content="noindex" />
+    <title>{title}</title>
+    <link rel="icon" href="/favicon.svg" type="image/svg+xml" />
+    <style is:global>
+      .proto-strip { border-bottom: 1px solid var(--outline); background: var(--accent); }
+      .proto-strip .wrap { display: flex; flex-wrap: wrap; align-items: baseline; gap: 6px 14px; padding-block: 10px; font-size: 15px; }
+      .proto-strip .label { display: inline-flex; align-items: center; gap: 8px; font: 500 11px/1.3 var(--mono); letter-spacing: 0.14em; text-transform: uppercase; color: var(--ink); }
+      .proto-strip a { font: 500 12px/1.4 var(--mono); letter-spacing: 0.1em; text-transform: uppercase; color: var(--ink); }
+      .proto-badge { display: inline-block; line-height: 0; }
+      .proto-badge img { height: 56px; width: auto; }
+      .proto-badge.small img { height: 44px; }
+    </style>
+  </head>
+  <body>
+    <header class="wrap bar">
+      <a class="home-link" href={home} aria-label={t.homeLabel}><Wordmark class="wordmark" /></a>
+      {variant !== 'c' && <a class="beta-link" href={pillHref}><span class="led"></span>{p.pill[variant]}</a>}
+    </header>
+    {variant === 'c' && (
+      <div class="proto-strip">
+        <div class="wrap">
+          <span class="label"><span class="led"></span>{p.strip.label}</span>
+          <span>{p.strip.text}</span>
+          {kind === 'start' && <a href={betaPage}>{p.strip.link} →</a>}
+        </div>
+      </div>
+    )}
+    <main>
+      <slot />
+    </main>
+    <footer class="foot">
+      <div class="wrap">
+        <div class="brand">
+          <Wordmark class="wordmark" />
+          <span>{t.company}</span>
+        </div>
+        <nav class="pages" aria-label={t.footerNavLabel}>
+          <a href={betaPage}>{p.footerBeta[variant]}</a>
+          <a href={pathOf(lang, 'impressum')}>{t.impressum}</a>
+          <a href={pathOf(lang, 'privacy')}>{t.privacy}</a>
+          <a class="mail" href={`mailto:${supportMail}`}>{supportMail}</a>
+          <a href={kind === 'start' ? `/${other}/prototype-offen/${variant}/` : `/${other}/prototype-offen-beta/${variant}/`} hreflang={other} lang={other}>{t.otherLanguage}</a>
+        </nav>
+      </div>
+    </footer>
+    <Switcher lang={lang} kind={kind} variant={variant} />
+  </body>
+</html>

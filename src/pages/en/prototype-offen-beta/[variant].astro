@@ -1,0 +1,12 @@
+---
+// PROTOTYPE (stavewise#825): /beta once the open test is live, /en/prototype-offen-beta/a|b|c.
+import ProtoBase from '../../../components/prototype/ProtoBase.astro';
+import ProtoBeta from '../../../components/prototype/ProtoBeta.astro';
+import { proto, VARIANTS, type Variant } from '../../../texts/prototype-offen';
+
+export const getStaticPaths = () => VARIANTS.map((variant) => ({ params: { variant } }));
+const variant = Astro.params.variant as Variant;
+---
+<ProtoBase lang="en" title={proto.en.open.title} variant={variant} kind="beta">
+  <ProtoBeta lang="en" variant={variant} />
+</ProtoBase>

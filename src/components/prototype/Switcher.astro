@@ -1,0 +1,45 @@
+---
+// PROTOTYPE (stavewise#825): floating variant switcher. The only JavaScript is
+// the arrow-key handler; the site itself stays script-free. Never merged.
+import { names, VARIANTS, type Variant } from '../../texts/prototype-offen';
+import type { Lang } from '../../lib/i18n';
+
+interface Props {
+  lang: Lang;
+  kind: 'start' | 'beta';
+  variant: Variant;
+}
+
+const { lang, kind, variant } = Astro.props;
+const seg = kind === 'start' ? 'prototype-offen' : 'prototype-offen-beta';
+const i = VARIANTS.indexOf(variant);
+const at = (v: Variant, l: Lang = lang, s = seg) => `/${l}/${s}/${v}/`;
+const prev = at(VARIANTS[(i + 2) % 3]!);
+const next = at(VARIANTS[(i + 1) % 3]!);
+---
+<nav class="proto-switcher" aria-label="Prototyp-Varianten">
+  <a href={prev} data-proto="prev" aria-label="Vorige Variante">←</a>
+  <span><b>{variant.toUpperCase()}</b> {names[variant]}</span>
+  <a href={next} data-proto="next" aria-label="Nächste Variante">→</a>
+  <span class="sep"></span>
+  <a class={kind === 'start' ? 'on' : ''} href={at(variant, lang, 'prototype-offen')}>Start</a>
+  <a class={kind === 'beta' ? 'on' : ''} href={at(variant, lang, 'prototype-offen-beta')}>/beta</a>
+  <span class="sep"></span>
+  <a class={lang === 'de' ? 'on' : ''} href={at(variant, 'de')}>DE</a>
+  <a class={lang === 'en' ? 'on' : ''} href={at(variant, 'en')}>EN</a>
+</nav>
+<script is:inline>
+  document.addEventListener('keydown', (e) => {
+    if (e.target.closest('input, textarea, [contenteditable]')) return;
+    const dir = e.key === 'ArrowLeft' ? 'prev' : e.key === 'ArrowRight' ? 'next' : null;
+    if (dir) location.href = document.querySelector(`[data-proto="${dir}"]`).href;
+  });
+</script>
+<style is:global>
+  .proto-switcher { position: fixed; left: 50%; bottom: 16px; transform: translateX(-50%); z-index: 99; display: flex; align-items: center; gap: 8px; padding: 8px 12px; border-radius: 999px; background: #ffd400; color: #000; font: 600 13px/1.2 system-ui, sans-serif; box-shadow: 0 6px 24px rgba(0,0,0,.35); white-space: nowrap; }
+  .proto-switcher a { color: #000; text-decoration: none; padding: 4px 8px; border-radius: 999px; }
+  .proto-switcher a:hover { background: rgba(0,0,0,.12); }
+  .proto-switcher a.on { background: #000; color: #ffd400; }
+  .proto-switcher .sep { width: 1px; height: 18px; background: rgba(0,0,0,.3); }
+  @media (max-width: 520px) { .proto-switcher { font-size: 12px; gap: 2px; padding: 6px 8px; } }
+</style>

@@ -1,0 +1,47 @@
+---
+// PROTOTYPE (stavewise#825): /beta per variant. A keeps today's call for the
+// closed test; B explains the open test and closes the call; C explains the
+// open test and keeps the call below. Never merged.
+import BetaContent from '../BetaContent.astro';
+import { proto, playUrl, type Variant } from '../../texts/prototype-offen';
+import { pathOf, type Lang } from '../../lib/i18n';
+import { betaFormUrl, supportMail } from '../../site';
+import { beta } from '../../texts/beta';
+
+interface Props {
+  lang: Lang;
+  variant: Variant;
+}
+
+const { lang, variant } = Astro.props;
+const o = proto[lang].open;
+const b = beta[lang];
+---
+{variant === 'a' ? (
+  <BetaContent lang={lang} formUrl={betaFormUrl} />
+) : (
+  <div class="doc">
+    <span class="label">{o.label}</span>
+    <h1>{o.heading}</h1>
+    <p>{o.lead}</p>
+    <div class="btn-row"><a class="proto-badge" href={playUrl(lang)}><img src={`/prototype/badge-${lang}.png`} alt={proto[lang].badgeAlt} /></a></div>
+    <h2>{o.whatHeading}</h2>
+    <ul>
+      {o.what.map((line) => <li>{line}</li>)}
+    </ul>
+    <p>{o.feedbackBefore} <a class="mono" href={`mailto:${supportMail}`}>{supportMail}</a>{o.feedbackAfter}</p>
+    {variant === 'b' && <p class="note">{o.closedNote}</p>}
+    {variant === 'c' && (
+      <>
+        <h2>{o.teamHeading}</h2>
+        <div class="box beta-form">
+          <p>{o.team}</p>
+          <div class="btn-row">
+            <a class="btn btn-main plain" href={betaFormUrl} rel="noopener">{o.teamButton}</a>
+          </div>
+          <p class="note">{b.privacyBefore}<a href={`${pathOf(lang, 'privacy')}#website`}>{b.privacyLink}</a>{b.privacyAfter}</p>
+        </div>
+      </>
+    )}
+  </div>
+)}
