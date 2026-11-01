@@ -48,7 +48,7 @@ const shots = [
       {t.readouts.map((r) => (
         <div class="readout">
           <span class="label">{r.label}</span>
-          <span class="well">{r.value}</span>
+          <span class:list={["well", { word: r.spelled }]}>{r.value}</span>
           <small>{r.note}</small>
         </div>
       ))}

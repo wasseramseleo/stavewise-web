@@ -12,6 +12,8 @@ export interface Readout {
   label: string;
   value: string;
   note: string;
+  /** The value is a word, not a figure: set in Schola italic like "einmal" of the full version. */
+  spelled?: boolean;
 }
 
 export interface Way {
@@ -82,7 +84,7 @@ export const home: Record<Lang, HomeTexts> = {
       { label: 'Level', value: '65', note: 'vom ersten Schlüssel bis Moll mit Umkehrungen' },
       { label: 'Frei', value: '1–9', note: 'Level ohne Kauf, dazu Statistik und Streak' },
       { label: 'Android', value: '12+', note: 'Phone quer, Tablet in beide Richtungen' },
-      { label: 'Konto', value: '0', note: 'offline, die App schickt nichts an uns' },
+      { label: 'Konto', value: 'keines', spelled: true, note: 'offline, die App schickt nichts an uns' },
     ],
     sheetTitle: 'Was Stavewise macht',
     sheet: [
@@ -177,7 +179,7 @@ export const home: Record<Lang, HomeTexts> = {
       { label: 'Levels', value: '65', note: 'from the first clef to minor with inversions' },
       { label: 'Free', value: '1–9', note: 'levels without buying, plus statistics and streak' },
       { label: 'Android', value: '12+', note: 'phone in landscape, tablet either way' },
-      { label: 'Account', value: '0', note: 'offline, the app sends nothing to us' },
+      { label: 'Account', value: 'none', spelled: true, note: 'offline, the app sends nothing to us' },
     ],
     sheetTitle: 'What Stavewise does',
     sheet: [

@@ -55,6 +55,7 @@ body:has(.home) { background-color: var(--page); background-image: url("data:ima
 .home .readout { background: none; border: 0; border-radius: 0; border-left: 1px solid var(--outline); padding: var(--row-pad) 22px; gap: 10px; align-content: start; }
 .home .readout:first-child { border-left: 0; padding-left: 0; }
 .home .readout .well { background: none; border-radius: 0; padding: 0; font: 500 46px/1 var(--mono); font-variant-numeric: tabular-nums; letter-spacing: -0.03em; }
+.home .readout .well.word { font: italic 400 46px/1 var(--serif); letter-spacing: -0.01em; }
 .home .readout small { font-size: 14px; line-height: 1.4; }
 
 /* Data sheet: a table of contents with dotted leaders, answers in green */
@@ -124,7 +125,7 @@ body:has(.home .final) .foot { border-top: 0; margin-top: 40px; }
   .home .readout:nth-child(odd) { border-left: 0; padding-left: 0; }
   .home .readout:nth-child(even) { padding-left: 16px; padding-right: 0; }
   .home .readout:nth-child(n+3) { border-top: 1px solid var(--outline); }
-  .home .readout .well { font-size: 38px; }
+  .home .readout .well, .home .readout .well.word { font-size: 38px; }
   .home .sheet tr { display: block; padding: calc(var(--row-pad) * 0.6) 0; border-bottom: 1px solid var(--outline); }
   .home .sheet tr:last-child { border-bottom: 0; }
   .home .sheet th, .home .sheet td { display: block; padding: 0; text-align: left; }

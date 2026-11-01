@@ -90,11 +90,11 @@ describe.each(['de', 'en'] as const)('/%s/ home page', (lang) => {
     expect(guideLinks).toHaveLength(4);
   });
 
-  it('shows four readouts with 65, 1–9, 12+ and 0', () => {
+  it('shows four readouts with 65, 1–9, 12+ and no account', () => {
     const wells = [...main().querySelectorAll('.readouts .readout .well')].map((el) =>
       el.textContent?.trim(),
     );
-    expect(wells).toEqual(['65', '1–9', '12+', '0']);
+    expect(wells).toEqual(['65', '1–9', '12+', lang === 'de' ? 'keines' : 'none']);
   });
 
   it('has a data sheet with five rows in German, four in English', () => {
