@@ -70,6 +70,15 @@ describe.each(PAGES)('$path', (page) => {
     );
   });
 
+  it('links /beta in the footer as the open test, never as "Beta"', () => {
+    const links = [...documentOf(page.path).querySelectorAll('footer nav.pages a')].filter(
+      (a) => a.getAttribute('href') === pathOf(page.lang, 'beta'),
+    );
+    expect(links.map((a) => a.textContent?.trim())).toEqual([
+      page.lang === 'de' ? 'Offener Test' : 'Early access',
+    ]);
+  });
+
   it('links the support address in the footer', () => {
     const hrefs = [...documentOf(page.path).querySelectorAll('footer a')].map((a) =>
       a.getAttribute('href'),
