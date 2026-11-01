@@ -1,75 +1,77 @@
 import type { Lang } from '../lib/i18n';
 
+// /beta while the open test runs (launch § 15.8, variant C; spec stavewise#828):
+// the page explains the open test, the call for the closed test team stays
+// below. Texts verbatim from proto.<lang>.open of prototype/offener-test.
+// "Early Access" only where Play shows it to users that way; never "Beta" on
+// its own (launch § 15.1).
+
 export interface BetaTexts {
   title: string;
   description: string;
   label: string;
-  /** Call from #537 ("Beta-Aufruf"), without "echte" / "real". */
   heading: string;
-  call: readonly string[];
-  stepsHeading: string;
-  /** The four steps; DE from prototype/website, EN translated (#591 open question 1). */
-  steps: readonly string[];
-  thanksLead: string;
-  thanksRest: string;
+  lead: string;
+  whatHeading: string;
+  /** The three points: levels and purchase, private reviews, updates. */
+  what: readonly string[];
+  /** Feedback sentence around the support address. */
+  feedbackBefore: string;
+  feedbackAfter: string;
+  /** Call for the closed test team, as long as the closed test runs. */
+  teamHeading: string;
+  team: string;
   formButton: string;
   privacyBefore: string;
   privacyLink: string;
   privacyAfter: string;
-  questions: string;
 }
 
 export const beta: Record<Lang, BetaTexts> = {
   de: {
-    title: 'Beta: Tester:innen gesucht | Stavewise',
+    title: 'Offener Test | Stavewise',
     description:
-      'Stavewise sucht Tester:innen mit eigenem E-Piano und Android-Gerät für den Test vor dem Start in Google Play.',
-    label: 'Beta',
-    heading: 'Tester:innen mit eigenem E-Piano gesucht',
-    call: [
-      'Stavewise trainiert Notenlesen direkt am E-Piano: Die App zeigt Noten im Klaviersystem, du spielst sie, und die App hört über USB oder Bluetooth-MIDI mit. Kleine Melodien statt Einzelnoten-Drill, beide Hände ab dem ersten Tag, offline und ohne Konto.',
-      'Vor dem Start in Google Play suchen wir 10 bis 20 Tester:innen mit eigenem Digitalpiano und einem Android-Phone oder -Tablet (Android 12 oder neuer). Besonders gesucht sind Digitalpianos mit USB-Anschluss (Yamaha, Casio, Korg, Roland, Kawai, Thomann …) und Samsung-Geräte.',
+      'Stavewise ist in Google Play im offenen Test: für alle installierbar, ohne Einladung, Level 1 bis 9 frei. Für den geschlossenen Test suchen wir weiter Tester:innen fürs Testteam.',
+    label: 'Offener Test',
+    heading: 'Stavewise ist im offenen Test',
+    lead: 'Bevor Stavewise offiziell in Google Play startet, ist es für alle als Early Access zu haben. Du installierst es ganz normal aus Google Play, ohne Anmeldung und ohne Einladung.',
+    whatHeading: 'Was das für dich heißt',
+    what: [
+      'Level 1 bis 9 sind frei, die Vollversion kaufst du einmal. Der Kauf ist echt und bleibt dir nach dem Start.',
+      'Google Play zeigt Stavewise als Early Access. Bewertungen gehen bis zum Start privat an uns, nicht öffentlich in den Store.',
+      'Updates kommen über Google Play wie bei jeder App.',
     ],
-    stepsHeading: 'So läuft es ab',
-    steps: [
-      'Du bewirbst dich mit dem Formular unten. Wir wählen so aus, dass möglichst viele verschiedene Klaviere und Geräte dabei sind.',
-      'Wir schalten dein Google-Konto für den Test frei und schicken dir einen Link.',
-      'Du installierst Stavewise über Google Play, verbindest dein Klavier und übst etwa eine halbe Stunde.',
-      'Du füllst einen Fragebogen aus, etwa 10 Minuten.',
-    ],
-    thanksLead: 'Als Dank',
-    thanksRest: ' bekommst du die Vollversion dauerhaft kostenlos.',
+    feedbackBefore: 'Klappt etwas nicht, oder fehlt dir etwas? Schreib an',
+    feedbackAfter: '; mit Piano-Modell und Gerät helfen wir am schnellsten.',
+    teamHeading: 'Ins Testteam',
+    team: 'Für den geschlossenen Test suchen wir weiter Tester:innen mit möglichst verschiedenen Pianos und Geräten. Du übst etwa eine halbe Stunde, füllst einen Fragebogen aus (etwa 10 Minuten) und bekommst als Dank die Vollversion dauerhaft kostenlos.',
     formButton: 'Zum Bewerbungsformular',
     privacyBefore:
       'Das Formular liegt bei Microsoft Forms. Wofür wir deine Angaben nutzen und wann wir sie löschen: ',
     privacyLink: 'Datenschutz, Teil B',
     privacyAfter: '.',
-    questions: 'Fragen?',
   },
   en: {
-    title: 'Beta: testers wanted | Stavewise',
+    title: 'Early access | Stavewise',
     description:
-      'Stavewise is looking for testers with their own digital piano and an Android device before launch on Google Play.',
-    label: 'Beta',
-    heading: 'Looking for testers with a digital piano',
-    call: [
-      'Stavewise trains sight-reading right at your digital piano: the app shows notes on the grand staff, you play them, and the app listens via USB or Bluetooth MIDI. Short melodies instead of single-note drills, both hands from day one, offline, no account.',
-      'Before the Play Store launch we are looking for 10–20 testers with their own digital piano and an Android phone or tablet (Android 12 or newer). Pianos with a USB port (Yamaha, Casio, Korg, Roland, Kawai, Thomann …) and Samsung devices are especially welcome.',
+      'Stavewise is in early access on Google Play: anyone can install it, no invitation, levels 1 to 9 free. For the closed test we are still looking for testers to join the test team.',
+    label: 'Early access',
+    heading: 'Stavewise is in early access',
+    lead: 'Before Stavewise officially launches on Google Play, anyone can get it as early access. You install it from Google Play like any other app, no sign-up, no invitation.',
+    whatHeading: 'What that means for you',
+    what: [
+      'Levels 1 to 9 are free, the full version is a one-time purchase. The purchase is real and stays yours after launch.',
+      'Google Play shows Stavewise as early access. Until launch, reviews go privately to us, not publicly to the store.',
+      'Updates come through Google Play like for any app.',
     ],
-    stepsHeading: 'How it works',
-    steps: [
-      'You apply with the form below. We pick testers so that as many different pianos and devices as possible are covered.',
-      'We unlock your Google account for the test and send you a link.',
-      'You install Stavewise from Google Play, connect your piano and practise for about half an hour.',
-      'You fill in a questionnaire, about 10 minutes.',
-    ],
-    thanksLead: 'As a thank-you',
-    thanksRest: ' you get the full version for free, for good.',
+    feedbackBefore: 'Something not working, or something missing? Write to',
+    feedbackAfter: '; your piano model and device help us most.',
+    teamHeading: 'Join the test team',
+    team: 'For the closed test we are still looking for testers with as many different pianos and devices as possible. You practise for about half an hour, fill in a questionnaire (about 10 minutes) and get the full version for free, for good, as a thank-you.',
     formButton: 'Go to the application form',
     privacyBefore:
       'The form is hosted by Microsoft Forms. What we use your details for and when we delete them: ',
     privacyLink: 'privacy policy, part B',
     privacyAfter: '.',
-    questions: 'Questions?',
   },
 };

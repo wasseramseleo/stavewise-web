@@ -1,6 +1,6 @@
-// Hero of the home page: claim in the engraving serif, ink button, and an
-// animated score instead of the screenshot (src/lib/score.ts): an engraved
-// score that behaves like the app.
+// Hero of the home page: claim in the engraving serif, the Play badge with a
+// mono note (launch § 15.8 Nr. 1), and an animated score instead of the
+// screenshot (src/lib/score.ts): an engraved score that behaves like the app.
 import { describe, expect, it } from 'vitest';
 import { FILES, documentOf, read } from './dist';
 
@@ -10,12 +10,11 @@ const ITALIC_TAILS = {
 } as const;
 
 const CTA_NOTES = {
-  de: 'Android · Beta',
-  en: 'Android · Beta',
+  de: 'Android · offener Test',
+  en: 'Android · early access',
 } as const;
 
-/** German addresses the reader in gender-inclusive form with the colon (Tester:in). */
-const APPLY_BUTTONS = { de: 'Als Tester:in bewerben →', en: 'Apply as a tester →' } as const;
+const BADGE_ALTS = { de: 'Jetzt bei Google Play', en: 'Get it on Google Play' } as const;
 
 describe.each(['de', 'en'] as const)('/%s/ hero', (lang) => {
   const hero = () => documentOf(`/${lang}/`).querySelector('main .hero')!;
@@ -24,17 +23,19 @@ describe.each(['de', 'en'] as const)('/%s/ hero', (lang) => {
     expect(hero().querySelector('h1 em')?.textContent?.trim()).toBe(ITALIC_TAILS[lang]);
   });
 
-  it('has one ink button to the beta page with a mono note beside it', () => {
-    const buttons = hero().querySelectorAll('a.btn');
-    expect(buttons).toHaveLength(1);
-    expect(buttons[0]!.classList.contains('btn-ink')).toBe(true);
-    expect(buttons[0]!.getAttribute('href')).toBe(`/${lang}/beta`);
-    expect(buttons[0]!.textContent?.replace(/\s+/g, ' ').trim()).toBe(APPLY_BUTTONS[lang]);
-    expect(hero().querySelector('.cta-note')?.textContent?.trim()).toBe(CTA_NOTES[lang]);
+  it('has the Play badge to the store listing instead of a button, with a mono note beside it', () => {
+    expect(hero().querySelectorAll('a.btn')).toHaveLength(0);
+    const badges = hero().querySelectorAll('a.play-badge');
+    expect(badges).toHaveLength(1);
+    expect(badges[0]!.getAttribute('href')).toBe(`https://play.google.com/store/apps/details?id=app.stavewise&hl=${lang}`);
+    expect(badges[0]!.querySelector('img')?.getAttribute('alt')).toBe(BADGE_ALTS[lang]);
+    expect(hero().querySelector('.btn-row .cta-note')?.textContent?.trim()).toBe(CTA_NOTES[lang]);
   });
 
-  it('shows no screenshot', () => {
-    expect(hero().querySelectorAll('img')).toHaveLength(0);
+  it('shows no screenshot, only the badge as an image', () => {
+    const images = [...hero().querySelectorAll('img')];
+    expect(images).toHaveLength(1);
+    expect(images[0]!.closest('a.play-badge')).not.toBeNull();
   });
 
   it('draws the score as labelled inline SVG: four bars wide, two bars narrow', () => {

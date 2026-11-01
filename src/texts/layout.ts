@@ -9,10 +9,13 @@ export interface GuideGroup {
 export interface LayoutTexts {
   /** aria-label of the wordmark link to the home page. */
   homeLabel: string;
-  /** Call for testers in the header, linked to the beta page. */
-  betaLink: string;
+  /** Pill in the header, linked to the store listing on Google Play (launch § 15.8 Nr. 2). */
+  playLink: string;
   company: string;
+  /** Trademark line Google asks for wherever the badge is shown (launch § 15.8 Nr. 5). */
+  trademark: string;
   footerNavLabel: string;
+  /** Footer link to /beta, the page about the open test (launch § 15.8, /beta Nr. 3). */
   beta: string;
   impressum: string;
   privacy: string;
@@ -26,10 +29,11 @@ export interface LayoutTexts {
 export const layout: Record<Lang, LayoutTexts> = {
   de: {
     homeLabel: 'Stavewise Startseite',
-    betaLink: 'Beta: Tester:innen gesucht',
+    playLink: 'Early Access in Google Play',
     company: 'Ein Produkt der Mind the Brain FlexCo, Innsbruck',
+    trademark: 'Google Play und das Google Play-Logo sind Marken von Google LLC.',
     footerNavLabel: 'Weitere Seiten',
-    beta: 'Beta',
+    beta: 'Offener Test',
     impressum: 'Impressum',
     privacy: 'Datenschutz',
     otherLanguage: 'English',
@@ -54,10 +58,11 @@ export const layout: Record<Lang, LayoutTexts> = {
   },
   en: {
     homeLabel: 'Stavewise home',
-    betaLink: 'Beta: testers wanted',
+    playLink: 'Early access on Google Play',
     company: 'A product of Mind the Brain FlexCo, Innsbruck',
+    trademark: 'Google Play and the Google Play logo are trademarks of Google LLC.',
     footerNavLabel: 'More pages',
-    beta: 'Beta',
+    beta: 'Early access',
     impressum: 'Legal notice',
     privacy: 'Privacy policy',
     otherLanguage: 'Deutsch',
