@@ -1,5 +1,7 @@
 ---
-// Body of the beta page, shared by /de/beta and /en/beta (#597).
+// Body of the beta page, shared by /de/beta and /en/beta (#597): the open test
+// explained, the call for the closed test team below (launch § 15.8, variant C).
+import PlayBadge from './PlayBadge.astro';
 import { beta } from '../texts/beta';
 import { pathOf, type Lang } from '../lib/i18n';
 import { supportMail } from '../site';
@@ -16,17 +18,19 @@ const t = beta[lang];
 <div class="doc">
   <span class="label">{t.label}</span>
   <h1>{t.heading}</h1>
-  {t.call.map((paragraph) => <p>{paragraph}</p>)}
-  <h2>{t.stepsHeading}</h2>
-  <ol>
-    {t.steps.map((step) => <li>{step}</li>)}
-  </ol>
+  <p>{t.lead}</p>
+  <div class="btn-row"><PlayBadge lang={lang} /></div>
+  <h2>{t.whatHeading}</h2>
+  <ul>
+    {t.what.map((point) => <li>{point}</li>)}
+  </ul>
+  <p>{t.feedbackBefore} <a class="mono" href={`mailto:${supportMail}`}>{supportMail}</a>{t.feedbackAfter}</p>
+  <h2>{t.teamHeading}</h2>
   <div class="box beta-form">
-    <p><b>{t.thanksLead}</b>{t.thanksRest}</p>
+    <p>{t.team}</p>
     <div class="btn-row">
       <a class="btn btn-main plain" href={formUrl} rel="noopener">{t.formButton}</a>
     </div>
     <p class="note">{t.privacyBefore}<a href={`${pathOf(lang, 'privacy')}#website`}>{t.privacyLink}</a>{t.privacyAfter}</p>
   </div>
-  <p class="note">{t.questions} <a class="mono" href={`mailto:${supportMail}`}>{supportMail}</a></p>
 </div>

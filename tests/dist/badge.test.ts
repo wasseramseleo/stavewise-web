@@ -10,9 +10,9 @@ const BADGES = {
 
 const LANGS = ['de', 'en'] as const;
 
-/** Every badge image on the pages that show it: home page and the five guides. */
+/** Every badge image on the pages that show it: home page, the five guides and /beta. */
 const PAGES_WITH_BADGE = LANGS.flatMap((lang) =>
-  (['home', 'connect', 'cable', 'bassClef', 'bothHands', 'app'] as const).map((name) => ({ lang, path: pathOf(lang, name) })),
+  (['home', 'connect', 'cable', 'bassClef', 'bothHands', 'app', 'beta'] as const).map((name) => ({ lang, path: pathOf(lang, name) })),
 );
 
 const viewBoxOf = (svg: string) => /<svg[^>]*viewBox="([^"]+)"/.exec(svg)?.[1];
