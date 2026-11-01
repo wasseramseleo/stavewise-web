@@ -13,7 +13,7 @@ const { lang } = Astro.props;
 const t = guideShared[lang];
 ---
 <aside class="author" aria-label={t.authorLabel}>
-  <Image class="face" src={portrait} alt="" width={144} format="webp" />
+  <Image class="face" src={portrait} alt={t.portraitAlt} width={144} format="webp" />
   <div>
     <span class="label">{t.authorLabel}</span>
     <p>{t.authorText}</p>
