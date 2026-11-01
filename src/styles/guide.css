@@ -5,7 +5,7 @@
 .guide h1 { margin-bottom: 0; }
 .guide h1 .sub { display: block; font-size: 0.6em; color: var(--ink-muted); font-weight: 500; margin-top: 6px; }
 
-/* Round portrait (stavewise#553: photo rights confirmed). Decorative: the author's name stands next to it. */
+/* Round portrait (stavewise#553: photo rights confirmed). Alt text in guideShared.portraitAlt: Bing counts an empty alt as missing. */
 .guide .face { flex: none; border-radius: 50%; object-fit: cover; background: var(--accent); }
 .guide .byline { display: flex; align-items: center; gap: 10px; font-size: 15px; color: var(--ink-muted); }
 .guide .byline .face { width: 28px; height: 28px; }

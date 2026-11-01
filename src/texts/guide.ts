@@ -62,6 +62,8 @@ export const UPDATED = { de: 'November 2026', en: 'November 2026' } as const sat
 
 export interface GuideSharedTexts {
   author: string;
+  /** Alt text of the author portrait in the byline and the author block. */
+  portraitAlt: string;
   bylinePrefix: string;
   updatedPrefix: string;
   answerLabel: string;
@@ -84,6 +86,7 @@ export interface GuideSharedTexts {
 export const guideShared: Record<Lang, GuideSharedTexts> = {
   de: {
     author: 'Leonard Guelmino',
+    portraitAlt: 'Porträt von Leonard Guelmino',
     bylinePrefix: 'Von',
     updatedPrefix: 'Stand',
     answerLabel: 'Kurz gesagt',
@@ -103,6 +106,7 @@ export const guideShared: Record<Lang, GuideSharedTexts> = {
   },
   en: {
     author: 'Leonard Guelmino',
+    portraitAlt: 'Portrait of Leonard Guelmino',
     bylinePrefix: 'By',
     updatedPrefix: 'Updated',
     answerLabel: 'In short',
