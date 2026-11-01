@@ -11,9 +11,6 @@ body:has(.home) { background-color: var(--page); background-image: url("data:ima
 .home .hero h1 em { font-style: italic; }
 .home .hero-side p { font-family: var(--serif); font-style: italic; font-size: 21px; line-height: 1.45; color: var(--ink-muted); max-width: 36ch; }
 .home .hero .btn-row { margin-top: 28px; gap: 14px; }
-.home .btn-ink { background: var(--ink); color: var(--paper); border-radius: 2px; padding: 0 22px; }
-.home .btn-ink:hover { background: var(--primary-strong); color: var(--on-primary); }
-.home .cta-note { font: 500 11px/1.3 var(--mono); letter-spacing: 0.1em; text-transform: uppercase; color: var(--ink-muted); }
 
 /* The score: still frame by default, src/lib/score.ts adds the animation. */
 .home .score { display: block; width: 100%; height: auto; overflow: visible; }

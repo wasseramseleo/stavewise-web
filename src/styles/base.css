@@ -32,11 +32,14 @@ img { display: block; height: auto; max-width: 100%; }
 @media (max-width: 400px) { .bar .wordmark { height: 22px; } .beta-link { font-size: 11px; letter-spacing: 0.08em; } }
 .led { flex: none; width: 8px; height: 8px; background: var(--success); }
 
-/* Buttons as in the app: main button with readout window, secondary */
+/* Buttons: main button (beta form), secondary */
 .btn { display: inline-flex; align-items: center; gap: 12px; min-height: 48px; padding: 0 20px; border-radius: 8px; font: 600 16px/1.2 var(--sans); text-decoration: none; border: 1px solid transparent; }
 .btn-main { background: var(--primary); color: var(--on-primary); padding-right: 6px; }
-.btn-main .win { font: 700 14px/1 var(--mono); background: var(--primary-strong); border-radius: 5px; padding: 10px; letter-spacing: 0.04em; }
 .btn-main.plain { padding-right: 20px; }
+/* Ink button with a mono note beside it: the call for testers on the home page and the guides */
+.btn-ink { background: var(--ink); color: var(--paper); border-radius: 2px; padding: 0 22px; }
+.btn-ink:hover { background: var(--primary-strong); color: var(--on-primary); }
+.cta-note { font: 500 11px/1.3 var(--mono); letter-spacing: 0.1em; text-transform: uppercase; color: var(--ink-muted); }
 .btn-sec { background: transparent; color: var(--ink); border-color: var(--outline); }
 .btn[aria-disabled="true"] { opacity: 0.55; cursor: not-allowed; }
 .btn-row { display: flex; flex-wrap: wrap; gap: 12px; align-items: center; }
