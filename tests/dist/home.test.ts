@@ -22,6 +22,20 @@ const GUIDE_LINKS = {
   en: { ways: 'Step-by-step guide →', more: 'More' },
 } as const;
 
+/** Captions under the three screenshots: figure number, then the line. */
+const CAPTIONS = {
+  de: [
+    ['1', 'Mitten in der Phrase: gespielte Noten werden grün.'],
+    ['2', 'Level gemeistert, mit Genauigkeit und Lösezeit.'],
+    ['3', 'Welche Noten du sicher liest und welche nicht.'],
+  ],
+  en: [
+    ['1', 'Mid-phrase: played notes turn green.'],
+    ['2', 'Level mastered, with accuracy and solve time.'],
+    ['3', 'Which notes you read confidently and which you don’t.'],
+  ],
+} as const;
+
 const textOf = (el: Element | null | undefined) => el?.textContent?.replace(/\s+/g, ' ').trim();
 
 const imagesOf = (doc: Document) => [...doc.querySelectorAll('main img')];
@@ -60,6 +74,7 @@ describe.each(['de', 'en'] as const)('/%s/ home page', (lang) => {
     const first = main().querySelectorAll('.faq details')[0]!;
     const more = first.querySelector('p.more');
     expect(textOf(more?.querySelector('.label'))).toBe(GUIDE_LINKS[lang].more);
+    expect(textOf(more)).not.toContain('·');
     const hrefs = [...(more?.querySelectorAll('a') ?? [])].map((a) => a.getAttribute('href'));
     expect(hrefs).toEqual(
       lang === 'de'
@@ -75,11 +90,11 @@ describe.each(['de', 'en'] as const)('/%s/ home page', (lang) => {
     expect(guideLinks).toHaveLength(4);
   });
 
-  it('shows four readouts with 65, 1–9, 12+ and 0', () => {
+  it('shows four readouts with 65, 1–9, 12+ and no account', () => {
     const wells = [...main().querySelectorAll('.readouts .readout .well')].map((el) =>
       el.textContent?.trim(),
     );
-    expect(wells).toEqual(['65', '1–9', '12+', '0']);
+    expect(wells).toEqual(['65', '1–9', '12+', lang === 'de' ? 'keines' : 'none']);
   });
 
   it('has a data sheet with five rows in German, four in English', () => {
@@ -110,6 +125,22 @@ describe.each(['de', 'en'] as const)('/%s/ home page', (lang) => {
       expect(Number(img.getAttribute('width'))).toBeGreaterThan(0);
       expect(Number(img.getAttribute('height'))).toBeGreaterThan(0);
     }
+  });
+
+  it('addresses teachers, gender-inclusive in German', () => {
+    const labels = [...main().querySelectorAll('.split .label')].map((el) => textOf(el));
+    expect(labels).toContain(lang === 'de' ? 'Für Klavierlehrer:innen' : 'For piano teachers');
+  });
+
+  it('captions each screenshot as a numbered figure', () => {
+    const figures = [...main().querySelectorAll('.shots figure')];
+    expect(figures).toHaveLength(3);
+    expect(figures.map((f) => f.querySelector('img'))).not.toContain(null);
+    const captions = figures.map((f) => [
+      textOf(f.querySelector('figcaption .num')),
+      textOf(f.querySelector('figcaption .line')),
+    ]);
+    expect(captions).toEqual(CAPTIONS[lang]);
   });
 
   it('links the support address for teachers', () => {

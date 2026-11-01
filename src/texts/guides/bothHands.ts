@@ -96,7 +96,7 @@ export const bothHands: Record<Lang, GuideTexts> = {
           {
             p: [
               'Wer gut vom Blatt spielt, liest beim Spielen schon weiter: ',
-              { text: 'Gute Blattspieler erfassen den weiteren Verlauf einer Passage im Voraus', href: WIKI_SIGHT_DE },
+              { text: 'Gute Blattspieler:innen erfassen den weiteren Verlauf einer Passage im Voraus', href: WIKI_SIGHT_DE },
               ' und erkennen wiederkehrende Muster als Orientierungspunkte, statt jede Note einzeln zu entziffern.',
             ],
           },

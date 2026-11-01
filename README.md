@@ -21,7 +21,7 @@ Fertig heißt: `npm run check` ist grün und die Ausgabe ist gezeigt. Die CI (`.
 
 - `src/pages/{de,en}/`: die Seiten (`index`, `beta`, `privacy`, `impressum` und die Ratgeber-Seiten unter ihren Pfaden aus `src/lib/i18n.ts`), gebaut als `dist/de/beta/index.html` usw.; unter `/` liegt keine Seite.
 - `src/lib/i18n.ts`: Seitenregister: Pfade je Sprache (`pathOf`), neutrale Adressen (`neutralPathOf`, `null` für Ratgeber-Seiten), gebaute Seiten (`BUILT_PAGES`).
-- `src/layouts/Base.astro`: Kopf (Schriftzug, Pille „Beta“), Fuß, Sprachlink, `hreflang`, `canonical`, Open Graph, JSON-LD auf den Startseiten.
+- `src/layouts/Base.astro`: Kopf (Schriftzug, Mono-Link „Beta: Tester:innen gesucht“), Fuß als Register, Sprachlink, `hreflang`, `canonical`, Open Graph, JSON-LD auf den Startseiten.
 - `src/pages/og/[lang].astro`: Quelle der Vorschaubilder, `noindex`, nicht in `BUILT_PAGES` und nicht in der Sitemap; die Bilder liegen unter `public/og/`.
 - `src/pages/sitemap.xml.ts`: Sitemap über `BUILT_PAGES`; `public/robots.txt` erlaubt alles; `public/logo.png` ist das Organization-Logo (Play-Store-Icon aus `docs/marke/` im Repo `stavewise`).
 - `src/texts/<seite>.ts`: Texte je Seite mit `de` und `en`; Kopf und Fuß in `src/texts/layout.ts`. Ratgeber-Seiten: gemeinsame Texte, Stand-Datum und Inhaltstypen in `src/texts/guide.ts`, Texte je Seite in `src/texts/guides/<name>.ts`.
