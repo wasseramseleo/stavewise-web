@@ -73,9 +73,6 @@ export interface GuideSharedTexts {
   /** Claim of the home page, without the full stop. */
   ctaTitle: string;
   ctaText: string;
-  ctaButton: string;
-  /** Small mono note beside the button, as in the hero of the home page. */
-  ctaNote: string;
   authorLabel: string;
   /** Author block, wording of launch § 14.4. */
   authorText: string;
@@ -96,8 +93,6 @@ export const guideShared: Record<Lang, GuideSharedTexts> = {
     ctaTitle: 'Noten lesen lernen, indem du sie spielst',
     ctaText:
       'Stavewise trainiert Notenlesen an deinem E-Piano: Melodien mit beiden Händen, für Android, per USB oder Bluetooth-MIDI. Gerade läuft der Beta-Test.',
-    ctaButton: 'Als Tester:in bewerben',
-    ctaNote: 'Android · Beta',
     authorLabel: 'Über den Autor',
     authorText:
       'Ich bin Leonard Guelmino. Als Kind habe ich fünf Jahre Klavier gespielt, seit 2025 spiele ich als Erwachsener wieder. Das Notenlesen war dabei mein Engpass. Als Informatiker habe ich mir Stavewise gebaut, zuerst für mich, und teile es jetzt.',
@@ -116,8 +111,6 @@ export const guideShared: Record<Lang, GuideSharedTexts> = {
     ctaTitle: 'Learn to read music by playing it',
     ctaText:
       'Stavewise trains sight-reading on your own digital piano: short melodies with both hands, on Android, over USB or Bluetooth MIDI. The beta test is running now.',
-    ctaButton: 'Apply as a tester',
-    ctaNote: 'Android · Beta',
     authorLabel: 'About the author',
     authorText:
       "I'm Leonard Guelmino. I played piano for five years as a child and came back to it as an adult in 2025. Reading music was what held me back, so, being a software developer, I built Stavewise for myself first and now I'm sharing it.",

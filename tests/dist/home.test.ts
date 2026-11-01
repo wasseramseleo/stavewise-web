@@ -36,9 +36,26 @@ const CAPTIONS = {
   ],
 } as const;
 
+/** Sixth question, word for word (launch § 15.8 Nr. 3, stavewise#830). */
+const EARLY_ACCESS = {
+  de: {
+    question: 'Was heißt Early Access?',
+    answer:
+      'Stavewise ist in Google Play im offenen Test, bevor es offiziell startet. Jede:r kann es installieren, ohne Einladung. Die Vollversion ist ein normaler Kauf und bleibt dir auch nach dem Start. Bewertungen gehen bis dahin privat an uns statt öffentlich in den Store.',
+    link: 'Mehr zum offenen Test',
+  },
+  en: {
+    question: 'What does early access mean?',
+    answer:
+      'Stavewise is in open testing on Google Play before its official launch. Anyone can install it, no invitation needed. The full version is a regular purchase and stays yours after launch. Until then, reviews go privately to us instead of publicly to the store.',
+    link: 'More about early access',
+  },
+} as const;
+
 const textOf = (el: Element | null | undefined) => el?.textContent?.replace(/\s+/g, ' ').trim();
 
-const imagesOf = (doc: Document) => [...doc.querySelectorAll('main img')];
+/** Content images of the page; the Play badge in the hero is tested in hero.test.ts and badge.test.ts. */
+const imagesOf = (doc: Document) => [...doc.querySelectorAll('main img')].filter((img) => !img.closest('.play-badge'));
 
 describe.each(['de', 'en'] as const)('/%s/ home page', (lang) => {
   const path = `/${lang}/`;
@@ -101,10 +118,21 @@ describe.each(['de', 'en'] as const)('/%s/ home page', (lang) => {
     expect(main().querySelectorAll('.sheet tr')).toHaveLength(lang === 'de' ? 5 : 4);
   });
 
-  it('has five questions as <details>, the first one open', () => {
+  it('has six questions as <details>, the first one open', () => {
     const details = [...main().querySelectorAll('details')];
-    expect(details).toHaveLength(5);
-    expect(details.map((d) => d.hasAttribute('open'))).toEqual([true, false, false, false, false]);
+    expect(details).toHaveLength(6);
+    expect(details.map((d) => d.hasAttribute('open'))).toEqual([true, false, false, false, false, false]);
+  });
+
+  it('explains early access in the sixth question and links /beta from the answer', () => {
+    const last = [...main().querySelectorAll('.faq details')].at(-1)!;
+    expect(textOf(last.querySelector('summary'))).toBe(EARLY_ACCESS[lang].question);
+    const paragraphs = [...last.querySelectorAll('div > p')];
+    expect(textOf(paragraphs[0])).toBe(EARLY_ACCESS[lang].answer);
+    const links = [...last.querySelectorAll('a')];
+    expect(links).toHaveLength(1);
+    expect(links[0]!.getAttribute('href')).toBe(`/${lang}/beta`);
+    expect(textOf(links[0])).toBe(EARLY_ACCESS[lang].link);
   });
 
   it('promises no "real melodies", names no price and links no pianos page', () => {

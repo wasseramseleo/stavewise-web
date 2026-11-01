@@ -1,0 +1,17 @@
+---
+// Official Google Play badge (launch § 15.8), self-hosted and unchanged from
+// Google's badge page: public/badges/google-play-<lang>.svg. Both files share
+// one viewBox without inner margin, so the same height looks the same in both
+// languages. Google's rules: at least 28px high, a quarter of the height as
+// clear space (the gap of .btn-row). One component for the hero, the guides and /beta.
+import { play } from '../texts/play';
+import { playUrl } from '../site';
+import type { Lang } from '../lib/i18n';
+
+interface Props {
+  lang: Lang;
+}
+
+const { lang } = Astro.props;
+---
+<a class="play-badge" href={playUrl(lang)}><img src={`/badges/google-play-${lang}.svg`} alt={play[lang].badgeAlt} width="162" height="48" /></a>
