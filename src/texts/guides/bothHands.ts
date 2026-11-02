@@ -6,7 +6,8 @@
 // (launch § 14.5). "Klaviersystem" / "grand staff" stay out of title and H1 (launch § 14.3).
 import { pathOf, type Lang } from '../../lib/i18n';
 import type { GuideTexts } from '../guide';
-import shot from '../../assets/screenshots/de/exercise.png';
+import shotDe from '../../assets/screenshots/de/exercise-hero.png';
+import shotEn from '../../assets/screenshots/en/exercise-hero.png';
 
 const WIKI_SYSTEM_DE = 'https://de.wikipedia.org/wiki/Notensystem_(Musik)#Akkolade';
 const WIKI_CLEFS_DE = 'https://de.wikipedia.org/wiki/Notenschl%C3%BCssel';
@@ -127,12 +128,12 @@ export const bothHands: Record<Lang, GuideTexts> = {
         heading: 'Wie ich beide Hände übe',
         blocks: [
           {
-            p: 'Ich übe am E-Piano: Die App zeigt kurze Melodien im Klaviersystem, ich spiele sie Note für Note, und sie prüft per MIDI jede Taste. Wo beide Hände spielen, wartet sie, bis beide Tasten gedrückt sind. Das Bild zeigt eine Übung in Stavewise im Level „Beide Hände“: oben die Melodie, unten der Bass.',
+            p: 'Ich übe am E-Piano: Die App zeigt kurze Melodien im Klaviersystem, ich spiele sie Note für Note, und sie prüft per MIDI jede Taste. Wo beide Hände spielen, wartet sie, bis beide Tasten gedrückt sind. Das Bild zeigt eine Übung in Stavewise in B-Dur: oben die rechte, unten die linke Hand.',
           },
           {
             figure: {
-              src: shot,
-              alt: 'Eine Übung in Stavewise im Level „Beide Hände“: Melodie im Violinschlüssel, Basstöne im Bassschlüssel, an manchen Stellen genau übereinander',
+              src: shotDe,
+              alt: 'Eine Übung in Stavewise in B-Dur: Akkorde und Einzelnoten im Violin- und im Bassschlüssel, an manchen Stellen genau übereinander',
             },
           },
         ],
@@ -267,12 +268,12 @@ export const bothHands: Record<Lang, GuideTexts> = {
         heading: 'How I practise both hands',
         blocks: [
           {
-            p: 'I practise at the digital piano: the app shows short melodies on the grand staff, I play them note by note, and it checks every key over MIDI. Where both hands play, it waits until both keys are down. The screenshot shows an exercise in Stavewise at the level “Both hands”: the melody on top, the bass below.',
+            p: 'I practise at the digital piano: the app shows short melodies on the grand staff, I play them note by note, and it checks every key over MIDI. Where both hands play, it waits until both keys are down. The screenshot shows an exercise in Stavewise in B-flat major: the right hand on top, the left hand below.',
           },
           {
             figure: {
-              src: shot,
-              alt: 'An exercise in Stavewise at the level “Both hands”: a melody in treble clef, bass notes in bass clef, some of them lined up vertically',
+              src: shotEn,
+              alt: 'An exercise in Stavewise in B-flat major: chords and single notes in treble and bass clef, some of them lined up vertically',
             },
           },
         ],

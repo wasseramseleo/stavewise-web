@@ -5,7 +5,8 @@
 // The forum links show the problem, they are not a source for theory.
 import { pathOf, type Lang } from '../../lib/i18n';
 import type { GuideTexts } from '../guide';
-import shot from '../../assets/screenshots/de/exercise.png';
+import shotDe from '../../assets/screenshots/de/exercise.png';
+import shotEn from '../../assets/screenshots/en/exercise.png';
 
 const WIKI_CLEFS_DE = 'https://de.wikipedia.org/wiki/Notenschl%C3%BCssel';
 const WIKI_LEDGER_DE = 'https://de.wikipedia.org/wiki/Hilfslinie#Noten_in_der_Musik';
@@ -132,7 +133,7 @@ export const bassClef: Record<Lang, GuideTexts> = {
           },
           {
             figure: {
-              src: shot,
+              src: shotDe,
               alt: 'Eine Übung in Stavewise im Klaviersystem: oben der Violinschlüssel, unten der Bassschlüssel mit den Noten der linken Hand',
             },
           },
@@ -270,7 +271,7 @@ export const bassClef: Record<Lang, GuideTexts> = {
           },
           {
             figure: {
-              src: shot,
+              src: shotEn,
               alt: 'An exercise in Stavewise on the grand staff: treble clef at the top, bass clef with the left-hand notes below',
             },
           },
