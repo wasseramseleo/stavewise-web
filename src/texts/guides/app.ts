@@ -6,7 +6,8 @@
 // the disclosure and the closing card (launch § 14.5). No amount (launch § 6.1).
 import { pathOf, type Lang } from '../../lib/i18n';
 import type { GuideTexts } from '../guide';
-import shot from '../../assets/screenshots/de/exercise.png';
+import shotDe from '../../assets/screenshots/de/exercise-hero.png';
+import shotEn from '../../assets/screenshots/en/exercise-hero.png';
 
 /** Date the Play listings and help pages below were read. */
 const CHECKED = { de: '29. Oktober 2026', en: '29 October 2026' } as const;
@@ -187,12 +188,12 @@ export const app: Record<Lang, GuideTexts> = {
             p: 'Stavewise ist ein Trainer fürs Notenlesen: Die App zeigt kurze Melodien im Klaviersystem, du spielst sie mit beiden Händen am E-Piano, und sie prüft jede Taste per USB- oder Bluetooth-MIDI; das Piano koppelt sie selbst. Sie läuft offline und ohne Konto, auf Android ab Version 12. Zum Preis: Level 1 bis 9 frei, die Vollversion kaufst du einmal in Google Play, kein Abo.',
           },
           {
-            p: 'Was sie nicht kann: Sie hört nicht über das Mikrofon, ein akustisches Klavier geht also nicht. Es gibt keine Songs und keine Fassung für das iPhone, und gerade läuft noch der Beta-Test. Das Bild zeigt eine Übung im Level „Beide Hände“.',
+            p: 'Was sie nicht kann: Sie hört nicht über das Mikrofon, ein akustisches Klavier geht also nicht. Es gibt keine Songs und keine Fassung für das iPhone, und gerade läuft noch der Beta-Test. Das Bild zeigt eine Übung in B-Dur, in der beide Hände Akkorde spielen.',
           },
           {
             figure: {
-              src: shot,
-              alt: 'Eine Übung in Stavewise im Level „Beide Hände“: Melodie im Violinschlüssel, Basstöne im Bassschlüssel',
+              src: shotDe,
+              alt: 'Eine Übung in Stavewise in B-Dur: Akkorde und Einzelnoten im Violin- und im Bassschlüssel',
             },
           },
         ],
@@ -375,12 +376,12 @@ export const app: Record<Lang, GuideTexts> = {
             p: 'Stavewise is a trainer for reading music: it shows short melodies on the grand staff, you play them with both hands on your digital piano, and it checks every key over USB or Bluetooth MIDI; it pairs the piano itself. It works offline and without an account, on Android 12 and later. On price: Levels 1 to 9 are free, you buy the full version once in Google Play, no subscription.',
           },
           {
-            p: 'What it can’t do: it doesn’t listen through the microphone, so an acoustic piano won’t work. There are no songs and no iPhone version, and the beta test is still running. The screenshot shows an exercise at the level “Both hands”.',
+            p: 'What it can’t do: it doesn’t listen through the microphone, so an acoustic piano won’t work. There are no songs and no iPhone version, and the beta test is still running. The screenshot shows an exercise in B-flat major with chords in both hands.',
           },
           {
             figure: {
-              src: shot,
-              alt: 'An exercise in Stavewise at the level “Both hands”: a melody in treble clef, bass notes in bass clef',
+              src: shotEn,
+              alt: 'An exercise in Stavewise in B-flat major: chords and single notes in treble and bass clef',
             },
           },
         ],
