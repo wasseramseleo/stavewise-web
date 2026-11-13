@@ -40,18 +40,43 @@ describe.each(PAGES)('$path', (page) => {
     expect(link.getAttribute('lang')).toBe(other);
   });
 
-  it('calls for testers in the header, gender-inclusive in German', () => {
-    const link = documentOf(page.path).querySelector(`header a[href="${pathOf(page.lang, 'beta')}"]`);
+  it('points to early access on Google Play in the header pill, with its LED', () => {
+    const link = documentOf(page.path).querySelector('header a.play-link');
+    expect(link?.getAttribute('href')).toBe(
+      `https://play.google.com/store/apps/details?id=app.stavewise&hl=${page.lang}`,
+    );
+    expect(link?.querySelector('.led')).not.toBeNull();
     expect(link?.textContent?.replace(/\s+/g, ' ').trim()).toBe(
-      page.lang === 'de' ? 'Beta: Tester:innen gesucht' : 'Beta: testers wanted',
+      page.lang === 'de' ? 'Early Access in Google Play' : 'Early access on Google Play',
     );
   });
 
-  it('links the beta page of its language in the header', () => {
+  it('links the home page and Google Play in the header, nothing else', () => {
     const hrefs = [...documentOf(page.path).querySelectorAll('header a')].map((a) =>
       a.getAttribute('href'),
     );
-    expect(hrefs).toContain(pathOf(page.lang, 'beta'));
+    expect(hrefs).toEqual([
+      pathOf(page.lang, 'home'),
+      `https://play.google.com/store/apps/details?id=app.stavewise&hl=${page.lang}`,
+    ]);
+  });
+
+  it('carries the Google Play trademark line in the footer', () => {
+    const line = documentOf(page.path).querySelector('footer .trademark');
+    expect(line?.textContent?.trim()).toBe(
+      page.lang === 'de'
+        ? 'Google Play und das Google Play-Logo sind Marken von Google LLC.'
+        : 'Google Play and the Google Play logo are trademarks of Google LLC.',
+    );
+  });
+
+  it('links /beta in the footer as the open test, never as "Beta"', () => {
+    const links = [...documentOf(page.path).querySelectorAll('footer nav.pages a')].filter(
+      (a) => a.getAttribute('href') === pathOf(page.lang, 'beta'),
+    );
+    expect(links.map((a) => a.textContent?.trim())).toEqual([
+      page.lang === 'de' ? 'Offener Test' : 'Early access',
+    ]);
   });
 
   it('links the support address in the footer', () => {

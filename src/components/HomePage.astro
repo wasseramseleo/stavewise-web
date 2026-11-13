@@ -6,6 +6,8 @@ import '../styles/home.css';
 import { claimParts, home } from '../texts/home';
 import { pathOf, type Lang } from '../lib/i18n';
 import HeroScore from './HeroScore.astro';
+import PlayBadge from './PlayBadge.astro';
+import { play } from '../texts/play';
 import { supportMail } from '../site';
 import exerciseDe from '../assets/screenshots/de/exercise.png';
 import exerciseEn from '../assets/screenshots/en/exercise.png';
@@ -38,8 +40,8 @@ const shots = [
       <div class="hero-side">
         <p>{t.subline}</p>
         <div class="btn-row">
-          <a class="btn btn-ink" href={pathOf(lang, 'beta')}>{t.applyButton} <span aria-hidden="true">→</span></a>
-          <span class="cta-note">{t.applyNote}</span>
+          <PlayBadge lang={lang} />
+          <span class="cta-note">{play[lang].note}</span>
         </div>
       </div>
     </div>
@@ -126,6 +128,9 @@ const shots = [
                 <p class="more">
                   <span class="label">{t.moreLabel}</span> <a href={pathOf(lang, 'connect')}>{t.moreConnect}</a> <a href={pathOf(lang, 'cable')}>{t.moreCable}</a>
                 </p>
+              )}
+              {q.link && (
+                <p class="more"><a href={pathOf(lang, q.link.page)}>{q.link.text}</a></p>
               )}
             </div>
           </details>

@@ -34,8 +34,8 @@ const SHARED = {
     author:
       'Ich bin Leonard Guelmino. Als Kind habe ich fünf Jahre Klavier gespielt, seit 2025 spiele ich als Erwachsener wieder. Das Notenlesen war dabei mein Engpass. Als Informatiker habe ich mir Stavewise gebaut, zuerst für mich, und teile es jetzt.',
     authorLabel: 'Über den Autor',
-    ctaButton: 'Als Tester:in bewerben →',
-    ctaNote: 'Android · Beta',
+    badgeAlt: 'Jetzt bei Google Play',
+    ctaNote: 'Android · offener Test',
   },
   en: {
     byline: /^By Leonard Guelmino · Updated [A-Z][a-z]+ \d{4}$/,
@@ -45,8 +45,8 @@ const SHARED = {
     author:
       "I'm Leonard Guelmino. I played piano for five years as a child and came back to it as an adult in 2025. Reading music was what held me back, so, being a software developer, I built Stavewise for myself first and now I'm sharing it.",
     authorLabel: 'About the author',
-    ctaButton: 'Apply as a tester →',
-    ctaNote: 'Android · Beta',
+    badgeAlt: 'Get it on Google Play',
+    ctaNote: 'Android · early access',
   },
 } as const;
 
@@ -80,16 +80,16 @@ describe.each(GUIDES)('$lang $name', (guide) => {
     expect(text(disclosure).startsWith(shared.disclosureStart)).toBe(true);
   });
 
-  it('ends with the Stavewise card linking the beta page with the ink button of the home page', () => {
+  it('ends with the Stavewise card showing the Play badge and note of the home page hero', () => {
     const card = main().querySelector('.cta');
     expect(card).not.toBeNull();
-    const buttons = card!.querySelectorAll('a.btn');
-    expect(buttons).toHaveLength(1);
-    const button = buttons[0]!;
-    expect(button.classList.contains('btn-ink')).toBe(true);
-    expect(button.getAttribute('href')).toBe(pathOf(guide.lang, 'beta'));
-    expect(text(button)).toBe(shared.ctaButton);
-    expect(text(card!.querySelector('.cta-note'))).toBe(shared.ctaNote);
+    expect(card!.querySelectorAll('a.btn')).toHaveLength(0);
+    const badges = card!.querySelectorAll('.btn-row a.play-badge');
+    expect(badges).toHaveLength(1);
+    expect(badges[0]!.getAttribute('href')).toBe(`https://play.google.com/store/apps/details?id=app.stavewise&hl=${guide.lang}`);
+    expect(badges[0]!.querySelector('img')?.getAttribute('alt')).toBe(shared.badgeAlt);
+    expect(text(card!.querySelector('.btn-row .cta-note'))).toBe(shared.ctaNote);
+    expect(card!.querySelector(`a[href="${pathOf(guide.lang, 'beta')}"]`)).toBeNull();
   });
 
   it('has the author block with the wording of launch § 14.4', () => {

@@ -1,9 +1,11 @@
 ---
-// Call to action at the end of a guide page (launch § 14.5 Nr. 8). Today the beta button,
-// the same ink button with mono note as in the hero of the home page;
-// at launch (launch § 14.10) only this file and the home page switch to the Play badge.
+// Call to action at the end of a guide page (launch § 14.5 Nr. 8): the Play
+// badge with the mono note beside it, the same as in the hero of the home page
+// (launch § 15.8 Nr. 4).
 import { guideShared } from '../texts/guide';
+import { play } from '../texts/play';
 import { pathOf, type Lang } from '../lib/i18n';
+import PlayBadge from './PlayBadge.astro';
 
 interface Props {
   lang: Lang;
@@ -17,8 +19,8 @@ const t = guideShared[lang];
   <h2 id="cta-title">{t.ctaTitle}</h2>
   <p>{t.ctaText}</p>
   <div class="btn-row">
-    <a class="btn btn-ink" href={pathOf(lang, 'beta')}>{t.ctaButton} <span aria-hidden="true">→</span></a>
-    <span class="cta-note">{t.ctaNote}</span>
+    <PlayBadge lang={lang} />
+    <span class="cta-note">{play[lang].note}</span>
   </div>
   <p class="home-line">{t.homeLead} <a href={pathOf(lang, 'home')}>{t.homeLink} →</a></p>
 </section>

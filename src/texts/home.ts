@@ -1,4 +1,4 @@
-import type { Lang } from '../lib/i18n';
+import type { Lang, PageName } from '../lib/i18n';
 
 // Home page: content of variant B "Gerät" with the questions of C (#545, #596),
 // set as an engraved score that behaves like an instrument.
@@ -25,6 +25,8 @@ export interface Way {
 export interface Question {
   question: string;
   answers: readonly string[];
+  /** Link line under the answer, to another page of the site. */
+  link?: { text: string; page: PageName };
 }
 
 export interface HomeTexts {
@@ -34,9 +36,6 @@ export interface HomeTexts {
   /** End of the claim, set in italic in the hero; must end the heading. */
   headingItalic: string;
   subline: string;
-  applyButton: string;
-  /** Small mono note beside the hero button. */
-  applyNote: string;
   /** Alt text of the screenshot in the preview image (src/pages/og/). */
   heroAlt: string;
   /** Label of the animated score in the hero. */
@@ -76,8 +75,6 @@ export const home: Record<Lang, HomeTexts> = {
     heading: 'Noten lesen lernen, indem du sie spielst.',
     headingItalic: 'indem du sie spielst.',
     subline: 'Melodien mit beiden Händen, an deinem E-Piano. Für Android, per USB oder Bluetooth-MIDI.',
-    applyButton: 'Als Tester:in bewerben',
-    applyNote: 'Android · Beta',
     heroAlt: 'Übung in B-Dur mit Tonart-Leiste, Akkorde in beiden Händen',
     scoreLabel: 'Notenbeispiel in B-Dur, beide Hände: Die Markierung wartet auf jeder Note, bis die richtigen Tasten gedrückt sind. Richtig gespielte Noten werden grün, ein Fehlgriff erscheint rot.',
     readouts: [
@@ -159,6 +156,14 @@ export const home: Record<Lang, HomeTexts> = {
         question: 'Gibt es Stavewise für iPhone?',
         answers: ['Nein, nur für Android.'],
       },
+      // Open test (launch § 15.8 Nr. 3); goes away at production (§ 12.2 step 14).
+      {
+        question: 'Was heißt Early Access?',
+        answers: [
+          'Stavewise ist in Google Play im offenen Test, bevor es offiziell startet. Jede:r kann es installieren, ohne Einladung. Die Vollversion ist ein normaler Kauf und bleibt dir auch nach dem Start. Bewertungen gehen bis dahin privat an uns statt öffentlich in den Store.',
+        ],
+        link: { text: 'Mehr zum offenen Test', page: 'beta' },
+      },
     ],
     waysGuide: 'Ausführliche Anleitung',
     moreLabel: 'Mehr dazu',
@@ -171,8 +176,6 @@ export const home: Record<Lang, HomeTexts> = {
     heading: 'Learn to read music by playing it.',
     headingItalic: 'by playing it.',
     subline: 'Melodies with both hands, on your own digital piano. For Android, via USB or Bluetooth MIDI.',
-    applyButton: 'Apply as a tester',
-    applyNote: 'Android · Beta',
     heroAlt: 'Exercise in B-flat major with the key strip, chords in both hands',
     scoreLabel: 'Score in B-flat major, both hands: the playhead waits on each note until the right keys are pressed. Notes played correctly turn green, a wrong key shows in red.',
     readouts: [
@@ -252,6 +255,14 @@ export const home: Record<Lang, HomeTexts> = {
       {
         question: 'Is there Stavewise for iPhone?',
         answers: ['No, only for Android.'],
+      },
+      // Open test (launch § 15.8 Nr. 3); goes away at production (§ 12.2 step 14).
+      {
+        question: 'What does early access mean?',
+        answers: [
+          'Stavewise is in open testing on Google Play before its official launch. Anyone can install it, no invitation needed. The full version is a regular purchase and stays yours after launch. Until then, reviews go privately to us instead of publicly to the store.',
+        ],
+        link: { text: 'More about early access', page: 'beta' },
       },
     ],
     // English link texts from spec stavewise#713, open question 2.
