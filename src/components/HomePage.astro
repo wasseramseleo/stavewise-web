@@ -9,10 +9,12 @@ import HeroScore from './HeroScore.astro';
 import PlayBadge from './PlayBadge.astro';
 import { play } from '../texts/play';
 import { supportMail } from '../site';
-import exercise from '../assets/screenshots/de/exercise.png';
+import exerciseDe from '../assets/screenshots/de/exercise.png';
+import exerciseEn from '../assets/screenshots/en/exercise.png';
 import resultDe from '../assets/screenshots/de/result.png';
 import resultEn from '../assets/screenshots/en/result.png';
-import statistics from '../assets/screenshots/de/statistics.png';
+import statisticsDe from '../assets/screenshots/de/statistics.png';
+import statisticsEn from '../assets/screenshots/en/statistics.png';
 
 interface Props {
   lang: Lang;
@@ -22,12 +24,13 @@ const { lang } = Astro.props;
 const t = home[lang];
 const [claimLead, claimItalic] = claimParts(t);
 
-// Placeholders: today's app goldens (phone, landscape), until the Roborazzi
-// screenshots arrive. English uses the _en golden where one exists.
+// The phone screenshots of the Play listing (stavewise app/src/main/play/listings/),
+// per language. Not the app goldens: those draw the Pixel's camera cutout over the app.
+const en = lang === 'en';
 const shots = [
-  { src: exercise, alt: t.shotAlts.exercise, caption: t.shotCaptions.exercise },
-  { src: lang === 'en' ? resultEn : resultDe, alt: t.shotAlts.result, caption: t.shotCaptions.result },
-  { src: statistics, alt: t.shotAlts.statistics, caption: t.shotCaptions.statistics },
+  { src: en ? exerciseEn : exerciseDe, alt: t.shotAlts.exercise, caption: t.shotCaptions.exercise },
+  { src: en ? resultEn : resultDe, alt: t.shotAlts.result, caption: t.shotCaptions.result },
+  { src: en ? statisticsEn : statisticsDe, alt: t.shotAlts.statistics, caption: t.shotCaptions.statistics },
 ];
 ---
 <div class="home">

@@ -75,7 +75,7 @@ export const home: Record<Lang, HomeTexts> = {
     heading: 'Noten lesen lernen, indem du sie spielst.',
     headingItalic: 'indem du sie spielst.',
     subline: 'Melodien mit beiden Händen, an deinem E-Piano. Für Android, per USB oder Bluetooth-MIDI.',
-    heroAlt: 'Übung in B-Dur mit Tonart-Leiste und Hilfe zu Notennamen und Tasten',
+    heroAlt: 'Übung in B-Dur mit Tonart-Leiste, Akkorde in beiden Händen',
     scoreLabel: 'Notenbeispiel in B-Dur, beide Hände: Die Markierung wartet auf jeder Note, bis die richtigen Tasten gedrückt sind. Richtig gespielte Noten werden grün, ein Fehlgriff erscheint rot.',
     readouts: [
       { label: 'Level', value: '65', note: 'vom ersten Schlüssel bis Moll mit Umkehrungen' },
@@ -176,7 +176,7 @@ export const home: Record<Lang, HomeTexts> = {
     heading: 'Learn to read music by playing it.',
     headingItalic: 'by playing it.',
     subline: 'Melodies with both hands, on your own digital piano. For Android, via USB or Bluetooth MIDI.',
-    heroAlt: 'Exercise in B-flat major with the key strip and a hint showing note names and keys',
+    heroAlt: 'Exercise in B-flat major with the key strip, chords in both hands',
     scoreLabel: 'Score in B-flat major, both hands: the playhead waits on each note until the right keys are pressed. Notes played correctly turn green, a wrong key shows in red.',
     readouts: [
       { label: 'Levels', value: '65', note: 'from the first clef to minor with inversions' },

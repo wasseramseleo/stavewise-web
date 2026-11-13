@@ -6,7 +6,8 @@
 import { pathOf, type Lang } from '../../lib/i18n';
 import type { GuideTexts } from '../guide';
 import still from '../../assets/guides/demo-still.png';
-import shot from '../../assets/screenshots/de/exercise-hero.png';
+import shotDe from '../../assets/screenshots/de/exercise-hero.png';
+import shotEn from '../../assets/screenshots/en/exercise-hero.png';
 
 const ANDROID_MIDI = 'https://source.android.com/docs/core/audio/midi';
 const KAWAI_ES920 = 'https://cdn.shopify.com/s/files/1/0740/4670/1723/files/ES920_EN_R101.pdf';
@@ -171,7 +172,7 @@ export const cable: Record<Lang, GuideTexts> = {
           },
           {
             figure: {
-              src: shot,
+              src: shotDe,
               alt: 'Eine Übung in Stavewise im Klaviersystem, die gespielten Noten sind markiert',
             },
           },
@@ -359,7 +360,7 @@ export const cable: Record<Lang, GuideTexts> = {
           },
           {
             figure: {
-              src: shot,
+              src: shotEn,
               alt: 'An exercise in Stavewise on the grand staff, with the played notes marked',
             },
           },
