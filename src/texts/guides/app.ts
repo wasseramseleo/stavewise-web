@@ -3,7 +3,8 @@
 // for Android (MIDI, both hands, no subscription, offline). Other apps are named factually with the
 // date their Play listings were checked, without a table of ticks; every app claim links its Play
 // listing or the maker's help page. Stavewise comes at the end (launch § 14.3) and otherwise only in
-// the disclosure and the closing card (launch § 14.5). No amount (launch § 6.1).
+// the disclosure and the closing card (launch § 14.5). No amount (launch § 6.1). From 1.1.0 the
+// Stavewise section names the basics (launch § 6.1, addendum; stavewise#924).
 import { pathOf, type Lang } from '../../lib/i18n';
 import type { GuideTexts } from '../guide';
 import shotDe from '../../assets/screenshots/de/exercise-hero.png';
@@ -185,7 +186,7 @@ export const app: Record<Lang, GuideTexts> = {
         heading: 'Und Stavewise?',
         blocks: [
           {
-            p: 'Stavewise ist ein Trainer fürs Notenlesen: Die App zeigt kurze Melodien im Klaviersystem, du spielst sie mit beiden Händen am E-Piano, und sie prüft jede Taste per USB- oder Bluetooth-MIDI; das Piano koppelt sie selbst. Sie läuft offline und ohne Konto, auf Android ab Version 12. Zum Preis: Level 1 bis 9 frei, die Vollversion kaufst du einmal in Google Play, kein Abo.',
+            p: 'Stavewise ist ein Trainer fürs Notenlesen: Die App zeigt kurze Melodien im Klaviersystem, du spielst sie mit beiden Händen am E-Piano, und sie prüft jede Taste per USB- oder Bluetooth-MIDI; das Piano koppelt sie selbst. Sie läuft offline und ohne Konto, auf Android ab Version 12. Wer noch gar keine Noten lesen kann, fängt mit den Grundlagen an: In sieben kurzen Einheiten findest du das mittlere C und liest C und G im Violinschlüssel. Zum Preis: Grundlagen und Level 1 bis 9 frei, die Vollversion kaufst du einmal in Google Play, kein Abo.',
           },
           {
             p: 'Was sie nicht kann: Sie hört nicht über das Mikrofon, ein akustisches Klavier geht also nicht. Es gibt keine Songs und keine Fassung für das iPhone, und gerade läuft noch der offene Test. Das Bild zeigt eine Übung in B-Dur, in der beide Hände Akkorde spielen.',
@@ -373,7 +374,7 @@ export const app: Record<Lang, GuideTexts> = {
         heading: 'And Stavewise?',
         blocks: [
           {
-            p: 'Stavewise is a trainer for reading music: it shows short melodies on the grand staff, you play them with both hands on your digital piano, and it checks every key over USB or Bluetooth MIDI; it pairs the piano itself. It works offline and without an account, on Android 12 and later. On price: Levels 1 to 9 are free, you buy the full version once in Google Play, no subscription.',
+            p: 'Stavewise is a trainer for reading music: it shows short melodies on the grand staff, you play them with both hands on your digital piano, and it checks every key over USB or Bluetooth MIDI; it pairs the piano itself. It works offline and without an account, on Android 12 and later. If you can’t read music at all yet, you start with the basics: in seven short units you find middle C and read C and G in the treble clef. On price: the basics and levels 1 to 9 are free, you buy the full version once in Google Play, no subscription.',
           },
           {
             p: 'What it can’t do: it doesn’t listen through the microphone, so an acoustic piano won’t work. There are no songs and no iPhone version, and it is still in early access. The screenshot shows an exercise in B-flat major with chords in both hands.',

@@ -22,18 +22,50 @@ const GUIDE_LINKS = {
   en: { ways: 'Step-by-step guide →', more: 'More' },
 } as const;
 
-/** Captions under the three screenshots: figure number, then the line. */
+/** Captions under the three screenshots: figure number, then the line (launch § 6.1 Nr. 5, from 1.1.0). */
 const CAPTIONS = {
   de: [
-    ['1', 'Mitten in der Phrase: gespielte Noten werden grün.'],
-    ['2', 'Level gemeistert, mit Genauigkeit und Lösezeit.'],
-    ['3', 'Welche Noten du sicher liest und welche nicht.'],
+    ['1', 'Grundlagen: von den Tasten zu den ersten Noten.'],
+    ['2', 'Mitten in der Phrase: gespielte Noten werden grün.'],
+    ['3', 'Deine Lösezeit, Übung für Übung.'],
   ],
   en: [
-    ['1', 'Mid-phrase: played notes turn green.'],
-    ['2', 'Level mastered, with accuracy and solve time.'],
-    ['3', 'Which notes you read confidently and which you don’t.'],
+    ['1', 'Basics: from the keys to your first notes.'],
+    ['2', 'Mid-phrase: played notes turn green.'],
+    ['3', 'Your solve time, exercise by exercise.'],
   ],
+} as const;
+
+/** Note of the readout "Frei 1–9" (launch § 6.1 Nr. 3, from 1.1.0). */
+const FREE_NOTES = {
+  de: 'Level ohne Kauf, dazu Grundlagen, Statistik und Streak',
+  en: 'levels without buying, plus the basics, statistics and streak',
+} as const;
+
+/** Second row of the data sheet (launch § 6.1 Nr. 4, from 1.1.0). */
+const EXPERIENCE_ROWS = {
+  de: ['Vorwissen', 'keines, die Grundlagen fangen bei den Tasten an'],
+  en: ['Experience', 'none, the basics start at the keys'],
+} as const;
+
+/** Start of the full-version card (launch § 6.1 Nr. 7, from 1.1.0). */
+const FULL_TEXT_STARTS = {
+  de: 'Die Grundlagen und Level 1 bis 9 sind frei.',
+  en: 'The basics and levels 1 to 9 are free.',
+} as const;
+
+/** Second question, German word for word (launch § 6.1 Nr. 8, from 1.1.0); English in the tone of the page. */
+const NO_READING = {
+  de: {
+    question: 'Ich kann noch gar keine Noten lesen. Geht das?',
+    answer:
+      'Ja. Die Grundlagen beginnen bei den schwarzen Tasten: In sieben kurzen Einheiten findest du das mittlere C und liest C und G im Violinschlüssel. Danach geht es mit Level 1 weiter. Die Grundlagen sind kostenlos.',
+  },
+  en: {
+    question: 'I can’t read music at all yet. Can I still start?',
+    answer:
+      'Yes. The basics start at the black keys: in seven short units you find middle C and read C and G in the treble clef. Then you carry on with level 1. The basics are free.',
+  },
 } as const;
 
 /** Sixth question, word for word (launch § 15.8 Nr. 3, stavewise#830). */
@@ -114,17 +146,37 @@ describe.each(['de', 'en'] as const)('/%s/ home page', (lang) => {
     expect(wells).toEqual(['65', '1–9', '12+', lang === 'de' ? 'keines' : 'none']);
   });
 
-  it('has a data sheet with five rows in German, four in English', () => {
-    expect(main().querySelectorAll('.sheet tr')).toHaveLength(lang === 'de' ? 5 : 4);
+  it('notes the basics under the free levels', () => {
+    const free = [...main().querySelectorAll('.readouts .readout')][1];
+    expect(textOf(free?.querySelector('small'))).toBe(FREE_NOTES[lang]);
   });
 
-  it('has six questions as <details>, the first one open', () => {
+  it('has a data sheet with six rows in German, five in English', () => {
+    expect(main().querySelectorAll('.sheet tr')).toHaveLength(lang === 'de' ? 6 : 5);
+  });
+
+  it('names the prior knowledge in the second row of the data sheet', () => {
+    const row = main().querySelectorAll('.sheet tr')[1];
+    expect([textOf(row?.querySelector('th')), textOf(row?.querySelector('td'))]).toEqual(EXPERIENCE_ROWS[lang]);
+  });
+
+  it('frees the basics and levels 1 to 9 on the full-version card', () => {
+    expect(textOf(main().querySelector('.split .card.price p'))?.startsWith(FULL_TEXT_STARTS[lang])).toBe(true);
+  });
+
+  it('has seven questions as <details>, the first one open', () => {
     const details = [...main().querySelectorAll('details')];
-    expect(details).toHaveLength(6);
-    expect(details.map((d) => d.hasAttribute('open'))).toEqual([true, false, false, false, false, false]);
+    expect(details).toHaveLength(7);
+    expect(details.map((d) => d.hasAttribute('open'))).toEqual([true, false, false, false, false, false, false]);
   });
 
-  it('explains early access in the sixth question and links /beta from the answer', () => {
+  it('answers readers who can’t read music yet in the second question', () => {
+    const second = main().querySelectorAll('.faq details')[1]!;
+    expect(textOf(second.querySelector('summary'))).toBe(NO_READING[lang].question);
+    expect([...second.querySelectorAll('div > p')].map((p) => textOf(p))).toEqual([NO_READING[lang].answer]);
+  });
+
+  it('explains early access in the last question and links /beta from the answer', () => {
     const last = [...main().querySelectorAll('.faq details')].at(-1)!;
     expect(textOf(last.querySelector('summary'))).toBe(EARLY_ACCESS[lang].question);
     const paragraphs = [...last.querySelectorAll('div > p')];
@@ -171,6 +223,13 @@ describe.each(['de', 'en'] as const)('/%s/ home page', (lang) => {
     expect(captions).toEqual(CAPTIONS[lang]);
   });
 
+  it('shows the basics, an exercise and the solve-time curve, in this order', () => {
+    const alts = imagesOf(doc()).map((img) => img.getAttribute('alt') ?? '');
+    const starts = lang === 'de' ? ['Grundlagen', 'Übung', 'Statistik'] : ['Basics', 'Exercise', 'Statistics'];
+    expect(alts.map((alt, i) => alt.startsWith(starts[i]!))).toEqual([true, true, true]);
+    expect(alts[2]).toMatch(lang === 'de' ? /Lösezeit/ : /solve time/);
+  });
+
   it('links the support address for teachers', () => {
     const hrefs = [...main().querySelectorAll('a')].map((a) => a.getAttribute('href'));
     expect(hrefs).toContain('mailto:support@stavewise.app');
@@ -178,11 +237,15 @@ describe.each(['de', 'en'] as const)('/%s/ home page', (lang) => {
 });
 
 describe('home page images', () => {
-  it('uses a different result screenshot in English', () => {
-    const resultOf = (lang: 'de' | 'en') => imagesOf(documentOf(`/${lang}/`))[1]?.getAttribute('src');
-    expect(resultOf('de')).toBeTruthy();
-    expect(resultOf('en')).toBeTruthy();
-    expect(resultOf('en')).not.toBe(resultOf('de'));
+  it('uses its own screenshots in English', () => {
+    const srcsOf = (lang: 'de' | 'en') => imagesOf(documentOf(`/${lang}/`)).map((img) => img.getAttribute('src'));
+    const [de, en] = [srcsOf('de'), srcsOf('en')];
+    expect(de).toHaveLength(3);
+    expect(en).toHaveLength(3);
+    de.forEach((src, i) => {
+      expect(src).toBeTruthy();
+      expect(en[i]).not.toBe(src);
+    });
   });
 
   it('ships no PNG screenshot in dist/', () => {
