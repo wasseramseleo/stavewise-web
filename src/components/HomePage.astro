@@ -9,10 +9,10 @@ import HeroScore from './HeroScore.astro';
 import PlayBadge from './PlayBadge.astro';
 import { play } from '../texts/play';
 import { supportMail } from '../site';
+import basicsDe from '../assets/screenshots/de/basics.png';
+import basicsEn from '../assets/screenshots/en/basics.png';
 import exerciseDe from '../assets/screenshots/de/exercise.png';
 import exerciseEn from '../assets/screenshots/en/exercise.png';
-import resultDe from '../assets/screenshots/de/result.png';
-import resultEn from '../assets/screenshots/en/result.png';
 import statisticsDe from '../assets/screenshots/de/statistics.png';
 import statisticsEn from '../assets/screenshots/en/statistics.png';
 
@@ -26,10 +26,12 @@ const [claimLead, claimItalic] = claimParts(t);
 
 // The phone screenshots of the Play listing (stavewise app/src/main/play/listings/),
 // per language. Not the app goldens: those draw the Pixel's camera cutout over the app.
+// From 1.1.0 (launch § 6.1 Nr. 5): basics unit ← 2_basics, exercise ← 1_exercise,
+// statistics with the solve-time curve ← 5_statistics.
 const en = lang === 'en';
 const shots = [
+  { src: en ? basicsEn : basicsDe, alt: t.shotAlts.basics, caption: t.shotCaptions.basics },
   { src: en ? exerciseEn : exerciseDe, alt: t.shotAlts.exercise, caption: t.shotCaptions.exercise },
-  { src: en ? resultEn : resultDe, alt: t.shotAlts.result, caption: t.shotCaptions.result },
   { src: en ? statisticsEn : statisticsDe, alt: t.shotAlts.statistics, caption: t.shotCaptions.statistics },
 ];
 ---

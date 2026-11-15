@@ -7,6 +7,8 @@ import type { Lang, PageName } from '../lib/i18n';
 // store listing (open question 1 in #591, Leo checks it in the [Leo] PR).
 // No "real melodies", no price, no "never" (#539, #542 decision 7).
 // German is gender-inclusive with the colon: Tester:in, Klavierlehrer:innen.
+// Release 1.1.0 (launch § 6.1 and its addendum, stavewise#924): the basics in the
+// readout, the data sheet, the full-version card, the second question and the screenshots.
 
 export interface Readout {
   label: string;
@@ -45,9 +47,9 @@ export interface HomeTexts {
   /** Rows of the data sheet: [what, answer]. */
   sheet: readonly (readonly [string, string])[];
   shotsTitle: string;
-  shotAlts: { exercise: string; result: string; statistics: string };
+  shotAlts: { basics: string; exercise: string; statistics: string };
   /** Short caption line under each screenshot, after its figure number. */
-  shotCaptions: { exercise: string; result: string; statistics: string };
+  shotCaptions: { basics: string; exercise: string; statistics: string };
   waysTitle: string;
   ways: readonly Way[];
   fullLabel: string;
@@ -79,13 +81,14 @@ export const home: Record<Lang, HomeTexts> = {
     scoreLabel: 'Notenbeispiel in B-Dur, beide Hände: Die Markierung wartet auf jeder Note, bis die richtigen Tasten gedrückt sind. Richtig gespielte Noten werden grün, ein Fehlgriff erscheint rot.',
     readouts: [
       { label: 'Level', value: '65', note: 'vom ersten Schlüssel bis Moll mit Umkehrungen' },
-      { label: 'Frei', value: '1–9', note: 'Level ohne Kauf, dazu Statistik und Streak' },
+      { label: 'Frei', value: '1–9', note: 'Level ohne Kauf, dazu Grundlagen, Statistik und Streak' },
       { label: 'Android', value: '12+', note: 'Phone quer, Tablet in beide Richtungen' },
       { label: 'Konto', value: 'keines', spelled: true, note: 'offline, die App schickt nichts an uns' },
     ],
     sheetTitle: 'Was Stavewise macht',
     sheet: [
       ['Was du liest', 'Melodien mit Kadenz'],
+      ['Vorwissen', 'keines, die Grundlagen fangen bei den Tasten an'],
       ['Notensystem', 'Klaviersystem ab Tag 1'],
       ['Wie du antwortest', 'am E-Piano, per MIDI'],
       ['Bezahlen', 'einmal, kein Abo'],
@@ -93,14 +96,14 @@ export const home: Record<Lang, HomeTexts> = {
     ],
     shotsTitle: 'So sieht es aus',
     shotAlts: {
+      basics: 'Grundlagen, Einheit 6 „Das G im Violinschlüssel“: Noten im Klaviersystem, darüber eine beschriftete Klaviatur und die Rückmeldung „Richtig: das G.“',
       exercise: 'Übung im Klaviersystem mitten in der Phrase, gespielte Noten grün',
-      result: 'Ergebnis: Level gemeistert, mit Genauigkeit, Lösezeit und dem nächsten Level',
-      statistics: 'Statistik als Heatmap: welche Noten du sicher liest und welche nicht',
+      statistics: 'Statistik, Ansicht Lösezeit: ein Punkt je Übung über Level 1 bis 8, die Kurve fällt von 2,6 s in der ersten auf 1,6 s in der letzten Woche',
     },
     shotCaptions: {
+      basics: 'Grundlagen: von den Tasten zu den ersten Noten.',
       exercise: 'Mitten in der Phrase: gespielte Noten werden grün.',
-      result: 'Level gemeistert, mit Genauigkeit und Lösezeit.',
-      statistics: 'Welche Noten du sicher liest und welche nicht.',
+      statistics: 'Deine Lösezeit, Übung für Übung.',
     },
     waysTitle: 'Zwei Wege zum Klavier',
     ways: [
@@ -125,7 +128,7 @@ export const home: Record<Lang, HomeTexts> = {
     ],
     fullLabel: 'Vollversion',
     fullWell: 'einmal',
-    fullText: 'Level 1 bis 9 sind frei. Die Vollversion mit allen 65 Leveln und dem Sandkasten kaufst du einmal in Google Play: kein Abo, keine Werbung.',
+    fullText: 'Die Grundlagen und Level 1 bis 9 sind frei. Die Vollversion mit allen 65 Leveln und dem Sandkasten kaufst du einmal in Google Play: kein Abo, keine Werbung.',
     teacherLabel: 'Für Klavierlehrer:innen',
     teacherTitle: 'Vollversion kostenlos',
     teacherBefore: 'Wenn du unterrichtest, schreib an',
@@ -136,6 +139,12 @@ export const home: Record<Lang, HomeTexts> = {
         question: 'Passt mein Klavier?',
         answers: [
           'Wenn es eine USB-Buchse „USB to Host“ hat oder Bluetooth-MIDI, sehr wahrscheinlich. Für USB brauchst du zusätzlich einen OTG-Adapter für dein Phone oder Tablet. Ein akustisches Klavier geht nicht.',
+        ],
+      },
+      {
+        question: 'Ich kann noch gar keine Noten lesen. Geht das?',
+        answers: [
+          'Ja. Die Grundlagen beginnen bei den schwarzen Tasten: In sieben kurzen Einheiten findest du das mittlere C und liest C und G im Violinschlüssel. Danach geht es mit Level 1 weiter. Die Grundlagen sind kostenlos.',
         ],
       },
       {
@@ -180,27 +189,28 @@ export const home: Record<Lang, HomeTexts> = {
     scoreLabel: 'Score in B-flat major, both hands: the playhead waits on each note until the right keys are pressed. Notes played correctly turn green, a wrong key shows in red.',
     readouts: [
       { label: 'Levels', value: '65', note: 'from the first clef to minor with inversions' },
-      { label: 'Free', value: '1–9', note: 'levels without buying, plus statistics and streak' },
+      { label: 'Free', value: '1–9', note: 'levels without buying, plus the basics, statistics and streak' },
       { label: 'Android', value: '12+', note: 'phone in landscape, tablet either way' },
       { label: 'Account', value: 'none', spelled: true, note: 'offline, the app sends nothing to us' },
     ],
     sheetTitle: 'What Stavewise does',
     sheet: [
       ['What you read', 'melodies with a cadence'],
+      ['Experience', 'none, the basics start at the keys'],
       ['Staff', 'grand staff from day one'],
       ['How you answer', 'on your digital piano, via MIDI'],
       ['Paying', 'once, no subscription'],
     ],
     shotsTitle: 'What it looks like',
     shotAlts: {
+      basics: 'Basics, unit 6 “G in the treble clef”: notes on the grand staff, a labelled keyboard beside them and the feedback “Right: G.”',
       exercise: 'Exercise on the grand staff in the middle of a phrase, played notes in green',
-      result: 'Result: level mastered, with accuracy, solve time and the next level',
-      statistics: 'Statistics as a heatmap: which notes you read confidently and which you don’t',
+      statistics: 'Statistics, solve time view: one dot per exercise across levels 1 to 8, the curve falls from 2.6 s in the first week to 1.6 s in the last',
     },
     shotCaptions: {
+      basics: 'Basics: from the keys to your first notes.',
       exercise: 'Mid-phrase: played notes turn green.',
-      result: 'Level mastered, with accuracy and solve time.',
-      statistics: 'Which notes you read confidently and which you don’t.',
+      statistics: 'Your solve time, exercise by exercise.',
     },
     waysTitle: 'Two ways to your piano',
     ways: [
@@ -225,7 +235,7 @@ export const home: Record<Lang, HomeTexts> = {
     ],
     fullLabel: 'Full version',
     fullWell: 'once',
-    fullText: 'Levels 1 to 9 are free. The full version with all 65 levels and the sandbox is a one-time purchase in Google Play: no subscription, no ads.',
+    fullText: 'The basics and levels 1 to 9 are free. The full version with all 65 levels and the sandbox is a one-time purchase in Google Play: no subscription, no ads.',
     teacherLabel: 'For piano teachers',
     teacherTitle: 'Full version for free',
     teacherBefore: 'If you teach, write to',
@@ -236,6 +246,12 @@ export const home: Record<Lang, HomeTexts> = {
         question: 'Will my piano work?',
         answers: [
           'If it has a “USB to Host” port or Bluetooth MIDI, very likely. For USB you also need an OTG adapter for your phone or tablet. An acoustic piano won’t work.',
+        ],
+      },
+      {
+        question: 'I can’t read music at all yet. Can I still start?',
+        answers: [
+          'Yes. The basics start at the black keys: in seven short units you find middle C and read C and G in the treble clef. Then you carry on with level 1. The basics are free.',
         ],
       },
       {

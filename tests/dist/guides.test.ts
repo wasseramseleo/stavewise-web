@@ -438,10 +438,19 @@ describe('app (stavewise#720)', () => {
 
   // No amount (launch § 6.1), the fixed wording instead.
   it.each([
-    ['/de/noten-lesen-app-android', 'Level 1 bis 9 frei, die Vollversion kaufst du einmal in Google Play, kein Abo'],
-    ['/en/sight-reading-app-android', 'Levels 1 to 9 are free, you buy the full version once in Google Play, no subscription'],
+    ['/de/noten-lesen-app-android', 'Grundlagen und Level 1 bis 9 frei, die Vollversion kaufst du einmal in Google Play, kein Abo'],
+    ['/en/sight-reading-app-android', 'the basics and levels 1 to 9 are free, you buy the full version once in Google Play, no subscription'],
   ] as const)('%s describes the price without an amount', (path, wording) => {
     expect(text(documentOf(path).querySelector('main'))).toContain(wording);
+  });
+
+  // From 1.1.0 (launch § 6.1, Nachtrag): one sentence on the basics in the Stavewise section.
+  it.each([
+    ['/de/noten-lesen-app-android', 'Wer noch gar keine Noten lesen kann, fängt mit den Grundlagen an'],
+    ['/en/sight-reading-app-android', 'If you can’t read music at all yet, you start with the basics'],
+  ] as const)('%s points beginners to the basics in the Stavewise section', (path, wording) => {
+    const sections = sectionsOf(path);
+    expect(sections.at(-2)!.body).toContain(wording);
   });
 
   it.each(PATHS)('%s shows the app screenshot in a card and no demo still', (path) => {
